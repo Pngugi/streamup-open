@@ -1,18 +1,8 @@
 angular.module('sync').service('User', ['$http','$q','$rootScope',function Files ($http,$q,$rootScope) {
-	this.getUserId = function(){
-		var promise = $q.defer();
-		$http.get($rootScope.endPoint +"/api/v1/users/id")
-		.success(function(res){
-			promise.resolve(res);
-		})
-		.error(function() {
-			promise.reject();
-		});
-		return promise.promise;
-	};
+
 	this.postLogin = function(data) {
 			var promise = $q.defer();
-			$http.post($rootScope.endPoint +"/api/v1/users", data)
+			$http.post($rootScope.endPoint +"/api/users", data)
 			.success(function(res){
 				promise.resolve(res);
 			})
@@ -23,7 +13,7 @@ angular.module('sync').service('User', ['$http','$q','$rootScope',function Files
 	};
 	this.getUsername = function(){
 		var promise = $q.defer();
-		$http.get($rootScope.endPoint +"/api/v1/users/username")
+		$http.get($rootScope.endPoint +"/api/users")
 		.success(function(res){
 			promise.resolve(res);
 		})
@@ -34,7 +24,7 @@ angular.module('sync').service('User', ['$http','$q','$rootScope',function Files
 	};
 	this.doSignUp = function(data) {
 		 var differed = $q.defer();
-      $http.post($rootScope.endPoint + '/register')
+      $http.post($rootScope.endPoint + '/api/register')
       .success(function(response){
         differed.resolve(response);
       })
@@ -45,7 +35,7 @@ angular.module('sync').service('User', ['$http','$q','$rootScope',function Files
 	};
 	this.groups = function(user){
       var differed = $q.defer();
-      $http.get($rootScope.endPoint + '/api/v1/me/groups')
+      $http.get($rootScope.endPoint + '/me/groups')
       .success(function(response){
         differed.resolve(response);
       })

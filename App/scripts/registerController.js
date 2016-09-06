@@ -47,7 +47,7 @@ angular.module('sync').factory('isUsernameAvailable', ['$q','$http','$rootScope'
     };
     return function(username) {
         var deferred = $q.defer();
-        $http.get($rootScope.endPoint + '/api/v1/users?username=' + username + '&access_token=8EuqcMNkF2yP50Dicpv9hLRRp7WOSabPlCu22liY').success(function(data){
+        $http.get($rootScope.endPoint + '/api/users?username=' + username + '&access_token=').success(function(data){
             if(data === 'available'){
                 jQuery('.register-form-main-message').addClass('show success').html(options['msg-username-available']);
                 setTimeout(messageRemove, 2000);
@@ -103,7 +103,7 @@ angular.module('sync').factory('isEmailAvailable', ['$q','$http','$rootScope',fu
     return function(email) {
          var deferred = $q.defer();
 
-        $http.get($rootScope.endPoint + '/api/v1/users?email=' + email + '&access_token=8EuqcMNkF2yP50Dicpv9hLRRp7WOSabPlCu22liY').success(function(data){
+        $http.get($rootScope.endPoint + '/api/users?email=' + email + '&access_token=').success(function(data){
 
             if(data==='email-available'){
                 jQuery('.register-form-main-message').addClass('show success').html(options['msg-email-available']);
