@@ -102,7 +102,7 @@ angular.module('sync').factory('isEmailAvailable', ['$q','$http','$rootScope',fu
 
     return function(email) {
          var deferred = $q.defer();
-
+         //access token left empty because it is defined in appConfig headers!
         $http.get($rootScope.endPoint + '/api/users?email=' + email + '&access_token=').success(function(data){
 
             if(data==='email-available'){
