@@ -9,17 +9,20 @@ const BrowserWindow = electron.BrowserWindow
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-// let  iconPath =__dirname + '/dist/img/app-icon.png';
+let  iconPath =__dirname + '/dist/img/app-icon.png';
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 320, height: 540,icon: iconPath,kiosk: true,
+
+        title:"StreamUpBox Desktop",
+        resizable: false,})
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/App/index.html`)
   
   
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

@@ -8,12 +8,12 @@
 <div class="settings">Settings</div>
 <!--<div class="close">Close</div>-->
 
-<img class="img" src="../dist/img/app-icon.ico"/>
+<!--<img class="img" src="../dist/img/app-icon.ico"/>-->
 <div class="text-center">
-  <h1><br><br><br><br> </h1> 
+  <h1><br><br> </h1> 
 </div>
 
-<div ng-controller="RegisterController" >
+<div  ng-controller="RegisterController" >
   <form>
   <div class="form-main">
     <div id="messages"></div>
@@ -23,17 +23,18 @@
       <input class="form-control" type="email" ng-model="data.email" id="email" required unique-email  placeholder="Email" /><br><br>
       <input class="form-control" type="password" ng-model="data.password" placeholder="password" /><br><br>
       <button type="submit" class="stupbx-btn btn-info" ng-click="doSignUp(data)">Sign Up</button>
+      <section class="helper-menus-signup">
+        <div class="pull-left">
+          <a href="#/login">Sign In</a>
+        </div>
+        <div class="pull-right problems">
+            <a class="">Problems signing in?</a>
+        </div>
+      </section>
     </div>
   </div>
 </form>
 </div>
-<section class="helper-menus-signup">
-  <div class="pull-left">
-    <a href="#/login">Sign In</a>
-  </div>
-  <div class="pull-right problems">
-      <a class="">Problems signing in?</a>
-  </div>
-</section>
+
 </body>
 </html>

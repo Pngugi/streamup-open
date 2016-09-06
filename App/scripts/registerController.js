@@ -9,7 +9,7 @@ angular.module('sync')
       $('.register-form-main-message').addClass('show success').html(options['SignUpInProgress']);
         if(jQuery('#password').val() !== jQuery('#password-confirm').val()){
           $('.register-form-main-message').addClass('show error').html(options['password-notMatch']);
-          setTimeout(messageRemove, 2000);
+          setTimeout(messageRemove, 8000);
           function messageRemove(){
               jQuery('.register-form-main-message').removeClass('show error');
           }
@@ -50,13 +50,13 @@ angular.module('sync').factory('isUsernameAvailable', ['$q','$http','$rootScope'
         $http.get($rootScope.endPoint + '/api/users?username=' + username + '&access_token=').success(function(data){
             if(data === 'available'){
                 jQuery('.register-form-main-message').addClass('show success').html(options['msg-username-available']);
-                setTimeout(messageRemove, 2000);
+                setTimeout(messageRemove, 8000);
                 function messageRemove(){
                     jQuery('.register-form-main-message').removeClass('show success');
                 }
             }else if(data === 'taken'){
                 jQuery('.register-form-main-message').addClass('show error').html(options['msg-username-taken']);
-                setTimeout(usernameTaken, 2000);
+                setTimeout(usernameTaken, 8000);
                 function usernameTaken(){
                     jQuery('.register-form-main-message').removeClass('show error');
                 };
@@ -107,14 +107,14 @@ angular.module('sync').factory('isEmailAvailable', ['$q','$http','$rootScope',fu
 
             if(data==='email-available'){
                 jQuery('.register-form-main-message').addClass('show success').html(options['msg-email-available']);
-                setTimeout(messageRemove, 2000);
+                setTimeout(messageRemove, 8000);
                 function messageRemove(){
                     jQuery('.register-form-main-message').removeClass('show success');
                 };
 
             }else if(data==='email-taken'){
                 jQuery('.register-form-main-message').addClass('show error').html(options['msg-email-taken']);
-                setTimeout(messageEmailTaken, 2000);
+                setTimeout(messageEmailTaken, 8000);
                 function messageEmailTaken(){
                     jQuery('.register-form-main-message').removeClass('show error');
                 };
