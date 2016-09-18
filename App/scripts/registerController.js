@@ -9,7 +9,7 @@ angular.module('sync')
       $('.register-form-main-message').addClass('show success').html(options['SignUpInProgress']);
         if(jQuery('#password').val() !== jQuery('#password-confirm').val()){
           $('.register-form-main-message').addClass('show error').html(options['password-notMatch']);
-          setTimeout(messageRemove, 8000);
+          setTimeout(messageRemove, 3000);
           function messageRemove(){
               jQuery('.register-form-main-message').removeClass('show error');
           }
@@ -36,13 +36,6 @@ angular.module('sync')
 angular.module('sync').factory('isUsernameAvailable', ['$q','$http','$rootScope',function($q, $http,$rootScope) {
     var options = {
         'btn-loading': '<i class="fa fa-spinner fa-pulse"></i>',
-        'btn-success': '<i class="fa fa-check"></i>',
-        'btn-error': '<i class="fa fa-remove"></i>',
-        'msg-success': 'All Good! Redirecting...',
-        'msg-username-available': 'good username available!',
-        'msg-username-taken'    : 'oops username taken',
-        'msg-email-taken'       : 'email taken',
-        'msg-your-phone-suck'   : 'your phone is not valid',
         'useAJAX': true,
     };
     return function(username) {
@@ -50,13 +43,13 @@ angular.module('sync').factory('isUsernameAvailable', ['$q','$http','$rootScope'
         $http.get($rootScope.endPoint + '/api/users?username=' + username + '&access_token=').success(function(data){
             if(data === 'available'){
                 jQuery('.register-form-main-message').addClass('show success').html(options['msg-username-available']);
-                setTimeout(messageRemove, 8000);
+                setTimeout(messageRemove, 3000);
                 function messageRemove(){
                     jQuery('.register-form-main-message').removeClass('show success');
                 }
             }else if(data === 'taken'){
                 jQuery('.register-form-main-message').addClass('show error').html(options['msg-username-taken']);
-                setTimeout(usernameTaken, 8000);
+                setTimeout(usernameTaken, 3000);
                 function usernameTaken(){
                     jQuery('.register-form-main-message').removeClass('show error');
                 };
@@ -107,14 +100,14 @@ angular.module('sync').factory('isEmailAvailable', ['$q','$http','$rootScope',fu
 
             if(data==='email-available'){
                 jQuery('.register-form-main-message').addClass('show success').html(options['msg-email-available']);
-                setTimeout(messageRemove, 8000);
+                setTimeout(messageRemove, 3000);
                 function messageRemove(){
                     jQuery('.register-form-main-message').removeClass('show success');
                 };
 
             }else if(data==='email-taken'){
                 jQuery('.register-form-main-message').addClass('show error').html(options['msg-email-taken']);
-                setTimeout(messageEmailTaken, 8000);
+                setTimeout(messageEmailTaken, 3000);
                 function messageEmailTaken(){
                     jQuery('.register-form-main-message').removeClass('show error');
                 };

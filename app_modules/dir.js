@@ -3,8 +3,8 @@ var path = require('path');
 
 function mkdir(dir) {
         var os = require('os'),
-        userInfo = require('user-info');
-        var newDir =os.homedir() +'/'+dir;
+        // userInfo = require('user-info');
+         newDir =os.homedir() +'/'+dir;
         fs.exists(newDir,function (params,status) {
         if(status !== true){
             fs.mkdir(newDir,function(_,t){});
