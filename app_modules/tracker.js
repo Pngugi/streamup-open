@@ -3,7 +3,7 @@
   mongoose = require('mongoose'),
 
   request    =   require('request'),
-  url        =   'http://localhost:8000/api/upload',
+  url        =   'http://localhost:8000/api/upload?auth_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUyMDEyNjRhZmI0NTdmMjg4YjkyYTgzNzBjYjUxOWM4ZjlkMGY1N2YxMTc4OWQ3NzkyMDk5OWM4Mzc0MTk0NGY1ZDNhYTZlZTk4ODNkM2M2In0.eyJhdWQiOiI0IiwianRpIjoiNTIwMTI2NGFmYjQ1N2YyODhiOTJhODM3MGNiNTE5YzhmOWQwZjU3ZjExNzg5ZDc3OTIwOTk5YzgzNzQxOTQ0ZjVkM2FhNmVlOTg4M2QzYzYiLCJpYXQiOjE0NzQyNzc3MjgsIm5iZiI6MTQ3NDI3NzcyOCwiZXhwIjo0NjI5OTUxMzI3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.h1f2tviCUfRsrdyHDJAzcU2B2iHhre5TidVXr68yfonDduLTpqktuVcBc58Tc4M0W0ChIH795jlUYY5CpwbOWAD8zRwrIJ6Sc2qfqcJRRiKf7k19xbJwSHLO4tod1Pd0qcirkLF7WlX9xrWDVsTVV4s1DYI_cstVFNWCWgsqhpdfTuBMNSOtiq5XCO7agfAfygBIQqJda3pz15eowRMRH6Y77i4JopKII-c4L7drn9jEyGFC6hEivlNMLU_0jZH1pP9lDBJg7YxhG31gWBeYelMk6u16OsOHn2FskI9DUeK6Hnf84uiWxKsqG0VmMrc_p_f-uQwKht8zoQ1NCg9e26iNHIO3LTXgFHtylISAHjCH23twm7QnIHxNzJhY7tj12pcJt_FBat9-kd4FsN-Afj13aU3SFXrb-mr-ODx8vc8hyK3VEI53Z3B3EScqDuPJqY_SfVGl0RkaFReQhQS-bLP9x3LE4tb-yHLzUi-_AVfnN99NJ_j7PSqRYZhTwEDXriBrWu12wlrvW045OSP0Yi91t9-cnPUx633ExsafDGwPskO_iZK9Nm_bnFc2MnPDVAwdlhy9LfAPBDrOwalA60QMsE92JZwvKsbENMeQOBYDLHwZTjApQUSZKbNNJpQsB_oPe-H15ZmemALA0jg7JZqGD_AgYaDUP-uVjQs63nA&&client_id=3',
  
 //  notification = require('./notifier'),
  osAppPath;
@@ -35,21 +35,22 @@ function track() {
             console.log("Connected We have connection");
         }
         });
-        var req = request.post(url, function (err, resp, body) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('URL: ' + body);
-            }
+        request.defaults({
+        headers: {'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUyMDEyNjRhZmI0NTdmMjg4YjkyYTgzNzBjYjUxOWM4ZjlkMGY1N2YxMTc4OWQ3NzkyMDk5OWM4Mzc0MTk0NGY1ZDNhYTZlZTk4ODNkM2M2In0.eyJhdWQiOiI0IiwianRpIjoiNTIwMTI2NGFmYjQ1N2YyODhiOTJhODM3MGNiNTE5YzhmOWQwZjU3ZjExNzg5ZDc3OTIwOTk5YzgzNzQxOTQ0ZjVkM2FhNmVlOTg4M2QzYzYiLCJpYXQiOjE0NzQyNzc3MjgsIm5iZiI6MTQ3NDI3NzcyOCwiZXhwIjo0NjI5OTUxMzI3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.h1f2tviCUfRsrdyHDJAzcU2B2iHhre5TidVXr68yfonDduLTpqktuVcBc58Tc4M0W0ChIH795jlUYY5CpwbOWAD8zRwrIJ6Sc2qfqcJRRiKf7k19xbJwSHLO4tod1Pd0qcirkLF7WlX9xrWDVsTVV4s1DYI_cstVFNWCWgsqhpdfTuBMNSOtiq5XCO7agfAfygBIQqJda3pz15eowRMRH6Y77i4JopKII-c4L7drn9jEyGFC6hEivlNMLU_0jZH1pP9lDBJg7YxhG31gWBeYelMk6u16OsOHn2FskI9DUeK6Hnf84uiWxKsqG0VmMrc_p_f-uQwKht8zoQ1NCg9e26iNHIO3LTXgFHtylISAHjCH23twm7QnIHxNzJhY7tj12pcJt_FBat9-kd4FsN-Afj13aU3SFXrb-mr-ODx8vc8hyK3VEI53Z3B3EScqDuPJqY_SfVGl0RkaFReQhQS-bLP9x3LE4tb-yHLzUi-_AVfnN99NJ_j7PSqRYZhTwEDXriBrWu12wlrvW045OSP0Yi91t9-cnPUx633ExsafDGwPskO_iZK9Nm_bnFc2MnPDVAwdlhy9LfAPBDrOwalA60QMsE92JZwvKsbENMeQOBYDLHwZTjApQUSZKbNNJpQsB_oPe-H15ZmemALA0jg7JZqGD_AgYaDUP-uVjQs63nA'}
         });
-        var form = req.form();
-        form.append('file', fs.createReadStream(osAppPath +'/myfile.txt'), {
-            headers: {
-            'authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUyMDEyNjRhZmI0NTdmMjg4YjkyYTgzNzBjYjUxOWM4ZjlkMGY1N2YxMTc4OWQ3NzkyMDk5OWM4Mzc0MTk0NGY1ZDNhYTZlZTk4ODNkM2M2In0.eyJhdWQiOiI0IiwianRpIjoiNTIwMTI2NGFmYjQ1N2YyODhiOTJhODM3MGNiNTE5YzhmOWQwZjU3ZjExNzg5ZDc3OTIwOTk5YzgzNzQxOTQ0ZjVkM2FhNmVlOTg4M2QzYzYiLCJpYXQiOjE0NzQyNzc3MjgsIm5iZiI6MTQ3NDI3NzcyOCwiZXhwIjo0NjI5OTUxMzI3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.h1f2tviCUfRsrdyHDJAzcU2B2iHhre5TidVXr68yfonDduLTpqktuVcBc58Tc4M0W0ChIH795jlUYY5CpwbOWAD8zRwrIJ6Sc2qfqcJRRiKf7k19xbJwSHLO4tod1Pd0qcirkLF7WlX9xrWDVsTVV4s1DYI_cstVFNWCWgsqhpdfTuBMNSOtiq5XCO7agfAfygBIQqJda3pz15eowRMRH6Y77i4JopKII-c4L7drn9jEyGFC6hEivlNMLU_0jZH1pP9lDBJg7YxhG31gWBeYelMk6u16OsOHn2FskI9DUeK6Hnf84uiWxKsqG0VmMrc_p_f-uQwKht8zoQ1NCg9e26iNHIO3LTXgFHtylISAHjCH23twm7QnIHxNzJhY7tj12pcJt_FBat9-kd4FsN-Afj13aU3SFXrb-mr-ODx8vc8hyK3VEI53Z3B3EScqDuPJqY_SfVGl0RkaFReQhQS-bLP9x3LE4tb-yHLzUi-_AVfnN99NJ_j7PSqRYZhTwEDXriBrWu12wlrvW045OSP0Yi91t9-cnPUx633ExsafDGwPskO_iZK9Nm_bnFc2MnPDVAwdlhy9LfAPBDrOwalA60QMsE92JZwvKsbENMeQOBYDLHwZTjApQUSZKbNNJpQsB_oPe-H15ZmemALA0jg7JZqGD_AgYaDUP-uVjQs63nA'
-            },
-            filename: 'myfile.txt',
-            contentType: 'text/plain'
+
+    
+        var formData = {
+            folderId:'undefined',
+            file: fs.createReadStream(osAppPath + '/myfile.txt'),
+        };
+        request.post({url:url, formData: formData}, function optionalCallback(err, httpResponse, body) {
+        if (err) {
+            return console.error('upload failed:', err);
+        }
+        console.log('Upload successful!  Server responded with:', body);
         });
+
         require('chokidar').watch(osAppPath, {ignored: /[\/\\]\./}).on('all', function(event, path) {
             if(event === "unlink"){
                 console.log('removed a file')
@@ -64,7 +65,7 @@ function track() {
             // console.log(event, path);
         });
     };
-    setInterval(makeSboxRequest,200);
+    setInterval(makeSboxRequest,500);
 };
 module.exports ={
     track: track
