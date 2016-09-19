@@ -3,19 +3,17 @@ const electron = require('electron')
 
 const dir = require('./app_modules/dir');
 const tracker = require('./app_modules/tracker');
-
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let  iconPath =__dirname + '/dist/img/app-icon.png';
 //create app dir for tracking file added in
 dir.mkdir('Sbox');
-//watching a dir 
+//watching a dir for change and sync 
 tracker.track();
 
 function createWindow () {
@@ -25,14 +23,10 @@ function createWindow () {
 
         title:"StreamUpBox Desktop",
         resizable: false,})
-
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/App/index.html`)
-  
-  
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -46,7 +40,6 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow)
-
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
   // On OS X it is common for applications and their menu bar
