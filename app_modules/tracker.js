@@ -41,6 +41,7 @@ function track() {
 
     
         var formData = {
+             authorized_app:'true', 
             folderId:'undefined',
             file: fs.createReadStream(osAppPath + '/myfile.txt'),
         };
