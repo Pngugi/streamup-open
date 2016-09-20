@@ -2,9 +2,18 @@
 angular.module('sync')
 .controller('RegisterController', ['$scope','$rootScope','$http',function ($scope,$rootScope,$http) {
     var options = {
-        'password-notMatch': 'password do not match',
-        'SignUpInProgress' : 'Wait we are setting up your account.'
+        'btn-loading': '<i class="fa fa-spinner fa-pulse"></i>',
+        'btn-success': '<i class="fa fa-check"></i>',
+        'btn-error': '<i class="fa fa-remove"></i>',
+        'msg-success': 'All Good! Redirecting...',
+        'msg-username-available': 'good username available!',
+        'msg-username-taken'    : 'oops username taken',
+        'msg-email-taken'       : 'email taken',
+        'msg-email-available'   : 'email available',
+        'msg-your-phone-suck'   : 'your phone is not valid',
+        'useAJAX': true,
     };
+
     $scope.doSignUp=function(user){
       $('.register-form-main-message').addClass('show success').html(options['SignUpInProgress']);
         if(jQuery('#password').val() !== jQuery('#password-confirm').val()){
@@ -17,16 +26,38 @@ angular.module('sync')
         };
         var username=$('#username').val();
         var email=$('#email').val();
-        jQuery.post($rootScope.endPoint+'/register', {username: username, password:user.password, email:email, option:'register', phone:user.phone}, function(data, textStatus, xhr) {
+        var params ={
+            username:username,
+            email:email,
+            option:'register',
+            provider:'Sbox',
+            phone:user.phone,
+            password:user.password
+        };
+        // jQuery.post($rootScope.endPoint+'/register', {username: username, password:user.password, email:email, option:'register', phone:user.phone}, function(data, textStatus, xhr) {
+        //     if(data.status === 200){
+        //          if (!configuration.readSettings('user_credentials')) {
+        //             configuration.saveSettings('user_credentials', [user.email, user.password]);
+        //             //TODO on SignUp complete with success please use the above code to save user credential for future use also encrypt it on local!
+        //         };
+        //          Redirecting();
+        //     }else if(data.status ===500){
+                
+        //     };
+        // });
+        
+        
+        $http.post($rootScope.endPoint + '/api/register', params)
+        .success(function(data) {
+            // console.log(data);
             if(data.status === 200){
-                 if (!configuration.readSettings('user_credentials')) {
-                    configuration.saveSettings('user_credentials', [user.email, user.password]);
-                    //TODO on SignUp complete with success please use the above code to save user credential for future use also encrypt it on local!
-                };
-                 Redirecting();
+                console.log(data.user);
+                //save user credential in mongo db with hash needed 
             }else if(data.status ===500){
                 
             };
+        }).error(function(e) {
+            console.log(e);
         });
         function Redirecting(){
             window.location = '#EmailConfirmation';

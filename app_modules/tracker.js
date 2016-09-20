@@ -3,11 +3,10 @@ fs     = require('fs'),
 mongoose = require('mongoose'),
 chokidar = require('chokidar'),
 request    =   require('request'),
-url        =   'http://localhost:8000/api/upload?client_id=3',
- 
-//  notification = require('./notifier'),
- osAppPath;
-  mongoose.connect('mongodb://localhost:27017/test');
+url        =   'http://localhost:8000/api/upload',
+osAppPath;
+
+mongoose.connect('mongodb://localhost:27017/test');
 
 function track() {
     //get user dir to track
@@ -23,25 +22,22 @@ function track() {
     /**Algorithm: use sftp to upload a file on server based on user path read from config json file that is created after user signup or sign "ion-android-checkbox-outline icon"; 
      * if no connection add added file into queue json file that is modified after a file is synced online
      * 1) detected if we have a connection 
-     * 2) add a file to queue json file for syncing when network is available
-     * 3) modify queue json file after uploading to server
+     * 2) add a file to queue kue file for syncing when network is available
+     * 3) modify queue kue file after uploading to server
     */ 
     function makeSboxRequest(){
 
-        require('dns').resolve('www.google.com', function(err) {
+        require('dns').resolve('https://streamupbox.com', function(err) {
         if (err) {
-            console.log("No connection");
-        } else {
-            console.log("Connected We have connection");
-        }
+                //if fine being added with no connection please add it to queue
+                console.log("No connection");
+            } else {
+                console.log("Connected We have connection");
+            }
         });
-        // request.defaults({
-        // headers: {'authorization': 'Bearer '}
-        // });
-
-    
+   
         var formData = {
-             authorized_app:'true', 
+            authorized_app:'true', 
             folderId:'undefined',
             file: fs.createReadStream(osAppPath + '/myfile.txt'),
         };
@@ -49,8 +45,8 @@ function track() {
         if (err) {
             return console.error('upload failed:', err);
         }
-        console.log('Upload successful!  Server responded with:', body);
-        }).auth(null, null, true, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUyMDEyNjRhZmI0NTdmMjg4YjkyYTgzNzBjYjUxOWM4ZjlkMGY1N2YxMTc4OWQ3NzkyMDk5OWM4Mzc0MTk0NGY1ZDNhYTZlZTk4ODNkM2M2In0.eyJhdWQiOiI0IiwianRpIjoiNTIwMTI2NGFmYjQ1N2YyODhiOTJhODM3MGNiNTE5YzhmOWQwZjU3ZjExNzg5ZDc3OTIwOTk5YzgzNzQxOTQ0ZjVkM2FhNmVlOTg4M2QzYzYiLCJpYXQiOjE0NzQyNzc3MjgsIm5iZiI6MTQ3NDI3NzcyOCwiZXhwIjo0NjI5OTUxMzI3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.h1f2tviCUfRsrdyHDJAzcU2B2iHhre5TidVXr68yfonDduLTpqktuVcBc58Tc4M0W0ChIH795jlUYY5CpwbOWAD8zRwrIJ6Sc2qfqcJRRiKf7k19xbJwSHLO4tod1Pd0qcirkLF7WlX9xrWDVsTVV4s1DYI_cstVFNWCWgsqhpdfTuBMNSOtiq5XCO7agfAfygBIQqJda3pz15eowRMRH6Y77i4JopKII-c4L7drn9jEyGFC6hEivlNMLU_0jZH1pP9lDBJg7YxhG31gWBeYelMk6u16OsOHn2FskI9DUeK6Hnf84uiWxKsqG0VmMrc_p_f-uQwKht8zoQ1NCg9e26iNHIO3LTXgFHtylISAHjCH23twm7QnIHxNzJhY7tj12pcJt_FBat9-kd4FsN-Afj13aU3SFXrb-mr-ODx8vc8hyK3VEI53Z3B3EScqDuPJqY_SfVGl0RkaFReQhQS-bLP9x3LE4tb-yHLzUi-_AVfnN99NJ_j7PSqRYZhTwEDXriBrWu12wlrvW045OSP0Yi91t9-cnPUx633ExsafDGwPskO_iZK9Nm_bnFc2MnPDVAwdlhy9LfAPBDrOwalA60QMsE92JZwvKsbENMeQOBYDLHwZTjApQUSZKbNNJpQsB_oPe-H15ZmemALA0jg7JZqGD_AgYaDUP-uVjQs63nA');
+            // console.log('Upload successful!  Server responded with:', body);
+        }).auth(null, null, true, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVlMzU1ZGM4ZTVmYzBhYjkxYjZmNmY5MjBiM2ZkODRjN2QyMDFmNzM0YTE3MDg4NjZmMTdmYjg1MTgyN2U2ZDQ3YWMwMjU5MjA0ZDJmMjcxIn0.eyJhdWQiOiIxIiwianRpIjoiNWUzNTVkYzhlNWZjMGFiOTFiNmY2ZjkyMGIzZmQ4NGM3ZDIwMWY3MzRhMTcwODg2NmYxN2ZiODUxODI3ZTZkNDdhYzAyNTkyMDRkMmYyNzEiLCJpYXQiOjE0NzQzNDk5NjUsIm5iZiI6MTQ3NDM0OTk2NSwiZXhwIjo0NjMwMDIzNTY1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.Un6QgauXi3wehntq8lSfrvZ6IECXxScjxzy6bt-Dhf1N_ri_EjaM3wZdBSHkA3UQzacNHolxGieIhRN87WdGepW-4qHUiNCTmkmTbDPRh0_Rqbgp2qumRhpO64SPvUqrIAJ2yfnZfQqKGeBhJb1ZeVAan6FN-0LNHa40zSh6mihpgaAwObpin-0bGFBx0eGgXoMc8Fh8cA445c0cKii6Fodg1IgSHrGmW1Js2982n2e7shKT8iwJEoMEm__5sN4dKeRMFzY5tWK-t-qeP6HgHhE3ZWbqkQjQ3HFilnsbjv4GYI9tz3PQ8TFhRs9F3KQMd2KaNwYZsiDdr0QAIZtGB_imDAYhaxPINdHIqTuXsrVg0K2GYZOIIUxQlt6oBMtKKfKzxmll9l4dqlqo0S0OIWi1yEUzG_0sLqxk2OpmJwNiyFQcxQ3HxgOVkNkPfrxQMFOQ6rNBy2IEA9RxIoCmB9WiQdV0kc3nUSTlraE30KgsgGFJ1ypj2KY-8Pko4iyVG_Gohmt5C2BH-2HSdiUyFD5gtCtcSexN8pVN3CvrnvDqCUsNEmPa-4pPyWaTHod9f0WbkucWowu_nUtOVdbG4BxQPXSNg2sYywTQhHj9tkEeIOJBjMW9ZkJ2HuNZaPWFiEtG8FS8jWwTV8v_JyvcpeDBf5r9DnLmWGwMJqcBesQ');
 
         // try {
         //     chokidar.watch(osAppPath, {ignored: /[\/\\]\./}).on('all', function(event, path) {
@@ -70,7 +66,7 @@ function track() {
         //     console.log(e);
         // }
     };
-    setInterval(makeSboxRequest,500);
+    // setInterval(makeSboxRequest,500);
 };
 module.exports ={
     track: track
