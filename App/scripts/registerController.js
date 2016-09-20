@@ -27,11 +27,9 @@ angular.module('sync')
         var username=$('#username').val();
         var email=$('#email').val();
         var params ={
-            username:username,
+            name:username,
             email:email,
-            option:'register',
-            provider:'Sbox',
-            phone:user.phone,
+            phone:'',
             password:user.password
         };
         // jQuery.post($rootScope.endPoint+'/register', {username: username, password:user.password, email:email, option:'register', phone:user.phone}, function(data, textStatus, xhr) {
@@ -49,6 +47,8 @@ angular.module('sync')
         
         $http.post($rootScope.endPoint + '/api/register', params)
         .success(function(data) {
+             console.log(data);
+             console.log(data.user);
             // console.log(data);
             if(data.status === 200){
                 console.log(data.user);
