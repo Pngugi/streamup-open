@@ -13,9 +13,6 @@ mongoose.connect('mongodb://localhost:27017/test');
 function uploadLocalFileToOnline() {
     
     osAppPath = os.homedir() +'/Sbox';
-    
-    
-    
     function makeSboxRequest(){
 
         

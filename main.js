@@ -17,40 +17,23 @@ uploadLocalFileToOnline.async();
 
 let osAppPath = os.homedir() +'/Sbox';
 
-const network = () => {
-  require('dns').resolve('http://localhost:8000', function(err) {
-      
-        if (err) 
-            return false;
-        else
-            return true;
-    
-    });
-}
 
-function watchFolder(){
+
+function watchFileAndFolderChanges(){
    
             chokidar.watch(osAppPath, {ignored: /[\/\\]\./}).on('all', function(event, path) {
             if(event === "unlink"){
-               if(network()){
-
-               }
+               
             }else if(event === "add"){
-                if(network()){
-
-                }
+                console.log("folder created..:"+path);
             }
             
         });
         
 };
 
-watchFolder();
-if(network()){
-  console.log("yes");
-}else{
-  console.log('non network');
-}
+watchFileAndFolderChanges();
+
 
 function createWindow () {
   
