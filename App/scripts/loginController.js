@@ -1,7 +1,18 @@
 /* global $window */
 /* global Logger */
 var mongoose = require('mongoose'),
- bcrypt   = require('bcrypt-nodejs');
+ bcrypt   = require('bcrypt-nodejs'),
+ MongoClient = require('mongodb').MongoClient,
+ assert = require('assert');
+var url = 'mongodb://localhost:27017/sbox';
+// Use connect method to connect to the server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+
+  db.close();
+});
+
  var userSchema = mongoose.Schema({
 
     local            : {
@@ -37,8 +48,22 @@ angular.module('sync')
     var getData =function(){
         User.getUsername()
         .then(function(user){
-            $scope.user = user;
-            console.log(user);
+            // console.log(user);
+            var insertDocuments = function(db, callback) {
+                // Get the documents collection
+                var collection = db.collection('documents');
+                // Insert some documents
+                collection.insertMany([
+                    {credentials : user.name}
+                ], function(err, result) {
+                    assert.equal(err, null);
+                    assert.equal(1, result.result.n);
+                    console.log("Inserted 1 documents into the collection");
+                    callback(result);
+                });
+            }
+            // $scope.user = user;
+            
         },function(err){
             console.log(err);
         });
@@ -52,7 +77,8 @@ angular.module('sync')
   {
       User.getUserId()
       .then(function(response){
-          console.log(response);
+        //   console.log(response);
+        
       },function(err){
           console.log(err);
       });

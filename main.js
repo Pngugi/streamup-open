@@ -1,32 +1,67 @@
 'use strict';
 const electron = require('electron')
-
 const dir = require('./app_modules/dir');
-const tracker = require('./app_modules/tracker');
-// Module to control application life.
+const uploadLocalFileToOnline = require('./app_modules/uploadLocalFileToOnline');
+const os = require('os');
 const app = electron.app
-// Module to create native browser window.
+const chokidar = require('chokidar')
 const BrowserWindow = electron.BrowserWindow
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let  iconPath =__dirname + '/dist/img/app-icon.png';
-//create app dir for tracking file added in
+
 dir.mkdir('Sbox');
-//watching a dir for change and sync 
-tracker.track();
+ 
+
+uploadLocalFileToOnline.async();
+
+
+let osAppPath = os.homedir() +'/Sbox';
+
+const network = () => {
+  require('dns').resolve('http://localhost:8000', function(err) {
+      
+        if (err) 
+            return false;
+        else
+            return true;
+    
+    });
+}
+
+function watchFolder(){
+   
+            chokidar.watch(osAppPath, {ignored: /[\/\\]\./}).on('all', function(event, path) {
+            if(event === "unlink"){
+               if(network()){
+
+               }
+            }else if(event === "add"){
+                if(network()){
+
+                }
+            }
+            
+        });
+        
+};
+
+watchFolder();
+if(network()){
+  console.log("yes");
+}else{
+  console.log('non network');
+}
 
 function createWindow () {
   
-  // Create the browser window.
-  mainWindow = new BrowserWindow({width: 820, height: 540,icon: iconPath,kiosk: true,
+  mainWindow = new BrowserWindow({width: 320, height: 540,icon: iconPath,kiosk: true,
 
         title:"StreamUpBox Desktop",
         resizable: false,})
-  // and load the index.html of the app.
+  
   mainWindow.loadURL(`file://${__dirname}/App/index.html`)
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -36,9 +71,6 @@ function createWindow () {
   })
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on('ready', createWindow)
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
