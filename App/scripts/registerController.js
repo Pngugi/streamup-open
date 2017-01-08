@@ -1,4 +1,3 @@
-// var configuration = require('./configuration');
 angular.module('sync')
 .controller('RegisterController', ['$scope','$rootScope','$http',function ($scope,$rootScope,$http) {
     var options = {
@@ -32,27 +31,12 @@ angular.module('sync')
             phone:'',
             password:user.password
         };
-        // jQuery.post($rootScope.endPoint+'/register', {username: username, password:user.password, email:email, option:'register', phone:user.phone}, function(data, textStatus, xhr) {
-        //     if(data.status === 200){
-        //          if (!configuration.readSettings('user_credentials')) {
-        //             configuration.saveSettings('user_credentials', [user.email, user.password]);
-        //             //TODO on SignUp complete with success please use the above code to save user credential for future use also encrypt it on local!
-        //         };
-        //          Redirecting();
-        //     }else if(data.status ===500){
-                
-        //     };
-        // });
-        
         
         $http.post($rootScope.endPoint + '/api/register', params)
         .success(function(data) {
-             console.log(data);
-             console.log(data.user);
-            // console.log(data);
+            
             if(data.status === 200){
-                console.log(data.user);
-                //save user credential in mongo db with hash needed 
+                
             }else if(data.status ===500){
                 
             };
@@ -67,6 +51,8 @@ angular.module('sync')
 angular.module('sync').factory('isUsernameAvailable', ['$q','$http','$rootScope',function($q, $http,$rootScope) {
     var options = {
         'btn-loading': '<i class="fa fa-spinner fa-pulse"></i>',
+        'msg-username-available':'User name available',
+        'msg-username-taken':'User name taken',
         'useAJAX': true,
     };
     return function(username) {

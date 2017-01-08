@@ -19,32 +19,20 @@ let osAppPath = os.homedir() +'/Sbox';
 
 
 
-function watchFileAndFolderChanges(){
-   
-            chokidar.watch(osAppPath, {ignored: /[\/\\]\./}).on('all', function(event, path) {
-            if(event === "unlink"){
-               
-            }else if(event === "add"){
-                console.log("folder created..:"+path);
-            }
-            
-        });
-        
-};
-
-watchFileAndFolderChanges();
-
-
 function createWindow () {
   
-  mainWindow = new BrowserWindow({width: 320, height: 540,icon: iconPath,kiosk: true,
+  mainWindow = new BrowserWindow({width: 320, height: 540,icon: iconPath,kiosk: false,
 
         title:"StreamUpBox Desktop",
+        transparent:true,
         resizable: false,})
   
   mainWindow.loadURL(`file://${__dirname}/App/index.html`)
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+
+  //hide menus
+   mainWindow.setMenu(null)
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -52,6 +40,7 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+  
 }
 
 app.on('ready', createWindow)
@@ -69,6 +58,24 @@ app.on('activate', function () {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
     createWindow()
+        
   }
 });
+
+// function watchFileAndFolderChanges(){    
+//             try {
+//                   chokidar.watch(osAppPath, {ignored: /[\/\\]\./}).on('all', function(event, path) {
+//                 if(event === "unlink"){
+                  
+//                 }else if(event === "add"){
+//                     console.log("folder created..:"+path);
+//                 }
+                
+//             });
+//             } catch (error) {
+                  
+//           }
+            
+//     };
+// watchFileAndFolderChanges();
 
