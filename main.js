@@ -21,7 +21,8 @@ let osAppPath = os.homedir() +'/Sbox';
 
 function createWindow () {
   
-  mainWindow = new BrowserWindow({width: 320, height: 540,icon: iconPath,kiosk: false,
+  mainWindow = new BrowserWindow({width: 1202, height: 690,icon: iconPath,kiosk: true,
+  // mainWindow = new BrowserWindow({width: 320, height: 540,icon: iconPath,kiosk: false,
 
         title:"StreamUpBox Desktop",
         transparent:true,

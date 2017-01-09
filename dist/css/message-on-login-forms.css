@@ -1,0 +1,72 @@
+html .form-main, body .form-main {
+    margin-top: -80px;
+    text-align: center; }
+    html .form-main input, body .form-main input {
+      width: 80%;
+      cursor: auto; }
+    html .form-main .form-container, body .form-main .form-container {
+      width: 100%;
+      text-align: left;
+      padding-left: 15px; }
+      html .form-main .form-container .stupbx-btn, body .form-main .form-container .stupbx-btn {
+        width: 80%;
+        color: #FFF;
+        border: none;
+        background: #2980b9;
+        font-weight: bold;
+        height: 30px;
+        line-height: 30px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        cursor: pointer; }
+  html .helper-menus, body .helper-menus {
+    margin: 100px 5px 5px 5px;
+    font-weight: bold;
+    padding: 5px; }
+  html .helper-menus-signup, body .helper-menus-signup {
+    margin: 80px 5px 5px 5px;
+    font-weight: bold;
+    padding: 5px; }
+  html .problems, body .problems {
+    margin-right: 55px; }
+  html .helper-menus a, body .helper-menus a {
+    cursor: pointer;
+    color: #FFF; }
+  html .helper-menus a:hover, body .helper-menus a:hover {
+    text-decoration: underline; }
+  html .helper-menus-signup a, body .helper-menus-signup a {
+    cursor: pointer;
+    color: #FFF; }
+  html .helper-menus-signup a:hover, body .helper-menus-signup a:hover {
+    text-decoration: underline; }
+
+.main {
+  background: #1DCCEB;
+  position: fixed;
+  border-bottom: 1px solid #73E2F7;
+  height: 700px; }
+  .main img {
+    width: 80px;
+    margin-top: 80px;
+    margin-left: 145px; }
+
+.close {
+  background: transparent url("../img/close.png") no-repeat 4px 4px;
+  background-size: 24px 24px;
+  right: 6px; }
+
+.login-form {
+  margin-top: 180px;
+  margin-left: 50px; }
+
+.title {
+  font-size: 20px;
+  font-family: 'Tahoma';
+  margin: 1em auto;
+  width: 30%;
+  text-align: center;
+  color: white;
+  top: 20px; }
+
+.table1 {
+  color: white; }

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-angular.module('sync', ["ui.bootstrap","ui.router"])
+angular.module('sync', ["ui.bootstrap","ui.router","ngMaterial"])
 .run(['$rootScope',function($rootScope){
       // $rootScope.endPoint='https://streamupbox.com';
       $rootScope.endPoint='http://localhost:8000';
