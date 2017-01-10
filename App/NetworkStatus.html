@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+  <meta charset="utf-8" />
+  <title>StreamUpBox | Online Drive</title>
+
+  <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                              The Meta Documents 
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <meta charset="utf-8" name="title" content="StreamUpBox">
+  <meta charset="utf-8" name="Author" content="Mragijimana Richard">
+  <meta charset="utf-8" name="twitter" content="https://twitter.com/strimup">
+  <meta charset="utf-8" name="description" content="A file Storage Made for Education and Big companies" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                              The Meta Documents 
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                              The Stylesheets Includes
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <link rel="stylesheet" href="../dist/css/jquery.contextMenu.css" type="text/css" />
+   
+  <link rel="stylesheet" href="../dist/css/b4.css" type="text/css" />
+  <link rel="stylesheet" href="../dist/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="../dist/css/animate.css" type="text/css" />
+  <link rel="stylesheet" href="../dist/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="../dist/css/simple-line-icons.css" type="text/css" />
+  <link rel="stylesheet" href="../dist/css/font.css" type="text/css" />
+  <link rel="stylesheet" href="../dist/css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../dist/css/bootstrap-fileupload.min.css" type="text/css" />
+  <link rel="stylesheet" href="../dist/css/materialize-tags.css" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="../dist/css/notie/dist/notie.css">
+  
+  <link rel="stylesheet" href="../dist/css/angular-material/angular-material.css">
+  <link rel="stylesheet" href="../dist/css/dialogs.css">
+  
+  
+  <link href="https://fonts.googleapis.com/css?family=Maitree" rel="stylesheet">
+  <style>
+    body{
+      font-family: 'Maitree', serif;
+    }
+  </style>
+  <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                              The End of Stylesheets Includes
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+</head>
+<!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                              The End of Stylesheets Includes
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                              The End of Stylesheets Includes
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<section class="vbox">
+    <div class="col-xs-4 col-xs-push-5">
+      wait to sync...<br>
+      <i style="color:blue;margin-left:25px;" class="fa fa-refresh"></i>
+
+
+    </div>
+    
+</section>
+  
+ <!-- 
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                              Including Javascripts
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <script src="bower_resources/angular/angular.js"></script>
+  <script src="bower_resources/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_resources/angular-aria/angular-aria.min.js"></script>
+  <script src="bower_resources/angular-material/angular-material.min.js"></script>
+  <script src="bower_resources/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="bower_resources/angular-ui-router/release/angular-ui-router.js"></script>
+  <script  src="bower_resources/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_resources/jquery/dist/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="bower_resources/jquery/dist/jquery.min.js"><\/script>')</script>
+  <script src="scripts/appConfig.js"></script>
+  <script src="scripts/File.js"></script>
+  <script src="scripts/Folder.js"></script>
+  <script src="scripts/files.js"></script>
+  <script src="scripts/Encrypter.js"></script>
+  <script src="scripts/folders.js"></script>
+  <script src="scripts/common/UserService.js"></script>
+  <script src="scripts/dialogController.js"></script>
+  <script src="scripts/User.js"></script>
+  <script src="scripts/userController.js"></script>
+  <script src="scripts/loginController.js"></script>
+  <script src="scripts/registerController.js"></script>
+  <script src="scripts/emailConfirmation.js"></script>
+  <!-- 
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                          End  Of Including Javascripts
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                   End the Modal of Share Form
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<script src="../dist/js/e-design.js"></script>
+<script src="../dist/js/bootstrapValidator.js"></script>
+<script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+</script>
+
+<script>
+  angular.bootstrap(document, ['sync']);
+        $("#unexpanded_btn").hide();
+        $("#expand_btn").click(function() {
+        $("#sidebar").hide();
+        $("#nav").hide();
+        $("#logo").hide();
+        $("#expand_btn").hide();
+        $("#unexpanded_btn").toggle('slow');
+        
+    });
+        $("#unexpanded_btn").click(function() {
+        $("#sidebar").show();
+        $("#expand_btn").toggle('fast');
+        $("#unexpanded_btn").hide();
+        $("#nav").show();
+        $("#logo").show();
+    });
+    ///////////////////////////////////create folder/////////////////////
+          $("#createfolder").click(function() {
+          $("#sidebar").hide();
+          $("#nav").hide();
+          $("#logo").hide();
+          $("#mainbox").hide();
+          $("#header").hide();
+          $("#folderinputbox").toggle('fast');
+    });
+          $("#cancelOncreateFolder").click(function() {
+          $("#sidebar").show();
+          $("#nav").show();
+          $("#logo").show();
+          $("#mainbox").show();
+          $("#header").show();
+          $("#folderinputbox").hide();
+    });
+          $("#OncreateFolder").click(function() {
+          $("#sidebar").show();
+          $("#nav").show();
+          $("#logo").show();
+          $("#mainbox").show();
+          $("#header").show();
+          $("#folderinputbox").hide();
+    });
+</script>

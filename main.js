@@ -4,7 +4,10 @@ const dir = require('./app_modules/dir');
 const uploadLocalFileToOnline = require('./app_modules/uploadLocalFileToOnline');
 const os = require('os');
 const app = electron.app
+const network = require('./app_modules/netWorkManager')
+const request  = require('request')
 const chokidar = require('chokidar')
+const config = require('./app_modules/env')
 const BrowserWindow = electron.BrowserWindow
 let mainWindow
 let  iconPath =__dirname + '/dist/img/app-icon.png';
@@ -16,24 +19,36 @@ uploadLocalFileToOnline.async();
 
 
 let osAppPath = os.homedir() +'/Sbox';
+config.run();
+console.log(process.env.TokenKey);
 
+console.log(process.platform);
 
+let windowToShow=()=>{
+    request('http://localhost:8000', function (error, response, body) {
+              if (!error) {
+                     mainWindow.loadURL(`file://${__dirname}/App/index.html`)
+              }else{
+                    mainWindow.loadURL(`file://${__dirname}/App/NetworkStatus.html`)
+              }
+              
+          });
+}
 
 function createWindow () {
   
   mainWindow = new BrowserWindow({width: 1202, height: 690,icon: iconPath,kiosk: true,
   // mainWindow = new BrowserWindow({width: 320, height: 540,icon: iconPath,kiosk: false,
-
         title:"StreamUpBox Desktop",
         transparent:true,
         resizable: false,})
+        windowToShow()
   
-  mainWindow.loadURL(`file://${__dirname}/App/index.html`)
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 
   //hide menus
-   mainWindow.setMenu(null)
+  //  mainWindow.setMenu(null)
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -63,20 +78,5 @@ app.on('activate', function () {
   }
 });
 
-// function watchFileAndFolderChanges(){    
-//             try {
-//                   chokidar.watch(osAppPath, {ignored: /[\/\\]\./}).on('all', function(event, path) {
-//                 if(event === "unlink"){
-                  
-//                 }else if(event === "add"){
-//                     console.log("folder created..:"+path);
-//                 }
-                
-//             });
-//             } catch (error) {
-                  
-//           }
-            
-//     };
-// watchFileAndFolderChanges();
+
 
