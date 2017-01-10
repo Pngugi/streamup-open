@@ -7,6 +7,8 @@ const app = electron.app
 const network = require('./app_modules/netWorkManager')
 const request  = require('request')
 const chokidar = require('chokidar')
+const badge = require('./app_modules/badge')
+const menu = require('./app_modules/menu')
 const config = require('./app_modules/env')
 const BrowserWindow = electron.BrowserWindow
 let mainWindow
@@ -19,10 +21,10 @@ uploadLocalFileToOnline.async();
 
 
 let osAppPath = os.homedir() +'/Sbox';
-config.run();
-console.log(process.env.TokenKey);
+// config.run();
+// console.log(process.env.TokenKey);
 
-console.log(process.platform);
+// console.log(process.platform);
 
 let windowToShow=()=>{
     request('http://localhost:8000', function (error, response, body) {
@@ -48,7 +50,7 @@ function createWindow () {
   // mainWindow.webContents.openDevTools()
 
   //hide menus
-  //  mainWindow.setMenu(null)
+   mainWindow.setMenu(null)
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -56,7 +58,8 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
-  
+  menu();
+  badge();
 }
 
 app.on('ready', createWindow)
