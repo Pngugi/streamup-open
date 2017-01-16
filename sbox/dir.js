@@ -1,9 +1,8 @@
 var fs = require('fs');
-var path = require('path');
 
 function mkdir(dir) {
         var os = require('os'),
-        // userInfo = require('user-info');
+       
          newDir =os.homedir() +'/'+dir;
         fs.exists(newDir,function (params,status) {
         if(status !== true){
@@ -17,11 +16,11 @@ function mkdir(dir) {
 
 
                 });
-            };
+            }
             
         });
     return true;    
-};
+}
 module.exports = {
     mkdir: mkdir
 };
