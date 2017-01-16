@@ -13,38 +13,28 @@ dir.mkdir('Sbox');
 
 uploadLocalFileToOnline.async();
 
-
-// let osAppPath = os.homedir() +'/Sbox';
-// config.run();
-// console.log(process.env.TokenKey);
-
-// console.log(process.platform);
-
 let windowToShow=()=>{
     request('http://localhost:8000', function (error) {
               if (!error) {
-                     mainWindow.loadURL(`file://${__dirname}/App/index.html`)
+                     mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
               }else{
-                    mainWindow.loadURL(`file://${__dirname}/App/NetworkStatus.html`)
+                    mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
               }
               
           });
-}
+};
 
 function createWindow () {
   
   mainWindow = new BrowserWindow({width: 1202, height: 690,icon: iconPath,kiosk: true,
-  // mainWindow = new BrowserWindow({width: 320, height: 540,icon: iconPath,kiosk: false,
+  
         title:"StreamUpBox Desktop",
         transparent:true,
-        resizable: false,})
-        windowToShow()
-  
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-
-  //hide menus
-   mainWindow.setMenu(null)
+        resizable: false,});
+        windowToShow();
+        //mainWindow.webContents.openDevTools()
+        //hide menus
+   mainWindow.setMenu(null);
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -56,7 +46,7 @@ function createWindow () {
   // badge();
 }
 
-app.on('ready', createWindow)
+app.on('ready', createWindow);
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
   // On OS X it is common for applications and their menu bar
