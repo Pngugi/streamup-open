@@ -121,6 +121,7 @@ export interface IFileService {
 	/**
 	 * Imports the file to the parent identified by the resource.
 	 */
+	
 	importFile(source: URI, targetFolder: URI): TPromise<IImportResult>;
 
 	/**

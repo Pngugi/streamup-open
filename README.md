@@ -39,10 +39,10 @@ And much more!
 ##  How to install
 Make sure that you are using node 4.2.4 and run this commands
 you can manage node version by following [Link](http://www.liquidweb.com/kb/how-to-install-nvm-node-version-manager-for-node-js-on-ubuntu-12-04-lts/)
-- ``./scripts/load_globals.sh``
-- ``sudo npm install --python=python2.7``
+- ``cd sbox``
 - ``sudo npm install``
 - ``sudo npm start``
+- `ommit sudo if you are window user!`
 
 Alternatively, you can build all the apps at once by calling `make apps`
 
