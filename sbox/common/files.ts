@@ -4,14 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-import { TPromise } from 'vs/base/common/winjs.base';
-import paths = require('vs/base/common/paths');
-import URI from 'vs/base/common/uri';
-import glob = require('vs/base/common/glob');
-import events = require('vs/base/common/events');
-import { isLinux } from 'vs/base/common/platform';
-import { createDecorator } from 'vs/platform/instantiation/common/instantiation';
-import Event from 'vs/base/common/event';
+import { TPromise } from './winjs.base.js';
+import paths = require('./paths');
+import URI from './uri';
+import glob = require('./glob');
+import events = require('./events');
+import { isLinux } from './platform';
+import { createDecorator } from '../insatiation/instantiation';
+import Event from './event';
 
 export const IFileService = createDecorator<IFileService>('fileService');
 
