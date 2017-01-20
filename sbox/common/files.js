@@ -8,10 +8,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var paths = require('vs/base/common/paths');
-var events = require('vs/base/common/events');
-var platform_1 = require('vs/base/common/platform');
-var instantiation_1 = require('vs/platform/instantiation/common/instantiation');
+var paths = require('./paths');
+var events = require('./events');
+var platform_1 = require('./platform');
+var instantiation_1 = require('../insatiation/instantiation');
 exports.IFileService = instantiation_1.createDecorator('fileService');
 (function (FileOperation) {
     FileOperation[FileOperation["CREATE"] = 0] = "CREATE";
