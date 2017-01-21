@@ -1,5 +1,7 @@
-'use strict';
+"use strict";
+var config_1 = require("./sbox/config");
 var electron = require('electron');
+var ipcMain = electron.ipcMain;
 var req = require('request');
 var dir_1 = require("./sbox/dir");
 var uploadLocalFileToOnline = require('./sbox/uploadLocalFileToOnline');
@@ -7,7 +9,6 @@ var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var mainWindow;
 var iconPath = __dirname + '/dist/img/app-icon.png';
-// dir.mkdir('Sbox');
 var creator = new dir_1.Mkdir('Sbox');
 creator.create();
 uploadLocalFileToOnline.async();
@@ -27,7 +28,7 @@ function createWindow() {
         transparent: true,
         resizable: false, });
     windowToShow();
-    //mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
     //hide menus
     mainWindow.setMenu(null);
     // Emitted when the window is closed.
@@ -41,6 +42,9 @@ function createWindow() {
     // badge();
 }
 app.on('ready', createWindow);
+ipcMain.on('async', function (event, arg) {
+    mainWindow.webContents.send("tokenKey", new config_1.Config().run());
+});
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
     // On OS X it is common for applications and their menu bar

@@ -1,7 +1,7 @@
 var os = require('os'),
 fs     = require('fs'),
 mongoose = require('mongoose'),
-chokidar = require('chokidar'),
+
 request    =   require('request'),
 network = require('./netWorkManager'),
 url        =   'http://localhost:8000/api/upload',
@@ -36,7 +36,7 @@ function uploadLocalFileToOnline() {
         //show reconnection alert
     }
     
-};
+}
 
 module.exports ={
     async: uploadLocalFileToOnline

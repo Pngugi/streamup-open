@@ -1,5 +1,15 @@
 var mongoose = require('mongoose');
 
+var electron = require('electron');
+var {ipcRenderer} = electron;
+ipcRenderer.send("async",1);
+var tokenKey = null;
+ipcRenderer.on("tokenKey",(event,token)=>{
+  tokenKey = token;
+  console.log(token);
+});
+console.log(tokenKey);
+
 angular.module('sync', ["ui.bootstrap","ui.router","ngMaterial"])
 .run(['$rootScope',function($rootScope){
       // $rootScope.endPoint='https://streamupbox.com';
