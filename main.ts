@@ -1,11 +1,11 @@
 import { Storage } from "./src/sbox/storage";
 import { Config } from "./src/sbox/config";
-let u= null;
+
 const electron = require('electron');
 const {ipcMain} = electron;
 var req = require('request');
 import { Mkdir } from "./src/sbox/dir";
-const uploadLocalFileToOnline = require('./sbox/uploadLocalFileToOnline');
+const uploadLocalFileToOnline = require('./src/sbox/uploadLocalFileToOnline');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 let mainWindow;

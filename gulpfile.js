@@ -1,21 +1,23 @@
 var gulp = require('gulp');
-var ts = require('gulp-typescript');
-var merge = require('merge2');
+var tsb = require('gulp-tsb');
+var util = require('./build/lib/util');
+var watcher = require('./build/lib/watch');
+var assign = require('object-assign');
 
-var tsProject = ts.createProject({
-    declaration: true
+var compilation = tsb.create(assign({ verbose: true }, require('./tsconfig.json').compilerOptions));
+
+gulp.task('compile', function() {
+	return gulp.src('src/**/*.ts', { base: '.' })
+		.pipe(compilation())
+		.pipe(gulp.dest(''));
 });
 
-gulp.task('scripts', function() {
-    var tsResult = gulp.src('lib/*.ts')
-        .pipe(tsProject());
+gulp.task('watch', function() {
+	var src = gulp.src('**/*.ts', { base: '.' });
 
-    return merge([ // Merge the two output streams, so this task is finished when the IO of both operations is done.
-        tsResult.dts.pipe(gulp.dest('release/definitions')),
-        tsResult.js.pipe(gulp.dest('release/js'))
-    ]);
+	return watcher('**/*.ts', { base: '.' })
+		.pipe(util.incremental(compilation, src))
+		.pipe(gulp.dest(''));
 });
 
-gulp.task('watch', ['scripts'], function() {
-    gulp.watch('lib/*.ts', ['scripts']);
-});
+gulp.task('default', ['compile']);

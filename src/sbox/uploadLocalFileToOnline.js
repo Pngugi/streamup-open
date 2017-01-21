@@ -1,13 +1,11 @@
 var os = require('os'),
-fs     = require('fs'),
-mongoose = require('mongoose'),
-
 request    =   require('request'),
-network = require('./netWorkManager'),
 url        =   'http://localhost:8000/api/upload',
-osAppPath;
-
-mongoose.connect('mongodb://localhost:27017/test');
+network = require('./netWorkManager'),
+osAppPath,
+fs     = require('fs');
+// mongoose = require('mongoose'),
+// mongoose.connect('mongodb://localhost:27017/test');
 
 
 function uploadLocalFileToOnline() {

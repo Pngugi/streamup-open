@@ -1,10 +1,10 @@
 "use strict";
-var config_1 = require("./sbox/config");
+var config_1 = require("./src/sbox/config");
 var electron = require('electron');
 var ipcMain = electron.ipcMain;
 var req = require('request');
-var dir_1 = require("./sbox/dir");
-var uploadLocalFileToOnline = require('./sbox/uploadLocalFileToOnline');
+var dir_1 = require("./src/sbox/dir");
+var uploadLocalFileToOnline = require('./src/sbox/uploadLocalFileToOnline');
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var mainWindow;

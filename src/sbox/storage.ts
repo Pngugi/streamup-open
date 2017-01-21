@@ -2,8 +2,8 @@
  *  Copyright (c) StreamUpBox . All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import * as path from 'path';
-let fs = require('fs');
+// import * as path from 'path';
+// import fs = require('fs');
 export interface IStorageService {
 	getItem<T>(key: string, defaultValue?: T): T;
 	setItem(key: string, data: any): void;
@@ -21,7 +21,7 @@ export class Storage implements IStorageService{
     constructor(URL:string){
         this.URL = URL;
 
-        this.dbPath = path.join(this.URL, 'storage.json');
+        // this.dbPath = path.join(this.URL, 'storage.json');
     }
     /**
      * uploadFile
@@ -31,7 +31,7 @@ export class Storage implements IStorageService{
     }
     private load(): any {
 		try {
-			return JSON.parse(fs.readFileSync(this.dbPath).toString()); // invalid JSON or permission issue can happen here
+			// return JSON.parse(fs.readFileSync(this.dbPath).toString()); // invalid JSON or permission issue can happen here
 		} catch (error) {
 			
 			return {};
@@ -76,7 +76,7 @@ export class Storage implements IStorageService{
     }
     private save(): void {
 		try {
-			fs.writeFileSync(this.dbPath, JSON.stringify(this.database, null, 4)); // permission issue can happen here
+			// fs.writeFileSync(this.dbPath, JSON.stringify(this.database, null, 4)); // permission issue can happen here
 		} catch (error) {
 			
 		}
