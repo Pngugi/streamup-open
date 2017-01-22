@@ -33,7 +33,7 @@ function createWindow() {
         resizable: false,
     });
     windowToShow();
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools()
     //hide menus
     mainWindow.setMenu(null);
     // Emitted when the window is closed.
@@ -47,7 +47,7 @@ function createWindow() {
     // badge();
 }
 app.on('ready', createWindow);
-ipcMain.on('async', function (event, arg) {
+ipcMain.on('emmitter', function (event, arg) {
     // console.log(new Config().getTokenKey());
     mainWindow.webContents.send("tokenKey", new config_1.Config().getTokenKey());
 });

@@ -42,7 +42,7 @@ function createWindow() {
     resizable: false,
   });
   windowToShow();
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
   //hide menus
   mainWindow.setMenu(null);
   // Emitted when the window is closed.
@@ -58,7 +58,7 @@ function createWindow() {
 
 
 app.on('ready', createWindow);
-ipcMain.on('async', (event, arg) => {
+ipcMain.on('emmitter', (event, arg) => {
   // console.log(new Config().getTokenKey());
 
   mainWindow.webContents.send("tokenKey", new Config().getTokenKey());

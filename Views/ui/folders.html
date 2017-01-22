@@ -6,21 +6,21 @@
 				<img src="../Views/img/sbox-folder.png" width="40px">
 				<span ng-class="{active: tab == 'Shared'}" ng-click="tab='Shared'">{{folder.mName}} <span ng-if="folder.copy_count != '0'">({{folder.copy_count}})</span></span>
 			</td>
-			<td class="text-right col-md-1 col-lg-1 col-sm-1 col-xs-1">
+			<!--<td class="text-right col-md-1 col-lg-1 col-sm-1 col-xs-1">
 				<span class="pull-right">
-          {{folder.size}}
-        </span>
-			</td>
-			<td class="text-right col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    {{folder.size}}
+                </span>
+			</td>-->
+			<!--<td class="text-right col-md-1 col-lg-1 col-sm-1 col-xs-1">
 				<span class="shared_with_img pull-right">
-          {{folder.type}}
-        </span>
-			</td>
-			<td class="text-right col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                {{folder.type}}
+                </span>
+			</td>-->
+			<!--<td class="text-right col-md-2 col-lg-2 col-sm-2 col-xs-2">
 				<span class="shared_with_img pull-right">
-          {{folder.created_at}}
-        </span>
-			</td>
+                {{folder.created_at}}
+                </span>
+			</td>-->
 			<td class="text-right col-md-3 col-lg-3 col-sm-3 col-xs-3">
 				<span class="shared_with_img pull-right">
          
@@ -30,49 +30,6 @@
 				<input type="text" id="selectorid" style="display:none" class="selectorid" value="{{folder.id}}">
 				<div class="navbar-right">
 					<ul class="nav navbar-nav m-n hidden-xs nav-user user">
-						<li class="dropdown">
-							<a href="javascript:void(0)" class="dropdown-toggle bg clear" data-toggle="dropdown">
-								<i style="color:#3d456e" class="fa fa-chevron-circle-down fa-2x" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu animated fadeInRight" style="border-color: #ccc transparent">
-								<li>
-									<a href="javascript:void(0)" ng-click="showFilesIn(folder.id)" ui-sref="folder({ folderName: folder.name, folderId: folder.id,VisibleName:folder.name })"><i class="fa fa-folder-open" aria-hidden="true" style="color:#3d456e"></i> Open</a>
-								</li>
-								<li>
-									<a href="javascript:void(0)" ng-click="filerestore(binsfile.id)"><i class="fa fa-star-o" aria-hidden="true" style="color:#3d456e"></i> Favorite</a>
-								</li>
-								<li>
-									<hr />
-								</li>
-								<li>
-									<a href="javascript:void(0)" id="downloadpop" ng-click="downloadpop()"><i class="fa fa-cloud-download" aria-hidden="true" style="color:#3d456e"></i> Download</a>
-								</li>
-								<li>
-									<a href="javascript:void(0)" ng-click="share(folder.id,'Folder')"><i class="fa fa-share-alt" aria-hidden="true" style="color:#3d456e"></i> Sharing</a>
-								</li>
-								<li>
-									<hr />
-								</li>
-								<li>
-									<a href="javascript:void(0)" ng-click="deleteonbins_files(binsfile.id)"><i class="fa fa-scissors" aria-hidden="true" style="color:#3d456e"></i> Move</a>
-								</li>
-								<li>
-									<a href="javascript:void(0)" ng-click="deleteonbins_files(binsfile.id)"><i class="fa fa-files-o" aria-hidden="true" style="color:#3d456e"></i> Copy</a>
-								</li>
-								<li>
-									<a href="javascript:void(0)" id="Renamedocs" ng-click="Renamedocs(folder.id,folder.name)"><i class="fa fa-pencil" aria-hidden="true" style="color:#3d456e"></i> Rename</a>
-								</li>
-								<li>
-									<a href="javascript:void(0)" id="Deletedocs" ng-click="Deletedocs(folder.id,folder.name)"><i class="fa fa-trash" style="color:#3d456e"></i> Delete</a>
-								</li>
-								<li>
-									<hr />
-								</li>
-								<li>
-									<a href="javascript:void(0)" id="properties" ng-click="properties(folder.id,folder.name,folder.size,folder.type,folder.created_at)"><i class="fa fa-info" style="color:#3d456e"></i> Properties</a>
-								</li>
-							</ul>
-						</li>
 					</ul>
 				</div>
 			</td>
