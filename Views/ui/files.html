@@ -1,0 +1,93 @@
+<table class="table table-striped m-b-none file-wrapper" ng-controller="FilesController">
+  <tbody>
+    <tr class="cursor-pointer" ng-repeat="file in files | filter: search">
+      <td ng-right-click="onRightClick(file.id,user.id,0)" class="context-menu-file" class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+        <img ng-src="{{fileType(file.type)}}" width="40px">
+        <a ui-sref="preview({ preview: file.dropbox_name,extension:file.type,of:'of',user:user.name })">{{file.name}}</a>
+      </td>
+      <!--<td></td>-->
+      <td class="text-right col-md-1 col-lg-1 col-sm-1 col-xs-1">
+        <span class="pull-right">
+          <!--{{file.file_size}}--> 
+        </span>
+      </td>
+      <td class="text-right col-md-1 col-lg-1 col-sm-1 col-xs-1">
+        <span class="shared_with_img pull-right">
+          <!--{{file.mime}}--> 
+        </span>
+      </td>
+      <td class="text-right col-md-2 col-lg-2 col-sm-2 col-xs-2">
+        <span class="shared_with_img pull-right">
+          {{file.created_at}}
+        </span>
+      </td>
+      <td class="text-right col-md-3 col-lg-3 col-sm-3 col-xs-3">
+        <span class="shared_with_img">
+          <!--<img src="/img/me.png" class="img-circle">-->
+        </span>
+      </td>
+      <td class="text-right col-md-1 col-lg-1 col-sm-1 col-xs-1" ng-controller="dialogController" style="width:120px;">
+        <input type="text" id="selectorid" style="display:none" class="selectorid" value="{{file.id}}">
+        <div class="navbar-right">
+          <ul class="nav navbar-nav m-n hidden-xs nav-user user">
+            <li class="dropdown">
+              <a href="javascript:void(0)" class="dropdown-toggle bg clear" data-toggle="dropdown">
+                <i style="color:#3d456e" class="fa fa-chevron-circle-down fa-2x" aria-hidden="true"></i>
+              </a>
+              <ul class="dropdown-menu animated fadeInRight">
+                <li>
+                  <a href="javascript:void(0)" ng-click="showFilesIn(file.id)" ui-sref="folder({ folderName: file.name, folderId: file.id,VisibleName:file.name })"><i class="fa fa-file-o" aria-hidden="true" style="color:#3d456e"></i> Preview</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" ng-click="filerestore(file.id)"><i class="fa fa-star-o" aria-hidden="true" style="color:#3d456e"></i> Favorite</a>
+                </li>
+                <li>
+                  <hr />
+                </li>
+                <li>
+                  <a href="javascript:void(0)" id="downloadpop" ng-click="downloadpop()"><i class="fa fa-cloud-download" aria-hidden="true" style="color:#3d456e"></i> Download</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" ng-click="share(file.id,'File')"><i class="fa fa-share-alt" aria-hidden="true" style="color:#3d456e"></i> Sharing</a>
+                </li>
+                <li>
+                  <hr />
+                </li>
+                <li>
+                  <a href="javascript:void(0)" ng-click="deleteonbins_files(file.id)"><i class="fa fa-scissors" aria-hidden="true" style="color:#3d456e"></i> Move</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" ng-click="deleteonbins_files(file.id)"><i class="fa fa-files-o" aria-hidden="true" style="color:#3d456e"></i> Copy</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" id="Renamedocs" ng-click="Renamedocs(file.id,file.name)"><i class="fa fa-pencil" aria-hidden="true" style="color:#3d456e"></i> Rename</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" id="Deletedocs" ng-click="Deletedocs(file.id,file.name)"><i class="fa fa-trash" style="color:#3d456e"></i> Delete</a>
+                </li>
+                <li>
+                  <hr />
+                </li>
+                <li>
+                  <a href="javascript:void(0)" id="properties" ng-click="properties(file.id,folfileder.name,file.file_size,file.mime,file.created_at)"><i class="fa fa-info" style="color:#3d456e"></i> Properties</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<script>
+  var addclass = 'btn-primary';
+  var $cols = $('.paste_higlight_hint').click(function(e) {
+      
+      $cols.removeClass(addclass);
+      $(this).addClass(addclass);
+  });
+ 
+</script>

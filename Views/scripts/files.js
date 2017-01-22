@@ -150,10 +150,15 @@ angular.module('sync').controller('FilesController', ['$scope', 'Files', '$log',
         };
 
         function prepare(url) {
+            localStorage.removeItem("folderId");
+            localStorage.setItem("folderId",0);
             return;
         }
 
         function success(url) {
+            //clear any localStorage Id that is being sent before
+            localStorage.removeItem("folderId");
+            localStorage.setItem("folderId",0);
             return;
             // $rootScope.$broadcast('dialogs.wait.complete');
         }
@@ -190,35 +195,82 @@ angular.module('sync').controller('FilesController', ['$scope', 'Files', '$log',
                 $scope.cancel = function () {
                     $mdDialog.cancel();
                 };
+                $scope.fileId = localStorage.getItem("file_handle");
             }
-            $scope.getFileId = function (id) {
-                if (localStorage.getItem("file_handle") === null) {
+            $scope.onRightClick = function (id,userId,folderId) {
+
+                if (localStorage.getItem("file_handle") === null &&  localStorage.getItem("userId") === null  && localStorage.getItem("folderId") === null || localStorage.getItem("folderId") !==0 ) {
                     localStorage.setItem('file_handle', id);
+                    localStorage.setItem('userId', userId);
+                    localStorage.setItem('folderId', localStorage.getItem("folderId"));
                 } else {
                     localStorage.removeItem('file_handle');
+
                     localStorage.setItem('file_handle', id);
+
+                    localStorage.removeItem('userId');
+
+                    localStorage.setItem('userId', userId);
+
+                    localStorage.removeItem('folderId');
+
+                    localStorage.setItem('folderId', folderId);
                 }
             };
             $.contextMenu({
                 selector: '.context-menu-file',
                 callback: function (key, options) {
 
+
                     if (key === "copy")
 
                         $mdDialog.show({
+
                         parent: angular.element(document.body),
+
                         controller: DialogController,
+
                         templateUrl: '/views/copy-file.tpl.html',
+
                         clickOutsideToClose: false
+
                     }).catch();
                     if (key === "download") {
-                        return;
-                        // $.fileDownload($rootScope.endPoint + '/downloads/file/' + file + '/' + ownerId, {
-                        //     prepareCallback: prepare,
-                        //     successCallback: success,
-                        //     failCallback: error
-                        // });
+                         
+                        $.fileDownload($rootScope.endPoint + '/downloads/file/' +localStorage.getItem("file_handle") + '/' +localStorage.getItem("folderId")+'/'+null+'/' + localStorage.getItem("userId"), {
 
+                            prepareCallback: prepare,
+
+                            successCallback: success,
+                            
+                            failCallback: error
+                        });
+
+                    }
+                    if(key === "public"){
+
+                         $mdDialog.show({
+
+                            parent: angular.element(document.body),
+
+                            controller: DialogController,
+
+                            templateUrl: '/views/public-file.tpl.html',
+
+                            clickOutsideToClose: false
+
+                        }).catch();
+                    }
+                    if(key === "downloadZip"){
+
+                         $.fileDownload($rootScope.endPoint + '/downloads/file/' +localStorage.getItem("file_handle") + '/' +localStorage.getItem("folderId")+'/'+null+'/' + localStorage.getItem("userId")+'/zip', {
+
+                            prepareCallback: prepare,
+
+                            successCallback: success,
+                            
+                            failCallback: error
+                        });
                     }
                     if (key === "delete")
 
@@ -248,8 +300,12 @@ angular.module('sync').controller('FilesController', ['$scope', 'Files', '$log',
                         name: "download",
                         icon: "fa-cloud-download"
                     },
-                    "paste": {
-                        name: "Paste",
+                    "downloadZip": {
+                        name: "downloadZip",
+                        icon: "fa-cloud-download"
+                    },
+                    "public": {
+                        name: "make file public",
                         icon: "paste"
                     },
                     "delete": {

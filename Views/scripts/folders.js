@@ -151,6 +151,17 @@ angular.module("sync")
         });
 
         $scope.showFilesIn = function (folder_id) {
+            if (localStorage.getItem("folderId") === null) {
+                   
+                    localStorage.setItem('folderId', folder_id);
+                } else {
+                    
+                    localStorage.removeItem('folderId');
+
+                    localStorage.setItem('folderId', folder_id);
+
+                }
+                
             $rootScope.$emit('folder:id', folder_id);
         };
 

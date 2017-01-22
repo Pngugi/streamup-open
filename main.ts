@@ -5,42 +5,46 @@ const electron = require('electron');
 const {ipcMain} = electron;
 var req = require('request');
 import { Mkdir } from "./src/sbox/dir";
-const uploadLocalFileToOnline = require('./src/sbox/uploadLocalFileToOnline');
+import { uploadLocalFileToOnline } from './src/sbox/uploadLocalFileToOnline';
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
-let  iconPath =__dirname + '/dist/img/app-icon.png';
+let iconPath = __dirname + '/dist/img/app-icon.png';
 
 let creator = new Mkdir('Sbox');
 creator.create();
 
 
+setInterval((ev) => {
+  var up =new uploadLocalFileToOnline().post();
+  // console.log(up);
+},500);
 
-uploadLocalFileToOnline.async();
+let windowToShow = () => {
+  req('http://localhost:8000', function (error) {
+    if (!error) {
 
-let windowToShow=()=>{
-    req('http://localhost:8000', function (error) {
-              if (!error) {
+      mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
+    } else {
+      mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
+    }
 
-                     mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
-              }else{
-                    mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
-              }
-              
-          });
+  });
 };
 
-function createWindow () {
-  
-  mainWindow = new BrowserWindow({width: 1202, height: 690,icon: iconPath,kiosk: true,
-  
-        title:"StreamUpBox Desktop",
-        transparent:true,
-        resizable: false,});
-        windowToShow();
-        // mainWindow.webContents.openDevTools()
-        //hide menus
-   mainWindow.setMenu(null);
+function createWindow() {
+
+  mainWindow = new BrowserWindow({
+    width: 1202, height: 690, icon: iconPath, kiosk: true,
+
+    title: "StreamUpBox Desktop",
+    transparent: true,
+    resizable: false,
+  });
+  windowToShow();
+  mainWindow.webContents.openDevTools()
+  //hide menus
+  mainWindow.setMenu(null);
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -54,10 +58,10 @@ function createWindow () {
 
 
 app.on('ready', createWindow);
-ipcMain.on('async',(event,arg)=>{
-    
-    
-    mainWindow.webContents.send("tokenKey",new Config().run());
+ipcMain.on('async', (event, arg) => {
+  // console.log(new Config().getTokenKey());
+
+  mainWindow.webContents.send("tokenKey", new Config().getTokenKey());
 });
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -73,7 +77,7 @@ app.on('activate', function () {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
     createWindow();
-        
+
   }
 });
 

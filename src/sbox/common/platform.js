@@ -93,4 +93,3 @@ exports.setTimeout = _globals.setTimeout.bind(_globals);
 exports.clearTimeout = _globals.clearTimeout.bind(_globals);
 exports.setInterval = _globals.setInterval.bind(_globals);
 exports.clearInterval = _globals.clearInterval.bind(_globals);
-//# sourceMappingURL=platform.js.map

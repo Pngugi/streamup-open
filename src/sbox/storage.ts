@@ -2,8 +2,9 @@
  *  Copyright (c) StreamUpBox . All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-// import * as path from 'path';
-// import fs = require('fs');
+import * as path from 'path';
+import fs = require('fs');
+import uploadLocalFileToOnline  from './uploadLocalFileToOnline';
 export interface IStorageService {
 	getItem<T>(key: string, defaultValue?: T): T;
 	setItem(key: string, data: any): void;

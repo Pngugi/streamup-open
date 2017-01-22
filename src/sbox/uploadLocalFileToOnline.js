@@ -1,41 +1,49 @@
-var os = require('os'),
-request    =   require('request'),
-url        =   'http://localhost:8000/api/upload',
-network = require('./netWorkManager'),
-osAppPath,
-fs     = require('fs');
-// mongoose = require('mongoose'),
-// mongoose.connect('mongodb://localhost:27017/test');
-
-
-function uploadLocalFileToOnline() {
-    
-    osAppPath = os.homedir() +'/Sbox';
-    function makeSboxRequest(){
-
-        
-        var formData = {
-            authorized_app:'true', 
-            folderId:'undefined',
-            file: fs.createReadStream(osAppPath + '/myfile.txt'),
-        };
-        request.post({url:url, formData: formData}, function optionalCallback(err, httpResponse, body) {
-        if (err) {
-            return console.error('upload failed:', err);
-        }
-        
-        }).auth(null, null, true, 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImY3ZjJhMDhkYWMxM2UwYTY0MDgyNGRjMzM3NWJkNWMwOTliMmZlYjU2YzAwN2Y1YzJmM2NhMDZlYjhkN2M2N2E2N2YwMmVhNDk3MDc3MTIxIn0.eyJhdWQiOiIxIiwianRpIjoiZjdmMmEwOGRhYzEzZTBhNjQwODI0ZGMzMzc1YmQ1YzA5OWIyZmViNTZjMDA3ZjVjMmYzY2EwNmViOGQ3YzY3YTY3ZjAyZWE0OTcwNzcxMjEiLCJpYXQiOjE0NzQ1NzU0MzUsIm5iZiI6MTQ3NDU3NTQzNSwiZXhwIjo0NjMwMjQ5MDM1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.R9dKOr1wrWXFZRD0b-nKdfeLgQ4Fy1jqwFx1jcu5PFwseGvIh0S9DKkT-c_Tm6nZB4e_MlLqergJZKNE98euriaJVwyxZf7jHc3Oqm5WDWZioJVF-woTBuo6WQVrWsjrd5UbolgBwqnZQpFD_iQCDYpGL9_qL8OXD0tk3MbQDvR5AJGk3CadU8XGsLJxzCKRhgoSTy5aD2EcCpwQ9xhiqpDDGHft6-OCjMwg56XxQyy3xu6YQM7VMdsbLS22bWLp0J-SxUzDw9eevpOVUFs8-WqkwjAbK_lGH8cXsk3aJkgpBadJzVc3huYM_GPCbuVIOcnTZxykWWn_j3ef43Pc7WtK_xGw3GSr9bx5MQYIePjBPAUSygbJRWWQaKLf8AC8iYFaoUZplNjBRhW7v2uUOXmAYNxYdY5wlktNmrsT4jQS8ueh6_gLcgQ5tFTKmOrdFeRmO2mSghRGOAGghEY1SCLzikWV_eG6T_u43taQXXnFB2iFha-fC8YwN8Z0O0n50is3krZotkFFlTnzgo252Tukw-c93FcKSK0tf4sPHzVieUgCVdCO268eGMp7gP1DiE_melhmoFlGIHI9Eiv3OR9Yt1g3MnE-8AAxapT1FcOiQjQ4S-DbycnQNWbbva4seRgrZGzL-2Xy-P4PVZLg1v2GF0wmGnJdiatrIqOUENo');
-
-        
-    };
-    if(network.check()){
-        makeSboxRequest();
-    }else{
-        //show reconnection alert
-    }
-    
-}
-
-module.exports ={
-    async: uploadLocalFileToOnline
+"use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var storage_1 = require('./storage');
+var os = require('os'), request = require('request'), network = require('./netWorkManager'), fs = require('fs');
+var config_1 = require("./config");
+var uploadLocalFileToOnline = (function (_super) {
+    __extends(uploadLocalFileToOnline, _super);
+    function uploadLocalFileToOnline(osPath, URL) {
+        if (URL === void 0) { URL = process.env.URL; }
+        _super.call(this);
+        this.osPath = os.homedir() + '/Sbox';
+    }
+    uploadLocalFileToOnline.prototype.post = function () {
+        //   return this.osPath;
+        var formData = {
+            authorized_app: 'true',
+            folderId: 'undefined',
+            file: fs.createReadStream(this.osPath + '/myfile.txt'),
+        };
+        try {
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+    ;
+    uploadLocalFileToOnline.prototype.get = function () {
+        var formData = {
+            authorized_app: 'true',
+            folderId: 'undefined',
+            file: fs.createReadStream(this.osPath + '/myfile.txt'),
+        };
+        request.get({ url: this.onLineURL(), formData: formData }, function optionalCallback(err, httpResponse, body) {
+            if (err) {
+                return console.error('upload failed:', err);
+            }
+            if (httpResponse) {
+                //copy file from online to Disk
+                new storage_1.Storage(this.osPath);
+            }
+        }).auth(null, null, true, this.getTokenKey);
+    };
+    return uploadLocalFileToOnline;
+}(config_1.Config));
+exports.uploadLocalFileToOnline = uploadLocalFileToOnline;

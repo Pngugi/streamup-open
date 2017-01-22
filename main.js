@@ -4,14 +4,17 @@ var electron = require('electron');
 var ipcMain = electron.ipcMain;
 var req = require('request');
 var dir_1 = require("./src/sbox/dir");
-var uploadLocalFileToOnline = require('./src/sbox/uploadLocalFileToOnline');
+var uploadLocalFileToOnline_1 = require('./src/sbox/uploadLocalFileToOnline');
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var mainWindow;
 var iconPath = __dirname + '/dist/img/app-icon.png';
 var creator = new dir_1.Mkdir('Sbox');
 creator.create();
-uploadLocalFileToOnline.async();
+setInterval(function (ev) {
+    var up = new uploadLocalFileToOnline_1.uploadLocalFileToOnline().post();
+    // console.log(up);
+}, 500);
 var windowToShow = function () {
     req('http://localhost:8000', function (error) {
         if (!error) {
@@ -23,12 +26,14 @@ var windowToShow = function () {
     });
 };
 function createWindow() {
-    mainWindow = new BrowserWindow({ width: 1202, height: 690, icon: iconPath, kiosk: true,
+    mainWindow = new BrowserWindow({
+        width: 1202, height: 690, icon: iconPath, kiosk: true,
         title: "StreamUpBox Desktop",
         transparent: true,
-        resizable: false, });
+        resizable: false,
+    });
     windowToShow();
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools();
     //hide menus
     mainWindow.setMenu(null);
     // Emitted when the window is closed.
@@ -43,7 +48,8 @@ function createWindow() {
 }
 app.on('ready', createWindow);
 ipcMain.on('async', function (event, arg) {
-    mainWindow.webContents.send("tokenKey", new config_1.Config().run());
+    // console.log(new Config().getTokenKey());
+    mainWindow.webContents.send("tokenKey", new config_1.Config().getTokenKey());
 });
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -60,4 +66,3 @@ app.on('activate', function () {
         createWindow();
     }
 });
-//# sourceMappingURL=main.js.map
