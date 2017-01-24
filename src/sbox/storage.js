@@ -1,59 +1,43 @@
 "use strict";
+var low = require('lowdb');
+var fileAsync = require('lowdb/lib/file-async');
+var CryptoJS = require("cryptr");
 var Storage = (function () {
-    function Storage(URL) {
+    function Storage(encryptKey) {
         this.database = null;
-        this.URL = URL;
-        // this.dbPath = path.join(this.URL, 'storage.json');
+        CryptoJS = new CryptoJS("key");
+        this.db = low('db.json', {
+            format: {
+                deserialize: function (str) {
+                    var decrypted = CryptoJS.decrypt(str.toString());
+                    var obj = JSON.parse(decrypted);
+                    return obj;
+                },
+                serialize: function (obj) {
+                    var str = JSON.stringify(obj);
+                    var encrypted = CryptoJS.encrypt(str);
+                    return encrypted;
+                }
+            }
+        });
+        this.db.defaults({ userData: [] })
+            .value();
     }
-    /**
-     * uploadFile
-     */
     Storage.prototype.uploadFile = function () {
     };
     Storage.prototype.load = function () {
-        try {
-        }
-        catch (error) {
-            return {};
-        }
+        return this.db.get('posts').value();
     };
-    Storage.prototype.setItem = function (key, data) {
-        if (!this.database) {
-            this.database = this.load();
-        }
-        // Shortcut for primitives that did not change
-        if (typeof data === 'string' || typeof data === 'number' || typeof data === 'boolean') {
-            if (this.database[key] === data) {
-                return;
-            }
-        }
-        this.database[key] = data;
-        this.save();
+    Storage.prototype.setItem = function (str, data) {
+        this.db.get(str).push(data);
     };
     Storage.prototype.removeItem = function (key) {
-        if (!this.database) {
-            this.database = this.load();
-        }
-        if (this.database[key]) {
-            delete this.database[key];
-            this.save();
-        }
     };
     Storage.prototype.getItem = function (key, defaultValue) {
-        if (!this.database) {
-            this.database = this.load();
-        }
-        var res = this.database[key];
-        if (typeof res === 'undefined') {
-            return defaultValue;
-        }
-        return this.database[key];
+        return this.db.get('posts').find({ id: key }).value();
     };
-    Storage.prototype.save = function () {
-        try {
-        }
-        catch (error) {
-        }
+    Storage.prototype.save = function (str, data) {
+        this.db.get('posts').push(data);
     };
     return Storage;
 }());

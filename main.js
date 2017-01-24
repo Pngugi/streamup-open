@@ -4,17 +4,47 @@ var electron = require('electron');
 var ipcMain = electron.ipcMain;
 var req = require('request');
 var dir_1 = require("./src/sbox/dir");
-var uploadLocalFileToOnline_1 = require('./src/sbox/uploadLocalFileToOnline');
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var mainWindow;
 var iconPath = __dirname + '/dist/img/app-icon.png';
 var creator = new dir_1.Mkdir('Sbox');
 creator.create();
-setInterval(function (ev) {
-    var up = new uploadLocalFileToOnline_1.uploadLocalFileToOnline().post();
-    // console.log(up);
-}, 500);
+// new Git().init();
+// const low = require('lowdb')
+// const fileAsync = require('lowdb/lib/file-async')
+// let CryptoJS = require("cryptr");
+// CryptoJS = new CryptoJS("key");
+// Start database using file-async storage
+// const db = low('db.json', {
+//   format: {
+//     deserialize: (str) => {
+//       const decrypted = CryptoJS.decrypt(str.toString())
+//       const obj = JSON.parse(decrypted)
+//       return obj
+//     },
+//     serialize: (obj) => {
+//       const str = JSON.stringify(obj)
+//       const encrypted =  CryptoJS.encrypt(str)
+//       return encrypted
+//     }
+//   }
+// })
+// // Init
+// db.defaults({ posts: [] })
+//   .value()
+// db.get('posts')
+//   .push({ title: 'lowdb' })
+//   .cloneDeep() // a must to avoid error
+//   .value()
+// //retrive all value
+// const post = db.get('posts').value();
+// //find method
+// const post2 = db.get('posts').find({ id: 1 }).value()
+// setInterval((ev) => {
+//   var up =new uploadLocalFileToOnline().post();
+//   // console.log(up);
+// },500);
 var windowToShow = function () {
     req('http://localhost:8000', function (error) {
         if (!error) {
@@ -38,9 +68,6 @@ function createWindow() {
     mainWindow.setMenu(null);
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
         mainWindow = null;
     });
     // menu();
@@ -48,7 +75,6 @@ function createWindow() {
 }
 app.on('ready', createWindow);
 ipcMain.on('emmitter', function (event, arg) {
-    // console.log(new Config().getTokenKey());
     mainWindow.webContents.send("tokenKey", new config_1.Config().getTokenKey());
 });
 // Quit when all windows are closed.
