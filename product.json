@@ -1,0 +1,17 @@
+{
+	"nameShort": "Sbox - OSS",
+	"nameLong": "Sbox - OSS",
+	"applicationName": "sbox-oss",
+	"dataFolderName": ".vssbox-oss",
+	"win32MutexName": "vssboxoss",
+	"licenseName": "MIT",
+	"licenseUrl": "https://github.com/Microsoft/vssbox/blob/master/LICENSE.txt",
+	"win32DirName": "StreamUpBox sbox OSS",
+	"win32NameVersion": "Microsoft sbox OSS",
+	"win32RegValueName": "sboxOSS",
+	"win32AppId": "{{E34003BB-9E10-4501-8C11-BE3FAA83F23F}",
+	"win32AppUserModelId": "StreamUpBox.sboxOSS",
+	"darwinBundleIdentifier": "streamupbox.com",
+	"reportIssueUrl": "",
+	"urlProtocol": "sbox-oss"
+}
