@@ -8,13 +8,15 @@ var Watcher = (function () {
     }
     Watcher.prototype.watch = function () {
         try {
-            chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./ }).on('all', function (event, path) {
+            chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./ }).on('all', function (event, path, r) {
                 if (event === "unlink") {
                 }
                 else if (event === "add") {
+                    console.log(r);
                     // let storage = new Storage();
                     // storage.setItem({ file_path: path.toString() });
                     new uploadLocalFileToOnline_1.uploadLocalFileToOnline().post(path.toString());
+                    //TODO make this notification work and in its own class 
                     var nc = new notifier.NotificationCenter();
                     nc.notify({
                         'title': 'Phil Coulson',
