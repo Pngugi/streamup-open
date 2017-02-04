@@ -1,5 +1,6 @@
 "use strict";
-var storage_1 = require('./storage');
+var uploadLocalFileToOnline_1 = require('./uploadLocalFileToOnline');
+var notifier = require('node-notifier');
 var chokidar = require('chokidar');
 var os = require('os');
 var Watcher = (function () {
@@ -9,13 +10,17 @@ var Watcher = (function () {
         try {
             chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./ }).on('all', function (event, path) {
                 if (event === "unlink") {
-                    console.log("unlinked element..");
                 }
                 else if (event === "add") {
-                    console.log(path.toString());
-                    var storage = new storage_1.Storage();
-                    storage.setItem({ file_path: path.toString() });
-                    console.log("folder created..:" + path);
+                    // let storage = new Storage();
+                    // storage.setItem({ file_path: path.toString() });
+                    new uploadLocalFileToOnline_1.uploadLocalFileToOnline().post(path.toString());
+                    var nc = new notifier.NotificationCenter();
+                    nc.notify({
+                        'title': 'Phil Coulson',
+                        'subtitle': 'Agent of S.H.I.E.L.D.',
+                        'message': 'If I come out, will you shoot me? \'Cause then I won\'t come out.'
+                    });
                 }
             });
         }
