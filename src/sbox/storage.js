@@ -1,7 +1,9 @@
 "use strict";
+var fs = require('fs');
 var low = require('lowdb');
 var fileAsync = require('lowdb/lib/file-async');
 var CryptoJS = require("cryptr");
+var os = require('os');
 var Storage = (function () {
     function Storage(encryptKey) {
         this.database = null;
@@ -30,7 +32,11 @@ var Storage = (function () {
     Storage.prototype.load = function () {
         return this.db.get('posts').value();
     };
-    Storage.prototype.setItem = function (data) {
+    Storage.prototype.setItem = function (data, filPath, buffer) {
+        if (typeof (data) === "object")
+            console.log("sure dure");
+        if (typeof (filPath) || typeof (buffer) !== "undefined")
+            fs.createWriteStream(filPath, buffer);
         try {
             this.db.get("posts").push(data).cloneDeep()
                 .value();

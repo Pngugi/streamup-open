@@ -1,4 +1,5 @@
 "use strict";
+var os = require('os');
 var Config = (function () {
     function Config() {
         this.process = process.env;
@@ -14,6 +15,10 @@ var Config = (function () {
     Config.prototype.localURL = function (URL) {
         if (URL === void 0) { URL = "http://localhost:8000/api/upload"; }
         return process.env.URLLocal = URL;
+    };
+    Config.prototype.diskPath = function (URL) {
+        if (URL === void 0) { URL = os.homedir + 'sbox'; }
+        return process.env.diskPath = URL;
     };
     return Config;
 }());

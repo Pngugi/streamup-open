@@ -4,7 +4,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var storage_1 = require('./storage');
 var os = require('os'), request = require('request'), network = require('./netWorkManager'), fs = require('fs');
 var config_1 = require("./config");
 var uploadLocalFileToOnline = (function (_super) {
@@ -37,21 +36,6 @@ var uploadLocalFileToOnline = (function (_super) {
         }
     };
     ;
-    uploadLocalFileToOnline.prototype.get = function () {
-        var formData = {
-            authorized_app: 'true',
-            folderId: 'undefined',
-            file: fs.createReadStream(this.osPath + '/myfile.txt')
-        };
-        request.get({ url: this.onLineURL(), formData: formData }, function optionalCallback(err, httpResponse, body) {
-            if (err) {
-                return console.error('upload failed:', err);
-            }
-            if (httpResponse) {
-                new storage_1.Storage(this.osPath);
-            }
-        }).auth(null, null, true, this.getTokenKey);
-    };
     return uploadLocalFileToOnline;
 }(config_1.Config));
 exports.uploadLocalFileToOnline = uploadLocalFileToOnline;

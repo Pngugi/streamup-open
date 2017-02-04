@@ -8,9 +8,10 @@ import { uploadLocalFileToOnline } from './uploadLocalFileToOnline';
 const low = require('lowdb')
 const fileAsync = require('lowdb/lib/file-async')
 let CryptoJS = require("cryptr");
+let os = require('os');
 export interface IStorageService {
 	getItem<T>(key: string, defaultValue?: T): T;
-	setItem(data: any): void;
+	setItem(data: any,filePath:string,buffer:Buffer): void;
 	removeItem(key: string): void;
 }
 
@@ -40,10 +41,10 @@ export class Storage implements IStorageService {
 					}
 				}
 			});
-		}catch(e){
+		} catch (e) {
 
 		}
-		
+
 	}
 
 	public uploadFile() {
@@ -53,15 +54,20 @@ export class Storage implements IStorageService {
 
 		return this.db.get('posts').value();
 	}
-	setItem(data: Object): void {
+	setItem(data: Object,filPath?:string,buffer?:Buffer): void {
+		
+		if (typeof (data) === "object")
+			console.log("sure dure");
+			if(typeof(filPath)|| typeof(buffer) !== "undefined")
+				fs.createWriteStream(filPath,buffer);
+			try {
+				this.db.get("posts").push(data).cloneDeep()
+					.value()
+			} catch (error) {
 
-		try {
-			this.db.get("posts").push(data).cloneDeep()
-			.value()
-		} catch (error) {
-			
-		}
-
+			}
+		
+	 
 	}
 	removeItem(key: string): void {
 

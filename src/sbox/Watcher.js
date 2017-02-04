@@ -1,4 +1,5 @@
 "use strict";
+var Reaction_1 = require('./Reaction');
 var uploadLocalFileToOnline_1 = require('./uploadLocalFileToOnline');
 var storage_1 = require('./storage');
 var notifier = require('node-notifier');
@@ -36,3 +37,12 @@ var Watcher = (function () {
     return Watcher;
 }());
 exports.Watcher = Watcher;
+/**deals with listnening of broadcasted event and save file on Local Disk accordingly */
+var io = require('socket.io')();
+var Redis = require('ioredis');
+var redis = new Redis();
+redis.subscribe('files-channel');
+redis.on('message', function (channel, message) {
+    var serialized = JSON.parse(message);
+    new Reaction_1.Reaction().saveOnDisk(serialized, os.homedir + '/Sbox', new Buffer("utf-8"));
+});

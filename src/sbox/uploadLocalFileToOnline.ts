@@ -15,7 +15,7 @@ export class uploadLocalFileToOnline extends Config {
         this.osPath = os.homedir() + '/Sbox';
     }
 
-    public post(filePath: string, callback?:any) {
+    public post(filePath: string, callback?: any) {
 
         var formData = {
             authorized_app: 'true',
@@ -39,22 +39,5 @@ export class uploadLocalFileToOnline extends Config {
         }
 
     };
-    get() {
-        var formData = {
-            authorized_app: 'true',
-            folderId: 'undefined',
-            file: fs.createReadStream(this.osPath + '/myfile.txt'),
-        };
-        request.get({ url: this.onLineURL(), formData: formData }, function optionalCallback(err, httpResponse, body) {
-            if (err) {
-                return console.error('upload failed:', err);
-            }
-            if (httpResponse) {
-
-                new Storage(this.osPath);
-            }
-
-        }).auth(null, null, true, this.getTokenKey);
-    }
 
 }
