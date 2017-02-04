@@ -1,3 +1,4 @@
+import { Watcher } from './src/sbox/Watcher';
 import { Storage } from "./src/sbox/storage";
 import { Git } from "./src/sbox/sync/git";
 import { Config } from "./src/sbox/config";
@@ -12,46 +13,40 @@ const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 let iconPath = __dirname + '/dist/img/app-icon.png';
 
-
+/**start by creating application basic folder */
 let creator = new Mkdir('Sbox');
 creator.create();
-// new Git().init();
-// const low = require('lowdb')
-// const fileAsync = require('lowdb/lib/file-async')
-// let CryptoJS = require("cryptr");
-// CryptoJS = new CryptoJS("key");
-// Start database using file-async storage
-// const db = low('db.json', {
-//   format: {
-//     deserialize: (str) => {
-//       const decrypted = CryptoJS.decrypt(str.toString())
-//       const obj = JSON.parse(decrypted)
-//       return obj
-//     },
-//     serialize: (obj) => {
-//       const str = JSON.stringify(obj)
-//       const encrypted =  CryptoJS.encrypt(str)
-//       return encrypted
-//     }
-//   }
-// })
+/**end of creating a folder */
 
-// // Init
-// db.defaults({ posts: [] })
-//   .value()
-// db.get('posts')
-//   .push({ title: 'lowdb' })
-//   .cloneDeep() // a must to avoid error
-//   .value()
-// //retrive all value
-// const post = db.get('posts').value();
-// //find method
-// const post2 = db.get('posts').find({ id: 1 }).value()
 
-// setInterval((ev) => {
-//   var up =new uploadLocalFileToOnline().post();
-//   // console.log(up);
-// },500);
+/**initiate storage for the first time call this first! */
+let CryptoJS = require("cryptr");
+CryptoJS = new CryptoJS("key");
+const low = require('lowdb')
+const db = low('db.json', {
+  format: {
+    deserialize: (str) => {
+      const decrypted = CryptoJS.decrypt(str.toString())
+      const obj = JSON.parse(decrypted)
+      return obj
+    },
+    serialize: (obj) => {
+      const str = JSON.stringify(obj)
+      const encrypted = CryptoJS.encrypt(str)
+      return encrypted
+    }
+  }
+});
+db.defaults({ posts: [] })
+  .value()
+//   storage.setItem({ title: 'lowdb' });
+// console.log(storage.load());
+/**end of adapting storage to application */
+
+
+/**watching for folder changes */
+new Watcher().watch();
+
 
 let windowToShow = () => {
   req('http://localhost:8000', function (error) {
@@ -75,7 +70,7 @@ function createWindow() {
     resizable: false,
   });
   windowToShow();
-  // mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
   //hide menus
   mainWindow.setMenu(null);
   // Emitted when the window is closed.
@@ -83,8 +78,7 @@ function createWindow() {
 
     mainWindow = null;
   });
-  // menu();
-  // badge();
+
 }
 
 

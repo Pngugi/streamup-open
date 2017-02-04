@@ -1,4 +1,5 @@
 "use strict";
+var Watcher_1 = require('./src/sbox/Watcher');
 var config_1 = require("./src/sbox/config");
 var electron = require('electron');
 var ipcMain = electron.ipcMain;
@@ -8,43 +9,35 @@ var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var mainWindow;
 var iconPath = __dirname + '/dist/img/app-icon.png';
+/**start by creating application basic folder */
 var creator = new dir_1.Mkdir('Sbox');
 creator.create();
-// new Git().init();
-// const low = require('lowdb')
-// const fileAsync = require('lowdb/lib/file-async')
-// let CryptoJS = require("cryptr");
-// CryptoJS = new CryptoJS("key");
-// Start database using file-async storage
-// const db = low('db.json', {
-//   format: {
-//     deserialize: (str) => {
-//       const decrypted = CryptoJS.decrypt(str.toString())
-//       const obj = JSON.parse(decrypted)
-//       return obj
-//     },
-//     serialize: (obj) => {
-//       const str = JSON.stringify(obj)
-//       const encrypted =  CryptoJS.encrypt(str)
-//       return encrypted
-//     }
-//   }
-// })
-// // Init
-// db.defaults({ posts: [] })
-//   .value()
-// db.get('posts')
-//   .push({ title: 'lowdb' })
-//   .cloneDeep() // a must to avoid error
-//   .value()
-// //retrive all value
-// const post = db.get('posts').value();
-// //find method
-// const post2 = db.get('posts').find({ id: 1 }).value()
-// setInterval((ev) => {
-//   var up =new uploadLocalFileToOnline().post();
-//   // console.log(up);
-// },500);
+/**end of creating a folder */
+/**initiate storage for the first time call this first! */
+var CryptoJS = require("cryptr");
+CryptoJS = new CryptoJS("key");
+var low = require('lowdb');
+var db = low('db.json', {
+    format: {
+        deserialize: function (str) {
+            var decrypted = CryptoJS.decrypt(str.toString());
+            var obj = JSON.parse(decrypted);
+            return obj;
+        },
+        serialize: function (obj) {
+            var str = JSON.stringify(obj);
+            var encrypted = CryptoJS.encrypt(str);
+            return encrypted;
+        }
+    }
+});
+db.defaults({ posts: [] })
+    .value();
+//   storage.setItem({ title: 'lowdb' });
+// console.log(storage.load());
+/**end of adapting storage to application */
+/**watching for folder changes */
+new Watcher_1.Watcher().watch();
 var windowToShow = function () {
     req('http://localhost:8000', function (error) {
         if (!error) {
@@ -63,15 +56,13 @@ function createWindow() {
         resizable: false,
     });
     windowToShow();
-    // mainWindow.webContents.openDevTools()
+    //mainWindow.webContents.openDevTools()
     //hide menus
     mainWindow.setMenu(null);
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
         mainWindow = null;
     });
-    // menu();
-    // badge();
 }
 app.on('ready', createWindow);
 ipcMain.on('emmitter', function (event, arg) {

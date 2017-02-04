@@ -5,31 +5,38 @@ var CryptoJS = require("cryptr");
 var Storage = (function () {
     function Storage(encryptKey) {
         this.database = null;
-        CryptoJS = new CryptoJS("key");
-        this.db = low('db.json', {
-            format: {
-                deserialize: function (str) {
-                    var decrypted = CryptoJS.decrypt(str.toString());
-                    var obj = JSON.parse(decrypted);
-                    return obj;
-                },
-                serialize: function (obj) {
-                    var str = JSON.stringify(obj);
-                    var encrypted = CryptoJS.encrypt(str);
-                    return encrypted;
+        try {
+            CryptoJS = new CryptoJS("key");
+            this.db = low('db.json', {
+                format: {
+                    deserialize: function (str) {
+                        var decrypted = CryptoJS.decrypt(str.toString());
+                        var obj = JSON.parse(decrypted);
+                        return obj;
+                    },
+                    serialize: function (obj) {
+                        var str = JSON.stringify(obj);
+                        var encrypted = CryptoJS.encrypt(str);
+                        return encrypted;
+                    }
                 }
-            }
-        });
-        this.db.defaults({ userData: [] })
-            .value();
+            });
+        }
+        catch (e) {
+        }
     }
     Storage.prototype.uploadFile = function () {
     };
     Storage.prototype.load = function () {
         return this.db.get('posts').value();
     };
-    Storage.prototype.setItem = function (str, data) {
-        this.db.get(str).push(data);
+    Storage.prototype.setItem = function (data) {
+        try {
+            this.db.get("posts").push(data).cloneDeep()
+                .value();
+        }
+        catch (error) {
+        }
     };
     Storage.prototype.removeItem = function (key) {
     };
