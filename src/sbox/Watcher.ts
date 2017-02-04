@@ -12,11 +12,14 @@ export class Watcher {
                 if (event === "unlink") {
 
                 } else if (event === "add") {
-                    
-                    console.log(r);
-                    // let storage = new Storage();
-                    // storage.setItem({ file_path: path.toString() });
-                    new uploadLocalFileToOnline().post(path.toString());
+
+                    // console.log(r);
+                    let storage = new Storage();
+                    storage.setItem({ file_path: path.toString(),fileId:1 });
+                    new uploadLocalFileToOnline().post(path.toString(),function(data){
+                        let L = JSON.parse(data.response);
+                        console.log(L.name);
+                    });
                     //TODO make this notification work and in its own class 
                     let nc = new notifier.NotificationCenter();
                     nc.notify({
