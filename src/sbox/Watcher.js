@@ -14,7 +14,7 @@ var Watcher = (function () {
                 if (event === "unlink") {
                 }
                 else if (event === "add") {
-                    // console.log(r);
+                    //TODO remove duplicate while listening add event or any other event.
                     var storage = new storage_1.Storage();
                     storage.setItem({ file_path: path.toString(), fileId: 1 });
                     new uploadLocalFileToOnline_1.uploadLocalFileToOnline().post(path.toString(), function (data) {
@@ -38,11 +38,11 @@ var Watcher = (function () {
 }());
 exports.Watcher = Watcher;
 /**deals with listnening of broadcasted event and save file on Local Disk accordingly */
-var io = require('socket.io')();
 var Redis = require('ioredis');
 var redis = new Redis();
 redis.subscribe('files-channel');
 redis.on('message', function (channel, message) {
     var serialized = JSON.parse(message);
+    //TODO understanding how to fetch file online and save on Disk using fs.createWriteStream :: new Buffer("utf-8") is faked don't know what i am doing!
     new Reaction_1.Reaction().saveOnDisk(serialized, os.homedir + '/Sbox', new Buffer("utf-8"));
 });
