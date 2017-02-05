@@ -4,16 +4,15 @@
   "description": "Sbox Desktop",
   "main": "main.js",
   "engines": {
-    "electron": "1.2.1"
+    "electron": "1.2.1",
+    "node": ">=7.5.0"
   },
   "scripts": {
-    "start": "electron . --all",
-    "build": "electron-packager . Sbox",
-
+    "start": "electron . --all"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/richard457/streamup-open"
+    "url": "git+https://github.com/richard457/streamup-open.git"
   },
   "keywords": [
     "Electron",
@@ -36,18 +35,21 @@
     "electron-prebuilt": "^1.4.13",
     "electron-winstaller": "^2.3.4",
     "eslint": "^3.4.0",
+    "gulp": "^3.9.1",
+    "gulp-deb": "^0.2.1",
+    "ioredis": "^2.5.0",
     "is": "^3.1.0",
     "mime": "1.2.11",
     "minimatch": "^2.0.10",
     "mkdirp": "^0.5.0",
     "mocha": "^2.2.5",
+    "npm-autoinit": "^0.2.0",
     "queue": "3.0.6",
     "shelljs": "^0.5.0",
+    "socket.io": "^1.7.2",
     "tslint": "^3.3.0",
     "typescript": "^2.1.5",
-    "typescript-formatter": "4.0.1",
-    "ioredis": "^2.5.0",
-    "socket.io": "^1.7.2"
+    "typescript-formatter": "4.0.1"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -64,12 +66,19 @@
     "nodegit": "^0.16.0",
     "request": "^2.79.0",
     "sftp-node": "0.0.6",
-    "winreg": "1.2.0"
+    "winreg": "1.2.0",
+    "gulp-appdmg": "^1.0.2",
+    "windows-foreground-love": "0.1.0",
+    "windows-mutex": "^0.2.0",
+    "fsevents": "0.3.8"
   },
   "optionalDependencies": {
     "gulp-appdmg": "^1.0.2",
     "windows-foreground-love": "0.1.0",
     "windows-mutex": "^0.2.0",
     "fsevents": "0.3.8"
+  },
+  "directories": {
+    "test": "test"
   }
 }
