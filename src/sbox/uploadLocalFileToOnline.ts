@@ -1,7 +1,7 @@
 import { Storage } from './storage';
 var os = require('os'),
     request = require('request'),
-    network = require('./netWorkManager'),
+    
     fs = require('fs');
 import { Config } from "./config";
 export class uploadLocalFileToOnline extends Config {
