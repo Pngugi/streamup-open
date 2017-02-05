@@ -32,7 +32,6 @@
     "electron": "^1.4.14",
     "electron-mocha": "^3.0.0",
     "electron-packager": "^7.7.0",
-    "electron-prebuilt": "^1.4.13",
     "electron-winstaller": "^2.3.4",
     "eslint": "^3.4.0",
     "gulp": "^3.9.1",

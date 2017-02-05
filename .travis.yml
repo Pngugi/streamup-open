@@ -1,28 +1,28 @@
-# os:
-#   - linux
+os:
+  - linux
 
-# cache:
-#   directories:
-#   - $HOME/.electron
+cache:
+  directories:
+  - $HOME/.electron
 
-# sudo: required
+sudo: required
 
-# install:
-#   - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
-#   - source ~/.bashrc
-#   - nvm install 6.3.0
-#   - nvm use 6.3.0
-#   - npm i -g npm
+install:
+  - curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
+  - source ~/.bashrc
+  - nvm install 6.3.0
+  - nvm use 6.3.0
+  - npm i -g npm
 
 
-#   - npm install
+  - npm install
 
 # branches:
 #   except:
 #     - website
 
-# script:
-#   - npm run test
+script:
+  - npm run test
   
   
   
@@ -35,52 +35,52 @@
 #     on_failure: always
 #     on_start: never
 
-sudo: false
-language: cpp
+# sudo: false
+# language: cpp
 
-os:
-  - linux
-  - osx
+# os:
+#   - linux
+#   - osx
 
-notifications:
-  email: false
+# notifications:
+#   email: false
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-4.9
-      - g++-4.9
-      - gcc-4.9-multilib
-      - g++-4.9-multilib
-      - zip
-      - libgtk2.0-0
+# addons:
+#   apt:
+#     sources:
+#       - ubuntu-toolchain-r-test
+#     packages:
+#       - gcc-4.9
+#       - g++-4.9
+#       - gcc-4.9-multilib
+#       - g++-4.9-multilib
+#       - zip
+#       - libgtk2.0-0
 
-before_install:
-  - git submodule update --init --recursive
-  - git clone https://github.com/creationix/nvm.git ./.nvm
-  - source ./.nvm/nvm.sh
-  - nvm install 6.6.0
-  - nvm use 6.6.0
-  - npm config set python `which python`
-  - npm install -g gulp
-  - if [ $TRAVIS_OS_NAME == "linux" ]; then
-      export CXX="g++-4.9" CC="gcc-4.9" DISPLAY=:99.0;
-      sh -e /etc/init.d/xvfb start;
-      sleep 3;
-    fi
+# before_install:
+#   - git submodule update --init --recursive
+#   - git clone https://github.com/creationix/nvm.git ./.nvm
+#   - source ./.nvm/nvm.sh
+#   - nvm install 7.5.0
+#   - nvm use 7.5.0
+#   - npm config set python `which python`
+#   - npm install -g gulp
+#   - if [ $TRAVIS_OS_NAME == "linux" ]; then
+#       export CXX="g++-4.9" CC="gcc-4.9" DISPLAY=:99.0;
+#       sh -e /etc/init.d/xvfb start;
+#       sleep 3;
+#     fi
 
-install:
-  - ./scripts/npm.sh install
+# install:
+#   #- ./scripts/npm.sh install
 
-script:
-  - gulp hygiene --silent
-  - gulp electron --silent
-  - gulp compile --silent
-  - gulp optimize-vscode --silent
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./scripts/test.sh --reporter dot --coverage; else ./scripts/test.sh --reporter dot; fi
-  - ./scripts/test-integration.sh
+# script:
+#   - gulp hygiene --silent
+#   - gulp electron --silent
+#   - gulp compile --silent
+#   # - gulp optimize-vscode --silent
+#   # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./scripts/test.sh --reporter dot --coverage; else ./scripts/test.sh --reporter dot; fi
+#   # - ./scripts/test-integration.sh
 
-after_success:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then node_modules/.bin/coveralls < .build/coverage/lcov.info; fi
+# after_success:
+  # - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then node_modules/.bin/coveralls < .build/coverage/lcov.info; fi
