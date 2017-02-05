@@ -9,8 +9,7 @@
   "scripts": {
     "start": "electron . --all",
     "build": "electron-packager . Sbox",
-    "preinstall": "node build/npm/preinstall.js",
-    "postinstall": "node build/npm/postinstall.js"
+
   },
   "repository": {
     "type": "git",
