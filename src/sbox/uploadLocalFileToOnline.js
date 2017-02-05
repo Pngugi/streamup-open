@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var os = require('os'), request = require('request'), network = require('./netWorkManager'), fs = require('fs');
+var os = require('os'), request = require('request'), fs = require('fs');
 var config_1 = require("./config");
 var uploadLocalFileToOnline = (function (_super) {
     __extends(uploadLocalFileToOnline, _super);

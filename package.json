@@ -6,13 +6,11 @@
   "engines": {
     "electron": "1.2.1"
   },
-  
   "scripts": {
     "start": "electron . --all",
     "build": "electron-packager . Sbox",
     "preinstall": "node build/npm/preinstall.js",
     "postinstall": "node build/npm/postinstall.js"
-    
   },
   "repository": {
     "type": "git",
@@ -54,7 +52,7 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "chokidar": "bpasero/chokidar#vscode",
+    "cryptr": "^2.0.0",
     "express-session": "^1.14.1",
     "http-proxy-agent": "0.2.7",
     "https-proxy-agent": "0.3.6",
@@ -66,10 +64,8 @@
     "node-pty": "0.4.1",
     "nodegit": "^0.16.0",
     "request": "^2.79.0",
-    
     "sftp-node": "0.0.6",
     "winreg": "1.2.0"
-    
   },
   "optionalDependencies": {
     "gulp-appdmg": "^1.0.2",

@@ -10,27 +10,43 @@ export class Watcher {
 
     public watch() {
         try {
-            chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./ }).on('all', function (event, path, r) {
-                if (event === "unlink") {
+            // chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./ }).on('all', function (event, path, r) {
+            //     if (event === "unlink") {
 
-                } else if (event === "add") {
-                    //TODO remove duplicate while listening add event or any other event.
-                    let storage = new Storage();
-                    storage.setItem({ file_path: path.toString(), fileId: 1 });
-                    new uploadLocalFileToOnline().post(path.toString(), function (data) {
-                        let L = JSON.parse(data.response);
-                        console.log(L.name);
-                    });
-                    //TODO make this notification work and in its own class 
-                    let nc = new notifier.NotificationCenter();
-                    nc.notify({
-                        'title': 'Phil Coulson',
-                        'subtitle': 'Agent of S.H.I.E.L.D.',
-                        'message': 'If I come out, will you shoot me? \'Cause then I won\'t come out.',
+            //     } else if (event === "add") {
+            //         //TODO remove duplicate while listening add event or any other event.
+            //         let storage = new Storage();
+            //         storage.setItem({ file_path: path.toString(), fileId: 1 });
+            //         new uploadLocalFileToOnline().post(path.toString(), function (data) {
+            //             let L = JSON.parse(data.response);
+            //             console.log(L.name);
+            //         });
+            //         //TODO make this notification work and in its own class 
+            //         let nc = new notifier.NotificationCenter();
+            //         nc.notify({
+            //             'title': 'Phil Coulson',
+            //             'subtitle': 'Agent of S.H.I.E.L.D.',
+            //             'message': 'If I come out, will you shoot me? \'Cause then I won\'t come out.',
 
-                    });
-                }
+            //         });
+            //     }
 
+            // });
+
+            var watcher = chokidar.watch(os.homedir() + '/Sbox', {ignored: /[\/\\]\./, persistent: true});
+ 
+            watcher
+            .on('add', function(path) {console.log('File', path, 'has been added');})
+            .on('addDir', function(path) {console.log('Directory', path, 'has been added');})
+            .on('change', function(path) {console.log('File', path, 'has been changed');})
+            .on('unlink', function(path) {console.log('File', path, 'has been removed');})
+            .on('unlinkDir', function(path) {console.log('Directory', path, 'has been removed');})
+            .on('error', function(error) {console.error('Error happened', error);})
+            
+            // 'add', 'addDir' and 'change' events also receive stat() results as second argument. 
+            // http://nodejs.org/api/fs.html#fs_class_fs_stats 
+            watcher.on('change', function(path, stats) {
+            console.log('File', path, 'changed size to', stats.size);
             });
         } catch (error) {
 
