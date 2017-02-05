@@ -5,7 +5,8 @@
   "main": "main.js",
   "engines": {
     "electron": "1.2.1",
-    "node": ">=7.5.0"
+    "node": ">=7.5.0",
+    "engineStrict" : true
   },
   "scripts": {
     "start": "electron . --all"

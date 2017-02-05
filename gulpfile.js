@@ -14,14 +14,14 @@ gulp.task('default', function () {
       '!**/.git/**'
     ], { base: process.cwd() })
     .pipe(deb('Sbox.deb', {
-      name: 'example',
+      name: 'StreamUpBox|DeskTop',
       version: '1.0.0-1',
       maintainer: {
         name: 'Muragijimana Richard',
         email: 'beastar457@gmail.com'
       },
-      short_description: 'Open Ap',
-      long_description: ''
+      short_description: 'OpenAp',
+      long_description: 'OpenAp'
 	//   ,
     //   //...
     //   scripts: {
