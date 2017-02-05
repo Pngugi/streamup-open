@@ -4,7 +4,13 @@ node_js:
   - "6.1"
 os:
   - linux
-
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libstdc++-4.9-dev
+      
 cache:
   directories:
   - $HOME/.electron

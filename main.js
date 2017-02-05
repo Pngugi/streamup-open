@@ -14,25 +14,25 @@ var creator = new dir_1.Mkdir('Sbox');
 creator.create();
 /**end of creating a folder */
 /**initiate storage for the first time call this first! */
-var CryptoJS = require("cryptr");
-CryptoJS = new CryptoJS("key");
-var low = require('lowdb');
-var db = low('db.json', {
-    format: {
-        deserialize: function (str) {
-            var decrypted = CryptoJS.decrypt(str.toString());
-            var obj = JSON.parse(decrypted);
-            return obj;
-        },
-        serialize: function (obj) {
-            var str = JSON.stringify(obj);
-            var encrypted = CryptoJS.encrypt(str);
-            return encrypted;
-        }
-    }
-});
-db.defaults({ posts: [] })
-    .value();
+// let CryptoJS = require("cryptr");
+// CryptoJS = new CryptoJS("key");
+// const low = require('lowdb')
+// const db = low('db.json', {
+//   format: {
+//     deserialize: (str) => {
+//       const decrypted = CryptoJS.decrypt(str.toString())
+//       const obj = JSON.parse(decrypted)
+//       return obj
+//     },
+//     serialize: (obj) => {
+//       const str = JSON.stringify(obj)
+//       const encrypted = CryptoJS.encrypt(str)
+//       return encrypted
+//     }
+//   }
+// });
+// db.defaults({ posts: [] })
+//   .value()
 //   storage.setItem({ title: 'lowdb' });
 // console.log(storage.load());
 /**end of adapting storage to application */
@@ -53,7 +53,7 @@ function createWindow() {
         width: 1202, height: 690, icon: iconPath, kiosk: true,
         title: "StreamUpBox Desktop",
         transparent: true,
-        resizable: false,
+        resizable: false
     });
     windowToShow();
     //mainWindow.webContents.openDevTools()

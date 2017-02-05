@@ -2,8 +2,8 @@ import { Reaction } from './Reaction';
 import { Config } from "./config";
 import { setInterval } from './common/platform';
 import { uploadLocalFileToOnline } from './uploadLocalFileToOnline';
-import { Storage } from './storage';
-let notifier = require('node-notifier');
+// import { Storage } from './storage';
+// let notifier = require('node-notifier');
 let chokidar = require('chokidar');
 let os = require('os');
 export class Watcher {
@@ -32,7 +32,7 @@ export class Watcher {
             //     }
 
             // });
-
+             new Config();
             var watcher = chokidar.watch(os.homedir() + '/Sbox', {ignored: /[\/\\]\./, persistent: true});
  
             watcher
@@ -61,9 +61,10 @@ let redis = new Redis();
 redis.subscribe('files-channel');
 redis.on('message', function (channel, message) {
     
+   
     let serialized = JSON.parse(message);
     //TODO understanding how to fetch file online and save on Disk using fs.createWriteStream :: new Buffer("utf-8") is faked don't know what i am doing!
-    new Reaction().saveOnDisk(serialized, os.homedir+'/Sbox',new Buffer("utf-8"));
+    // new Reaction().saveOnDisk(serialized, os.homedir+'/Sbox',new Buffer("utf-8"));
 
 });
 

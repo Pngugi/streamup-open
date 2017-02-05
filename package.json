@@ -54,6 +54,8 @@
     "bcrypt-nodejs": "0.0.3",
     "cryptr": "^2.0.0",
     "express-session": "^1.14.1",
+    "fsevents": "0.3.8",
+    "gulp-appdmg": "^1.0.2",
     "http-proxy-agent": "0.2.7",
     "https-proxy-agent": "0.3.6",
     "iconv-lite": "0.4.15",
@@ -63,13 +65,12 @@
     "node-notifier": "^4.6.1",
     "node-pty": "0.4.1",
     "nodegit": "^0.16.0",
+    "nodegit-kit": "^0.13.0",
     "request": "^2.79.0",
     "sftp-node": "0.0.6",
-    "winreg": "1.2.0",
-    "gulp-appdmg": "^1.0.2",
     "windows-foreground-love": "0.1.0",
     "windows-mutex": "^0.2.0",
-    "fsevents": "0.3.8"
+    "winreg": "1.2.0"
   },
   "optionalDependencies": {
     "gulp-appdmg": "^1.0.2",

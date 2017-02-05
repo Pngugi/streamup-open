@@ -20,25 +20,27 @@ creator.create();
 
 
 /**initiate storage for the first time call this first! */
-let CryptoJS = require("cryptr");
-CryptoJS = new CryptoJS("key");
-const low = require('lowdb')
-const db = low('db.json', {
-  format: {
-    deserialize: (str) => {
-      const decrypted = CryptoJS.decrypt(str.toString())
-      const obj = JSON.parse(decrypted)
-      return obj
-    },
-    serialize: (obj) => {
-      const str = JSON.stringify(obj)
-      const encrypted = CryptoJS.encrypt(str)
-      return encrypted
-    }
-  }
-});
-db.defaults({ posts: [] })
-  .value()
+// let CryptoJS = require("cryptr");
+// CryptoJS = new CryptoJS("key");
+// const low = require('lowdb')
+// const db = low('db.json', {
+//   format: {
+//     deserialize: (str) => {
+//       const decrypted = CryptoJS.decrypt(str.toString())
+//       const obj = JSON.parse(decrypted)
+//       return obj
+//     },
+//     serialize: (obj) => {
+//       const str = JSON.stringify(obj)
+//       const encrypted = CryptoJS.encrypt(str)
+//       return encrypted
+//     }
+//   }
+// });
+// db.defaults({ posts: [] })
+//   .value()
+
+
 //   storage.setItem({ title: 'lowdb' });
 // console.log(storage.load());
 /**end of adapting storage to application */
