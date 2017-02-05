@@ -2,7 +2,6 @@ import { Watcher } from './src/sbox/Watcher';
 import { Storage } from "./src/sbox/storage";
 import { Git } from "./src/sbox/sync/git";
 import { Config } from "./src/sbox/config";
-
 const electron = require('electron');
 const {ipcMain} = electron;
 var req = require('request');
@@ -12,7 +11,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 let iconPath = __dirname + '/dist/img/app-icon.png';
-
+let isOnline = require('is-online');
 /**start by creating application basic folder */
 let creator = new Mkdir('Sbox');
 creator.create();
@@ -20,29 +19,27 @@ creator.create();
 
 
 /**initiate storage for the first time call this first! */
-// let CryptoJS = require("cryptr");
-// CryptoJS = new CryptoJS("key");
-// const low = require('lowdb')
-// const db = low('db.json', {
-//   format: {
-//     deserialize: (str) => {
-//       const decrypted = CryptoJS.decrypt(str.toString())
-//       const obj = JSON.parse(decrypted)
-//       return obj
-//     },
-//     serialize: (obj) => {
-//       const str = JSON.stringify(obj)
-//       const encrypted = CryptoJS.encrypt(str)
-//       return encrypted
-//     }
-//   }
-// });
-// db.defaults({ posts: [] })
-//   .value()
+let CryptoJS  = require("cryptr");
+CryptoJS      = new CryptoJS("key");
+const low     = require('lowdb');
+const db      = low('db.json', {
+  format: {
+    deserialize: (str) => {
+      const decrypted = CryptoJS.decrypt(str.toString())
+      const obj = JSON.parse(decrypted)
+      return obj
+    },
+    serialize: (obj) => {
+      const str = JSON.stringify(obj)
+      const encrypted = CryptoJS.encrypt(str)
+      return encrypted
+    }
+  }
+});
+db.defaults({ posts: [] })
+  .value()
 
 
-//   storage.setItem({ title: 'lowdb' });
-// console.log(storage.load());
 /**end of adapting storage to application */
 
 
@@ -51,14 +48,14 @@ new Watcher().watch();
 
 
 let windowToShow = () => {
-  req('http://localhost:8000', function (error) {
-    if (!error) {
-
+  isOnline().then(online => {
+    if(online){
       mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
-    } else {
-      mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
     }
-
+    else{
+      mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
+    }  
+    
   });
 };
 
@@ -66,13 +63,12 @@ function createWindow() {
 
   mainWindow = new BrowserWindow({
     width: 1202, height: 690, icon: iconPath, kiosk: true,
-
     title: "StreamUpBox Desktop",
     transparent: true,
     resizable: false,
   });
   windowToShow();
-  //mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
   //hide menus
   mainWindow.setMenu(null);
   // Emitted when the window is closed.

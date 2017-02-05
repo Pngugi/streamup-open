@@ -9,38 +9,37 @@ var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var mainWindow;
 var iconPath = __dirname + '/dist/img/app-icon.png';
+var isOnline = require('is-online');
 /**start by creating application basic folder */
 var creator = new dir_1.Mkdir('Sbox');
 creator.create();
 /**end of creating a folder */
 /**initiate storage for the first time call this first! */
-// let CryptoJS = require("cryptr");
-// CryptoJS = new CryptoJS("key");
-// const low = require('lowdb')
-// const db = low('db.json', {
-//   format: {
-//     deserialize: (str) => {
-//       const decrypted = CryptoJS.decrypt(str.toString())
-//       const obj = JSON.parse(decrypted)
-//       return obj
-//     },
-//     serialize: (obj) => {
-//       const str = JSON.stringify(obj)
-//       const encrypted = CryptoJS.encrypt(str)
-//       return encrypted
-//     }
-//   }
-// });
-// db.defaults({ posts: [] })
-//   .value()
-//   storage.setItem({ title: 'lowdb' });
-// console.log(storage.load());
+var CryptoJS = require("cryptr");
+CryptoJS = new CryptoJS("key");
+var low = require('lowdb');
+var db = low('db.json', {
+    format: {
+        deserialize: function (str) {
+            var decrypted = CryptoJS.decrypt(str.toString());
+            var obj = JSON.parse(decrypted);
+            return obj;
+        },
+        serialize: function (obj) {
+            var str = JSON.stringify(obj);
+            var encrypted = CryptoJS.encrypt(str);
+            return encrypted;
+        }
+    }
+});
+db.defaults({ posts: [] })
+    .value();
 /**end of adapting storage to application */
 /**watching for folder changes */
 new Watcher_1.Watcher().watch();
 var windowToShow = function () {
-    req('http://localhost:8000', function (error) {
-        if (!error) {
+    isOnline().then(function (online) {
+        if (online) {
             mainWindow.loadURL("file://" + __dirname + "/Views/index.html");
         }
         else {
@@ -56,7 +55,7 @@ function createWindow() {
         resizable: false
     });
     windowToShow();
-    //mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
     //hide menus
     mainWindow.setMenu(null);
     // Emitted when the window is closed.

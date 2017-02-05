@@ -9,12 +9,12 @@ gulp.task('default', function () {
 
   return gulp
     .src([
-      'src/**',
+      'src/**.js',
       'node_modules/**',
       '!**/.git/**'
     ], { base: process.cwd() })
     .pipe(deb('Sbox.deb', {
-      name: 'StreamUpBox|DeskTop',
+      name: 'StreamUpBox.DeskTop',
       version: '1.0.0-1',
       maintainer: {
         name: 'Muragijimana Richard',
@@ -29,5 +29,5 @@ gulp.task('default', function () {
     //     postrm: postrmContent
     //   }
     }))
-    .pipe(gulp.dest('build/'));
+    .pipe(gulp.dest('build/linux'));
 });

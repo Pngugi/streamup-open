@@ -5,8 +5,7 @@
   "main": "main.js",
   "engines": {
     "electron": "1.2.1",
-    "node": ">=7.5.0",
-    "engineStrict" : true
+    "node": ">=7.5.0"
   },
   "scripts": {
     "start": "electron . --all"
@@ -60,6 +59,7 @@
     "http-proxy-agent": "0.2.7",
     "https-proxy-agent": "0.3.6",
     "iconv-lite": "0.4.15",
+    "is-online": "^6.1.0",
     "lowdb": "^0.14.0",
     "method-override": "^2.3.6",
     "native-keymap": "0.3.0",
@@ -67,6 +67,8 @@
     "node-pty": "0.4.1",
     "nodegit": "^0.16.0",
     "nodegit-kit": "^0.13.0",
+    "nodemailer": "^3.0.2",
+    "promise": "^7.1.1",
     "request": "^2.79.0",
     "sftp-node": "0.0.6",
     "windows-foreground-love": "0.1.0",

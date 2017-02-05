@@ -24,7 +24,7 @@ var uploadLocalFileToOnline = (function (_super) {
                 if (err)
                     console.log('upload failed:', err);
                 this.httpResponse = response.body;
-                if (typeof (callback) == "function")
+                if (typeof (callback) === "function")
                     return callback({
                         response: this.httpResponse
                     });

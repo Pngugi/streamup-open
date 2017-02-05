@@ -6,13 +6,13 @@ import { Config } from "./config";
 const electron = require('electron');
 const {ipcMain} = electron;
 var req = require('request');
-import { Mkdir } from "./src/sbox/dir";
+import { Mkdir } from "./dir";
 import { uploadLocalFileToOnline } from './uploadLocalFileToOnline';
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 let iconPath = __dirname + '/dist/img/app-icon.png';
-
+let isOnline = require('is-online');
 /**start by creating application basic folder */
 let creator = new Mkdir('Sbox');
 creator.create();
@@ -20,25 +20,25 @@ creator.create();
 
 
 /**initiate storage for the first time call this first! */
-// let CryptoJS = require("cryptr");
-// CryptoJS = new CryptoJS("key");
-// const low = require('lowdb')
-// const db = low('db.json', {
-//   format: {
-//     deserialize: (str) => {
-//       const decrypted = CryptoJS.decrypt(str.toString())
-//       const obj = JSON.parse(decrypted)
-//       return obj
-//     },
-//     serialize: (obj) => {
-//       const str = JSON.stringify(obj)
-//       const encrypted = CryptoJS.encrypt(str)
-//       return encrypted
-//     }
-//   }
-// });
-// db.defaults({ posts: [] })
-//   .value()
+let CryptoJS = require("cryptr");
+CryptoJS = new CryptoJS("key");
+const low = require('lowdb')
+const db = low('db.json', {
+  format: {
+    deserialize: (str) => {
+      const decrypted = CryptoJS.decrypt(str.toString())
+      const obj = JSON.parse(decrypted)
+      return obj
+    },
+    serialize: (obj) => {
+      const str = JSON.stringify(obj)
+      const encrypted = CryptoJS.encrypt(str)
+      return encrypted
+    }
+  }
+});
+db.defaults({ posts: [] })
+  .value()
 
 
 //   storage.setItem({ title: 'lowdb' });
@@ -51,14 +51,12 @@ new Watcher().watch();
 
 
 let windowToShow = () => {
-  req('http://localhost:8000', function (error) {
-    if (!error) {
-
+  
+  isOnline().then(online => {
+    if(online)
       mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
-    } else {
-      mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
-    }
-
+    
+    mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
   });
 };
 

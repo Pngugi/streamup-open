@@ -1,6 +1,17 @@
 var fs = require('fs'),
 request = require('request'),
  os = require('os');
+
+var isOnline = require('is-online');
+
+/**checking if connection is up or not */
+
+isOnline().then(online => {
+    console.log(online);
+    //=> true
+});
+
+
   var download = function(uri, filename, callback){
   request.head(uri, function(err, res, body){
     console.log('content-type:', res.headers['content-type']);
@@ -84,12 +95,96 @@ nodegit.Repository.open(path.resolve(os.homedir(),'Sbox/real'))
   return repo.getCommit(head);
 })
 .then(function(parent) {
-  var author = nodegit.Signature.create(process.env.userName,
-    process.env.userEmail, 123456789, 60);
-  var committer = nodegit.Signature.create(process.env.userName,
-    process.env.userEmail, 987654321, 90);
+  var author = nodegit.Signature.create('richie',
+    'beastar457@gmail.com', 123456789, 60);
+  var committer = nodegit.Signature.create('richie',
+    'beastar457@gmail.com', 987654321, 90);
   return repo.createCommit("HEAD", author, committer, "message", oid, [parent]);
 })
 .done(function(commitId) {
   console.log("New Commit: ", commitId);
+});
+
+
+//listingCommit Testing in progress
+
+var Promise = require('promise');
+
+nodegit.Repository.open(os.homedir()+'/Sbox/real').then(function(repo) {
+  /* Get the current branch. */
+  return repo.getCurrentBranch().then(function(ref) {
+    console.log("On " + ref.shorthand() + " (" + ref.target() + ")");
+
+    /* Get the commit that the branch points at. */
+    return repo.getBranchCommit(ref.shorthand());
+  }).then(function (commit) {
+    /* Set up the event emitter and a promise to resolve when it finishes up. */
+    var hist = commit.history(),
+        p = new Promise(function(resolve, reject) {
+            hist.on("end", resolve);
+            hist.on("error", reject);
+        });
+    hist.start();
+    return p;
+  }).then(function (commits) {
+    /* Iterate through the last 10 commits of the history. */
+    for (var i = 0; i < 10; i++) {
+      try {
+        var sha = commits[i].sha().substr(0,7),
+          msg = commits[i].message().split('\n')[0];
+      console.log(sha + " " + msg);
+      } catch (error) {
+        console.log("");
+      }
+    }
+  });
+}).catch(function (err) {
+  console.log(err);
+}).done(function () {
+  console.log('Finished');
+});
+
+
+
+
+//testing 
+const nodemailer = require('nodemailer');
+
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'beastar457@gmail.com',
+        pass: 'Umutoni&Richard'
+    }
+});
+
+// setup email data with unicode symbols
+let mailOptions = {
+    from: 'beastar457@gmail.com', // sender address
+    to: 'beastar457@gmail.com, muragijimanarichard@gmail.com', // list of receivers
+    subject: 'Hello ✔', // Subject line
+    text: 'Hello world ?', // plain text body
+    html: '<b>Hello world ?</b>' // html body
+};
+
+// send mail with defined transport object
+transporter.sendMail(mailOptions, (error, info) =>{
+    if (error) {
+        return console.log(error);
+    }
+    //console.log('Message %s sent: %s', info.messageId, info.response);
+});
+
+
+
+//node nofifier
+const notifier = require('node-notifier');
+// String
+notifier.notify('Message');
+
+// Object
+notifier.notify({
+  'title': 'My notification',
+  'message': 'Hello, there!'
 });
