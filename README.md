@@ -1,7 +1,8 @@
 
-- Curent Build
+- Travis Build
 [![Build Status](https://travis-ci.org/richard457/streamup-open.svg?branch=master)](https://travis-ci.org/richard457/streamup-open)
-
+-CodeShip build 
+https://codeship.com/projects/fd358400-378b-0134-16e8-2691568e5d59/status?branch=master
 
 StreamupBoxDeskTopApp (hacking version) 
 
