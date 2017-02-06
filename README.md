@@ -5,7 +5,7 @@
 
 
 
-[![Build Status](https://app.codeship.com/projects/fd358400-378b-0134-16e8-2691568e5d59/status?branch=master)](https://app.codeship.com/projects/fd358400-378b-0134-16e8-2691568e5d59/status?branch=master)
+[ ![Codeship Status for richard457/streamup-open](https://app.codeship.com/projects/fd358400-378b-0134-16e8-2691568e5d59/status?branch=master)](https://app.codeship.com/projects/165810)
 
 StreamupBoxDeskTopApp (hacking version) 
 
