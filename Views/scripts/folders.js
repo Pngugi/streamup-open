@@ -1,6 +1,7 @@
 angular.module("sync")
     .controller('FolderController', ['$scope', 'Folder', 'User', 'DEBUG', '$stateParams', '$rootScope', 'Files', '$uibModal', '$mdDialog', '$mdMedia', function ($scope, Folder, User, DEBUG, $stateParams, $rootScope, Files, $uibModal, $mdDialog, $mdMedia) {
 
+
         $scope.folders = [];
         $scope.s_folder = [];
         $scope.share_enabled = true;
@@ -21,7 +22,9 @@ angular.module("sync")
                     $scope.user_id = response;
                 }).catch();
         };
-
+        $scope.callMe = function(){
+            console.log("we got a call man");
+        }
         $scope.structure = '';
         var getFolders = function () {
 
@@ -99,9 +102,9 @@ angular.module("sync")
 
             .then(function (response) {
                 if (response.Deletefolder === false) {
-                    notie.alert(3, 'Not Restored!', 2);
+                   
                 } else {
-                    $.notify("Folder Restored.", "success");
+                    
                     getfolderInbins($stateParams.files_id);
                 }
             }, function (err) {
@@ -116,10 +119,10 @@ angular.module("sync")
 
             .then(function (response) {
                 if (response.Deletefolder === false) {
-                    notie.alert(3, 'Not Deleted!', 2);
+                    return;
                 } else {
                     
-                    $.notify("Folder Deleted.", "error");
+                    
                     getfolderInbins($stateParams.files_id);
                 }
             }, function (err) {

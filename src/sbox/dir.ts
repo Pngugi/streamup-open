@@ -6,7 +6,7 @@ export class Mkdir{
     constructor(dir:string){
         this.dir = dir;
     }
-    public create(){
+    public create():boolean{
         let newDir = os.homedir() + '/' + this.dir;
         fs.exists(newDir,function (params,status) {
         if(status !== true){

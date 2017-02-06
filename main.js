@@ -1,5 +1,5 @@
 "use strict";
-var Watcher_1 = require('./src/sbox/Watcher');
+var watcher_1 = require('./src/sbox/watcher');
 var config_1 = require("./src/sbox/config");
 var electron = require('electron');
 var ipcMain = electron.ipcMain;
@@ -36,7 +36,7 @@ db.defaults({ posts: [] })
     .value();
 /**end of adapting storage to application */
 /**watching for folder changes */
-new Watcher_1.Watcher().watch();
+new watcher_1.Watcher().watch();
 var windowToShow = function () {
     isOnline().then(function (online) {
         if (online) {

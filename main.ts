@@ -1,11 +1,11 @@
-import { Watcher } from './src/sbox/Watcher';
+import { Watcher } from './src/sbox/watcher';
 import { Storage } from "./src/sbox/storage";
 import { Git } from "./src/sbox/sync/git";
 import { Config } from "./src/sbox/config";
 const electron = require('electron');
 const {ipcMain} = electron;
 var req = require('request');
-import { Mkdir } from "./src/sbox/dir";
+import { Mkdir as Dir } from "./src/sbox/dir";
 import { uploadLocalFileToOnline } from './src/sbox/uploadLocalFileToOnline';
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -13,7 +13,7 @@ let mainWindow;
 let iconPath = __dirname + '/dist/img/app-icon.png';
 let isOnline = require('is-online');
 /**start by creating application basic folder */
-let creator = new Mkdir('Sbox');
+let creator = new Dir('Sbox');
 creator.create();
 /**end of creating a folder */
 
@@ -38,6 +38,7 @@ const db      = low('db.json', {
 });
 db.defaults({ posts: [] })
   .value()
+
 
 
 /**end of adapting storage to application */
