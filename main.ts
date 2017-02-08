@@ -54,8 +54,8 @@ let windowToShow = () => {
       mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
     }
     else{
-      mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
-      // mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
+      // mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
+      mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
     }  
     
   });

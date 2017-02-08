@@ -1,431 +1,302 @@
 <!DOCTYPE html>
 <html lang="en" class="app">
+
 <head>
-  <meta charset="utf-8" />
-  <title>StreamUpBox | Online Drive</title>
-
-  <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                              The Meta Documents 
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <meta charset="utf-8" name="title" content="StreamUpBox">
-  <meta charset="utf-8" name="Author" content="Mragijimana Richard">
-  <meta charset="utf-8" name="twitter" content="https://twitter.com/strimup">
-  <meta charset="utf-8" name="description" content="A file Storage Made for Education and Big companies" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                              The Meta Documents 
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                              The Stylesheets Includes
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <link rel="stylesheet" href="../Views/ui/css/jquery.contextMenu.css" type="text/css" />
-   
-  <link rel="stylesheet" href="../Views/ui/css/b4.css" type="text/css" />
-  <link rel="stylesheet" href="../Views/ui/css/bootstrap.css" type="text/css" />
-  <link rel="stylesheet" href="../Views/ui/css/animate.css" type="text/css" />
-  <link rel="stylesheet" href="../Views/ui/css/font-awesome.min.css" type="text/css" />
-  <link rel="stylesheet" href="../Views/ui/css/simple-line-icons.css" type="text/css" />
-  <link rel="stylesheet" href="../Views/ui/css/font.css" type="text/css" />
-  <link rel="stylesheet" href="../Views/ui/css/custom.css" type="text/css" />
-  <link rel="stylesheet" href="../Views/ui/css/bootstrap-fileupload.min.css" type="text/css" />
-  <link rel="stylesheet" href="../Views/ui/css/materialize-tags.css" type="text/css" />
-  <link rel="stylesheet" type="text/css" href="../Views/ui/css/notie/Views/ui/notie.css">
-  
-  <link rel="stylesheet" href="../Views/ui/css/angular-material/angular-material.css">
-  <link rel="stylesheet" href="../Views/ui/css/dialogs.css">
-  
-  
-  <link href="https://fonts.googleapis.com/css?family=Maitree" rel="stylesheet">
-  <style>
-    body{
-      font-family: 'Maitree', serif;
-    }
-  </style>
-  <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                              The End of Stylesheets Includes
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<meta charset="utf-8" />
+	<title>StreamUpBox | Online Drive</title>
+	<meta charset="utf-8" name="title" content="StreamUpBox">
+	<meta charset="utf-8" name="Author" content="Mragijimana Richard">
+	<meta charset="utf-8" name="twitter" content="https://twitter.com/strimup">
+	<meta charset="utf-8" name="description" content="A file Storage Made for Education and Big companies" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<link rel="stylesheet" href="../Views/ui/css/jquery.contextMenu.css" type="text/css" />
+	<link rel="stylesheet" href="../Views/ui/css/b4.css" type="text/css" />
+	<link rel="stylesheet" href="../Views/ui/css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="../Views/ui/css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="../Views/ui/css/font-awesome.min.css" type="text/css" />
+	<link rel="stylesheet" href="../Views/ui/css/simple-line-icons.css" type="text/css" />
+	<link rel="stylesheet" href="../Views/ui/css/font.css" type="text/css" />
+	<link rel="stylesheet" href="../Views/ui/css/custom.css" type="text/css" />
+	<link rel="stylesheet" href="../Views/ui/css/bootstrap-fileupload.min.css" type="text/css" />
+	<link rel="stylesheet" href="../Views/ui/css/materialize-tags.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="../Views/ui/css/notie/Views/ui/notie.css">
+	<link rel="stylesheet" href="../Views/ui/css/angular-material/angular-material.css">
+	<link rel="stylesheet" href="../Views/ui/css/dialogs.css">
+	<link href="https://fonts.googleapis.com/css?family=Maitree" rel="stylesheet">
+	<style>
+		body {
+			font-family: 'Maitree', serif;
+		}
+	</style>
 </head>
-<!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                              The End of Stylesheets Includes
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                              The End of Stylesheets Includes
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <section class="vbox">
-  <header class="header header-md navbar navbar-fixed-top-xs" id='header'>
-    <div class="navbar-header aside bg-info dk nav-xs">
-      <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
-        <i class="icon-list"></i>
-      </a>
-      <a href="/" class="navbar-brand text-lt" id='logo'>
-        <i class="icon-social-facebook"></i> <!--change this icon with our own soon-->
-        <!--<img src="/img/shortcuticon.ico" alt="." class="hide">-->
-        <span class="hidden-nav-xs m-l-sm">StreamUp Box</span>
-      </a>
-      <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
-        <i class="icon-settings"></i>
-      </a>
-    </div>
-    <ul class="nav navbar-nav hidden-xs hidden-lg hidden-md hidden-md">
-      <li>
-        <a href="#nav,.navbar-header" data-toggle="class:nav-xs,nav-xs" class="text-muted">
-          <i class="fa fa-indent text"></i>
-          <i class="fa fa-dedent text-active"></i>
-        </a>
-      </li>
-    </ul>
-    <div class="navbar-right ">
-      <ul class="nav navbar-nav m-n hidden-xs nav-user user">
-        <li class="dropdown" ng-controller="userController">
-            <a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown" ng-cloak>
+	<header class="header header-md navbar navbar-fixed-top-xs" id='header'>
+		<div class="navbar-header aside bg-info dk nav-xs">
+			<a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+				<i class="icon-list"></i>
+			</a>
+			<a href="/" class="navbar-brand text-lt" id='logo'>
+				<i class="icon-social-facebook"></i>
+				<span class="hidden-nav-xs m-l-sm">StreamUp Box</span>
+			</a>
+			<a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
+				<i class="icon-settings"></i>
+			</a>
+		</div>
+		<ul class="nav navbar-nav hidden-xs hidden-lg hidden-md hidden-md">
+			<li>
+				<a href="#nav,.navbar-header" data-toggle="class:nav-xs,nav-xs" class="text-muted">
+					<i class="fa fa-indent text"></i>
+					<i class="fa fa-dedent text-active"></i>
+				</a>
+			</li>
+		</ul>
+		<div class="navbar-right ">
+			<ul class="nav navbar-nav m-n hidden-xs nav-user user">
+				<li class="dropdown" ng-controller="userController">
+					<a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown" ng-cloak>
               {{user.name}}
-              <!--<b class="caret"></b>-->
+             
             </a>
-          <ul class="dropdown-menu animated fadeInRight">
-            <li>
-              <span class="arrow top"></span>
-              <a href="#/Settings">Settings</a>
-            </li>
-            <li>
-              <a href="#">Profile</a>
-            </li>
-            <li>
-              <a href="#">Help</a>
-            </li>
-            <li class="divider"></li>
-            
-          </ul>
-        </li>
-  <div class="navbar-right">
-      <ul class="nav navbar-nav">
-      <li>
-          <a  href="javascript:void(0)" class="dropdown-toggle bg clear" data-toggle="dropdown" ng-cloak id='expand_btn'  class="btn btn-primary">
-              <span class="fa fa-expand"></span><span class="wb-inv"></span></a> 
-          <a style='display:none;' href="javascript:void(0)" class="dropdown-toggle bg clear" data-toggle="dropdown" style='background-color: #1babf8;color:#fff' ng-cloak id='unexpanded_btn'  class="btn btn-success"><span class="fa fa-compress"></span><span class="wb-inv"></span></a> 
-         </li>
-      </ul>
-  </div>
-      </ul>
-    </div>
-  </header>
-  <section>
-    <section class="hbox stretch">
-      <!-- .aside -->
-      <aside class="bg-dark dk nav-xs aside hidden-print" id="nav">
-        <section class="vbox">
-          <section class="w-f-md scrollable">
-            <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
-              <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                               The Start of NAvigation Bar
-                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-              <!-- nav -->
-              <nav class="nav-primary hidden-xs">
-                <ul class="nav bg clearfix">
-                  <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                    Discover
-                  </li>
-                  <li>
-                    <a  href="#/Files">
-                      <i class="fa fa-tag"></i>
-                      <span class="font-bold">Files</span>
-                    </a>
-                  </li>
-                   
-                  <li>
-                    <a id="likes" href="#">
-                      <i class="icon-heart icon"></i>
-                      <span class="font-bold">Likes</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" id="upload">
-                      <i class="icon-plus icon"></i>
-                      <span class="font-bold">Add New</span>
-                    </a>
-                          <ul class="nav bg clearfix">
-                              <li ng-controller="dialogController">
-                                    <a id="upload" href="javascript:void(0)" ng-click="upload()">
-                                    <span class="font-bold">Files</span>
-                                  </a>
-                              </li>
-                                <li id='createfolder'>
-                                    <a href="javascript:void(0)">
-                                    <span class="font-bold">Folder</span>
-                                  </a>
-                              </li>
-                          </ul>
-                  </li>
-                 
-                  
-                  <li>
-                    <a href="#bins/">
-                    <i class="fa fa-recycle"></i>
-                      <span class="font-bold">Recycle Bin</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#/Settings">
-                      <i class="icon-settings icon"></i>
-                      <span class="font-bold">Settings</span>
-                    </a>
-                  </li>
-                  
-                  <li class="m-b hidden-nav-xs"></li>
-               </ul>
-              </nav>
-              <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                               The Start of NAvigation Bar
-                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-              <!-- / nav -->
-            </div>
-          </section>
-        </section>
-      </aside>
-      <!-- /.aside -->
-      <section id="content">
-        <section class="vbox">
-          <section class="w-f-md" id="bjax-target">
-            <section class="hbox stretch">
-              <!-- side content -->
-              <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                               The Start Of Sidebar Components
-                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-              <aside class="aside bg-light dk hidden-xs" id="sidebar">
-                <section class="vbox animated fadeInUp">
-                  <section class="scrollable hover">
-                    <div class="wrapper profile" ng-controller="userController">
-                      <div class="text-center m-b m-t">
-                        <a href="#" class="thumb-md thumb-custom">
-                          <!--<img ng-cloak ng-src="localhost:8000{{user.avatar}}" class="img-circle">--> <!--this is returing unfailed fix this after-->
-                          <img ng-cloak ng-src="../Views/img/user.jpg" class="img-circle">
-                        </a>
-                        <div>
-                          <div class="h4 m-t-sm" ng-cloak>{{user.name}}</div>
-                          <!--<small>Movie Actor</small>-->
-                        </div>
-                        
-                      </div>
-                      <!-- ````````````````````` Profile tabs ```````````````` -->
-                      <header class="panel-heading">
-                        <ul class="nav nav-tabs nav-justified">
-                          <li class="active"><a id="neutral" href="#home" data-toggle="tab">Profile</a></li>
-                          <li><a id="neutral" href="#profile" data-toggle="tab">My Activities</a></li>
-                        </ul>
-                      </header>
-                    </div>
-                    <div class="wrapper details">
-                      <div class="tab-content">
-                        <div class="tab-pane active" id="home">
-                          <div class="col-md-6 text-center custom-grid-left">
-                            <p>Shared Files</p>
-                            <h5 class="custom-text">0</h5>
-                          </div>
-                          <div class="col-md-6 text-center custom-grid-right">
-                            <p>Connections</p>
-                            <h5 class="custom-text">0</h5>
-                          </div>
-                          <div class="col-md-6 text-center custom-grid-left">
-                            <p>Notification List</p>
-                            <h5 class="custom-text" ng-cloak>0</h5>
-                          </div>
-                          <div class="col-md-6 text-center custom-grid-right">
-                            <p>SMS</p>
-                            <h5 class="custom-text">0</h5>
-                          </div>
-                          <div class="col-md-12" style="margin-top:30px;" ng-controller="userController">
-                            <div class="inline">
-                              <div class="easypiechart" data-percent="{{usageDisk.size}}" data-line-width="10" data-track-color="{{color}}" data-bar-color="#28f5fb" data-scale-color="#1cc1fb" data-size="188">
-                                <div>
-                                  <span class="h2 m-l-sm step" ng-cloak>{{(usageDisk.unit ==='B')?'0':usageDisk.size}}</span>% <span style="">of 2GB</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="tab-pane" id="profile">
-                        </div>
-                      </div>
-                    </div>
-                    <!-- ````````````````````` Profile tabs ```````````````` -->
-                  </section>
-                </section>
-              </aside>
-              <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                               The End Of Sidebar Components
-                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-              <!-- / side content -->
-              <section>
-                <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-5 visible-lg">
-                  <md-button class="btn btn-info context-menu-one btn btn-neutral md-accent md-raised" onclick="$('#credits').toggle();">New Folder</md-button>
-                </div>-->
-                <section class="vbox" route-loader>
-                <div ng-hide="AbsentEmployees.dataLoaded" class="preloader">
-                <!-- image here via CSS -->
-                 </div>
-                  <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                               The start Of the File Tables
-                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-                  <section class="scrollable" style="margin: 60px auto;padding-top: 20px;border-top: 1px solid #f9f9f9;">
-                    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                      <section class="panel panel-default">
-                       
-                        <!--end of appending-->
-                        <ui-view id='mainbox'></ui-view>
-                        <!--  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                               The start Of the File Tables
-                          ~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-                      </section>
-                    </div>
-                  </section>
-                </section>
-              </section>
-            </section>
-          </section>
-          <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
-        </section>
-      </section>
-    </section>
-  </section>
+					<ul class="dropdown-menu animated fadeInRight">
+						<li>
+							<span class="arrow top"></span>
+							<a href="#/Settings">Settings</a>
+						</li>
+						<li>
+							<a href="#">Profile</a>
+						</li>
+						<li>
+							<a href="#">Help</a>
+						</li>
+						<li class="divider"></li>
+					</ul>
+				</li>
+				<div class="navbar-right">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="javascript:void(0)" class="dropdown-toggle bg clear" data-toggle="dropdown" ng-cloak id='expand_btn' class="btn btn-primary">
+								<span class="fa fa-expand"></span><span class="wb-inv"></span></a>
+							<a style='display:none;' href="javascript:void(0)" class="dropdown-toggle bg clear" data-toggle="dropdown" style='background-color: #1babf8;color:#fff'
+											ng-cloak id='unexpanded_btn' class="btn btn-success"><span class="fa fa-compress"></span><span class="wb-inv"></span></a>
+						</li>
+					</ul>
+				</div>
+			</ul>
+		</div>
+	</header>
+	<section>
+		<section class="hbox stretch">
+			<aside class="bg-dark dk nav-xs aside hidden-print" id="nav">
+				<section class="vbox">
+					<section class="w-f-md scrollable">
+						<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
+							<nav class="nav-primary hidden-xs">
+								<ul class="nav bg clearfix">
+									<li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
+										Discover
+									</li>
+									<li>
+										<a href="#/Files">
+											<i class="fa fa-tag"></i>
+											<span class="font-bold">Files</span>
+										</a>
+									</li>
+									<li>
+										<a href="#" id="upload">
+											<i class="icon-plus icon"></i>
+											<span class="font-bold">Add New</span>
+										</a>
+										<ul class="nav bg clearfix">
+											<li ng-controller="dialogController">
+												<a id="upload" href="javascript:void(0)" ng-click="upload()">
+													<span class="font-bold">Files</span>
+												</a>
+											</li>
+											<li id='createfolder'>
+												<a href="javascript:void(0)">
+													<span class="font-bold">Folder</span>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="#bins/">
+											<i class="fa fa-recycle"></i>
+											<span class="font-bold">Recycle Bin</span>
+										</a>
+									</li>
+									<li>
+										<a href="#/Settings">
+											<i class="icon-settings icon"></i>
+											<span class="font-bold">Settings</span>
+										</a>
+									</li>
+									<li class="m-b hidden-nav-xs"></li>
+								</ul>
+							</nav>
+						</div>
+					</section>
+				</section>
+			</aside>
+			<section id="content">
+				<section class="vbox">
+					<section class="w-f-md" id="bjax-target">
+						<section class="hbox stretch">
+							<aside class="aside bg-light dk hidden-xs" id="sidebar">
+								<section class="vbox animated fadeInUp">
+									<section class="scrollable hover">
+										<div class="wrapper profile" ng-controller="userController">
+											<div class="text-center m-b m-t">
+												<a href="#" class="thumb-md thumb-custom">
+													<img ng-cloak ng-src="../Views/img/user.jpg" class="img-circle">
+												</a>
+												<div>
+													<div class="h4 m-t-sm" ng-cloak>{{user.name}}</div>
+												</div>
+											</div>
+											<header class="panel-heading">
+												<ul class="nav nav-tabs nav-justified">
+													<li class="active"><a id="neutral" href="#home" data-toggle="tab">Profile</a></li>
+													<li><a id="neutral" href="#profile" data-toggle="tab">My Activities</a></li>
+												</ul>
+											</header>
+										</div>
+										<div class="wrapper details">
+											<div class="tab-content">
+												<div class="tab-pane active" id="home">
+													<div class="col-md-6 text-center custom-grid-left">
+														<p>Shared Files</p>
+														<h5 class="custom-text">0</h5>
+													</div>
+													<div class="col-md-6 text-center custom-grid-right">
+														<p>Connections</p>
+														<h5 class="custom-text">0</h5>
+													</div>
+													<div class="col-md-6 text-center custom-grid-left">
+														<p>Notification List</p>
+														<h5 class="custom-text" ng-cloak>0</h5>
+													</div>
+													<div class="col-md-6 text-center custom-grid-right">
+														<p>SMS</p>
+														<h5 class="custom-text">0</h5>
+													</div>
+													<div class="col-md-12" style="margin-top:30px;" ng-controller="userController">
+														<div class="inline">
+															<div class="easypiechart" data-percent="{{usageDisk.size}}" data-line-width="10" data-track-color="{{color}}" data-bar-color="#28f5fb"
+																			data-scale-color="#1cc1fb" data-size="188">
+																<div>
+																	<span class="h2 m-l-sm step" ng-cloak>{{(usageDisk.unit ==='B')?'0':usageDisk.size}}</span>% <span style="">of 2GB</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane" id="profile">
+												</div>
+											</div>
+										</div>
+									</section>
+								</section>
+							</aside>
+							<section>
+								<section class="vbox" route-loader>
+									<div ng-hide="AbsentEmployees.dataLoaded" class="preloader">
+									</div>
+									<section class="scrollable" style="margin: 60px auto;padding-top: 20px;border-top: 1px solid #f9f9f9;">
+										<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+											<section class="panel panel-default">
+												<ui-view id='mainbox'></ui-view>
+											</section>
+										</div>
+									</section>
+								</section>
+							</section>
+						</section>
+					</section>
+					<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+				</section>
+			</section>
+		</section>
+	</section>
 </section>
-<!-- 
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                    the Modal of Share Form
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="margin: 20px auto;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">Share with your Friends</h4>
-      </div>
-      <div class="modal-body">
-        <input type="text" value="eric@itroupe.com,beastar@gmail.com,eric" data-role="materialtags" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary"><i class="fa fa-share"></i> Share</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal" id="profile_pic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="margin: 20px auto;width: 280px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">change Profile Image</h4>
-      </div>
-      <div class="modal-body">
-        <div class="col-md-3">
-          <label class="control-label">Change Profile Image</label>
-          <div class="fileupload fileupload-new" data-provides="fileupload">
-            <div class="fileupload-new thumbnail" style="width: 200px; height: 140px;">
-              <img src="" alt="" />
-            </div>
-            <div class="fileupload-preview fileupload-exists thumbnail" style="width: 200px; height: 140px;"></div>
-            <div>
-              <span class="btn btn-default btn-file">
-                              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
-              <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-              <input type="file" name="profilephoto" class="default" />
-              </span>
-              <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">
-                <i class="fa fa-trash"></i> Remove</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
- <!-- 
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                              Including Javascripts
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-  <script src="bower_resources/angular/angular.js"></script>
-  <script src="bower_resources/angular-animate/angular-animate.min.js"></script>
-  <script src="bower_resources/angular-aria/angular-aria.min.js"></script>
-  <script src="bower_resources/angular-material/angular-material.min.js"></script>
-  <script src="bower_resources/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="bower_resources/angular-ui-router/release/angular-ui-router.js"></script>
-  <script  src="bower_resources/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="bower_resources/jquery/dist/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="bower_resources/jquery/dist/jquery.min.js"><\/script>')</script>
-  <script src="scripts/appConfig.js"></script>
-  <script src="scripts/File.js"></script>
-  <script src="scripts/Folder.js"></script>
-  <script src="scripts/files.js"></script>
-  <script src="scripts/Checkingempty.js"></script>
-  <script src="scripts/checkingempty.js"></script>
-  <script src="scripts/Encrypter.js"></script>
-  <script src="scripts/folders.js"></script>
-  <script src="scripts/common/UserService.js"></script>
-  <script src="scripts/dialogController.js"></script>
-  <script src="scripts/User.js"></script>
-  <script src="scripts/userController.js"></script>
-  <script src="scripts/loginController.js"></script>
-  <script src="scripts/registerController.js"></script>
-  <script src="scripts/emailConfirmation.js"></script>
-
-  <!-- 
-   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                          End  Of Including Javascripts
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                   End the Modal of Share Form
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<script src="bower_resources/angular/angular.js"></script>
+<script src="bower_resources/angular-animate/angular-animate.min.js"></script>
+<script src="bower_resources/angular-aria/angular-aria.min.js"></script>
+<script src="bower_resources/angular-material/angular-material.min.js"></script>
+<script src="bower_resources/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_resources/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_resources/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_resources/jquery/dist/jquery.min.js"></script>
+<script>
+	window.jQuery || document.write('<script src="bower_resources/jquery/dist/jquery.min.js"><\/script>')
+</script>
+<script src="scripts/appConfig.js"></script>
+<script src="scripts/File.js"></script>
+<script src="scripts/Folder.js"></script>
+<script src="scripts/files.js"></script>
+<script src="scripts/Checkingempty.js"></script>
+<script src="scripts/checkingempty.js"></script>
+<script src="scripts/Encrypter.js"></script>
+<script src="scripts/folders.js"></script>
+<script src="scripts/common/UserService.js"></script>
+<script src="scripts/dialogController.js"></script>
+<script src="scripts/User.js"></script>
+<script src="scripts/userController.js"></script>
+<script src="scripts/loginController.js"></script>
+<script src="scripts/registerController.js"></script>
+<script src="scripts/emailConfirmation.js"></script>
 <script src="../Views/ui/js/e-design.js"></script>
 <script src="../Views/ui/js/bootstrapValidator.js"></script>
 <script>
-    $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
 </script>
-
 <script>
-  angular.bootstrap(document, ['sync']);
-        $("#unexpanded_btn").hide();
-        $("#expand_btn").click(function() {
-        $("#sidebar").hide();
-        $("#nav").hide();
-        $("#logo").hide();
-        $("#expand_btn").hide();
-        $("#unexpanded_btn").toggle('slow');
-        
-    });
-        $("#unexpanded_btn").click(function() {
-        $("#sidebar").show();
-        $("#expand_btn").toggle('fast');
-        $("#unexpanded_btn").hide();
-        $("#nav").show();
-        $("#logo").show();
-    });
-    ///////////////////////////////////create folder/////////////////////
-          $("#createfolder").click(function() {
-          $("#sidebar").hide();
-          $("#nav").hide();
-          $("#logo").hide();
-          $("#mainbox").hide();
-          $("#header").hide();
-          $("#folderinputbox").toggle('fast');
-    });
-          $("#cancelOncreateFolder").click(function() {
-          $("#sidebar").show();
-          $("#nav").show();
-          $("#logo").show();
-          $("#mainbox").show();
-          $("#header").show();
-          $("#folderinputbox").hide();
-    });
-          $("#OncreateFolder").click(function() {
-          $("#sidebar").show();
-          $("#nav").show();
-          $("#logo").show();
-          $("#mainbox").show();
-          $("#header").show();
-          $("#folderinputbox").hide();
-    });
+	angular.bootstrap(document, ['sync']);
+	$("#unexpanded_btn").hide();
+	$("#expand_btn").click(function () {
+		$("#sidebar").hide();
+		$("#nav").hide();
+		$("#logo").hide();
+		$("#expand_btn").hide();
+		$("#unexpanded_btn").toggle('slow');
+
+	});
+  $("#sidebar").hide();
+	$("#unexpanded_btn").click(function () {
+		$("#sidebar").show();
+		$("#expand_btn").toggle('fast');
+		$("#unexpanded_btn").hide();
+		$("#nav").show();
+		$("#logo").show();
+	});
+	///////////////////////////////////create folder/////////////////////
+	$("#createfolder").click(function () {
+		$("#sidebar").hide();
+		$("#nav").hide();
+		$("#logo").hide();
+		$("#mainbox").hide();
+		$("#header").hide();
+		$("#folderinputbox").toggle('fast');
+	});
+	$("#cancelOncreateFolder").click(function () {
+		$("#sidebar").show();
+		$("#nav").show();
+		$("#logo").show();
+		$("#mainbox").show();
+		$("#header").show();
+		$("#folderinputbox").hide();
+	});
+	$("#OncreateFolder").click(function () {
+		$("#sidebar").show();
+		$("#nav").show();
+		$("#logo").show();
+		$("#mainbox").show();
+		$("#header").show();
+		$("#folderinputbox").hide();
+	});
 </script>
