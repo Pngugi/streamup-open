@@ -11,7 +11,7 @@ let CryptoJS = require("cryptr");
 let os = require('os');
 export interface IStorageService {
 	getItem<T>(key: string, defaultValue?: T): T;
-	setItem(data: any,filePath:string,buffer:Buffer): void;
+	setItem(data: any, filePath: string, buffer: Buffer): void;
 	removeItem(key: string): void;
 }
 
@@ -22,6 +22,7 @@ export class Storage implements IStorageService {
 	private dbPath: string;
 	private database: any = null;
 	private db: any;
+	private response: any;
 
 	constructor(encryptKey?: string) {
 
@@ -54,20 +55,63 @@ export class Storage implements IStorageService {
 
 		return this.db.get('posts').value();
 	}
-	setItem(data: Object,filPath?:string,buffer?:Buffer): void {
-		
-		if (typeof (data) === "object")
-			console.log("sure dure");
-			if(typeof(filPath)|| typeof(buffer) !== "undefined")
-				fs.createWriteStream(filPath,buffer);
-			try {
-				this.db.get("posts").push(data).cloneDeep()
-					.value()
-			} catch (error) {
-
+	setItem(data: any, callback?: any): void {
+		try {
+			
+			let actualLenght = this.db.find(data).cloneDeep().__wrapped__.posts.length;
+			let actualData = this.db.find(data).cloneDeep().__wrapped__.posts;
+			let i;
+			let permissionTosave = false;
+			for (i = 0; i <= actualLenght; i++) {
+				
+				if (actualData[i] === data) {
+					console.log("matching");
+					permissionTosave = false;
+					
+				} else {
+					permissionTosave = true;
+				}
 			}
-		
-	 
+			
+			if (!permissionTosave)
+				return callback({
+					response: 300,
+					message: 'synced no need to do it again'
+				});
+
+			if (permissionTosave) {
+
+				console.log("one");
+
+				// this.response = this.db.get("posts").push(data).cloneDeep()
+				// 	.value()
+				// return callback({
+				// 	response: 200,
+				// 	data: this.response
+				// });
+			} else {
+				return callback({
+					response: 200,
+					data: 'no action taken'
+				});
+			}
+
+
+		} catch (e) {
+
+		}
+	}
+	saveOnDisk(data: Object, filPath?: string, buffer?: Buffer) {
+		if (typeof (data) === "object")
+
+			if (typeof (filPath) || typeof (buffer) !== "undefined")
+				fs.createWriteStream(filPath, buffer);
+		try {
+			this.db.get("posts").push(data).cloneDeep()
+				.value()
+		} catch (error) {
+
+		}
 	}
 	removeItem(key: string): void {
 

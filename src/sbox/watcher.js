@@ -1,6 +1,6 @@
 "use strict";
 var config_1 = require("./config");
-var uploadLocalFileToOnline_1 = require('./uploadLocalFileToOnline');
+var storage_1 = require('./storage');
 var notifier = require('node-notifier');
 var fs = require('fs');
 var chokidar = require('chokidar');
@@ -16,14 +16,21 @@ var Watcher = (function () {
                 .on('add', function (path) {
             })
                 .on('addDir', function (path, stat) {
-                //TODO make a folder name to not be a fullPath here take the real name
-                path = path.toString().split("-");
-                new uploadLocalFileToOnline_1.uploadLocalFileToOnline().createFolder(path, function (response) {
-                    notifier.notify({
-                        'title': 'A folder is Created',
-                        'message': 'Folder synced!'
-                    });
+                var folderObj = {
+                    name: path.toString(),
+                    birthtime: stat.birthtime
+                };
+                new storage_1.Storage().setItem(folderObj, function (object) {
+                    console.log(object);
                 });
+                //TODO make a folder name to not be a fullPath here take the real name
+                // path = path.toString().split("-");
+                // new Uploader().createFolder(path, function (response) {
+                //     notifier.notify({
+                //         'title': 'A folder is Created',
+                //         'message': 'Folder synced!'
+                //     });
+                // });
                 // function readFiles(path, onFileContent, onError) {
                 //     fs.readdir(path, function (err, filenames) {
                 //         if (err) {

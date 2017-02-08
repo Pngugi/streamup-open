@@ -20,15 +20,24 @@ export class Watcher {
 
                 })
                 .on('addDir', function (path, stat) {
-
+                     
+                     
+                     let folderObj = {
+                         name:path.toString(),
+                         birthtime:stat.birthtime
+                     }
+                     new Storage().setItem(folderObj,function(object){
+                        console.log(object);
+                     });
+                    
                     //TODO make a folder name to not be a fullPath here take the real name
-                    path = path.toString().split("-");
-                    new Uploader().createFolder(path, function (response) {
-                        notifier.notify({
-                            'title': 'A folder is Created',
-                            'message': 'Folder synced!'
-                        });
-                    });
+                    // path = path.toString().split("-");
+                    // new Uploader().createFolder(path, function (response) {
+                    //     notifier.notify({
+                    //         'title': 'A folder is Created',
+                    //         'message': 'Folder synced!'
+                    //     });
+                    // });
 
 
                     // function readFiles(path, onFileContent, onError) {
