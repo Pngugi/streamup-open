@@ -15,8 +15,12 @@ export  class Config{
     public onLineURL(URL:string = "https://streamupbox/api/upload"):string{
         return process.env.URLOnLine =URL;
     }
-    public localURL(URL:string = "http://localhost:8000/api/upload"):string{
-        return process.env.URLLocal = URL;
+    public uploadApi(uploadApi:string = "http://localhost:8000/api/upload"):string{
+        return process.env.uploadApi = uploadApi;
+    }
+    
+    public folderApi(folderApi:string = 'http://localhost:8000/api/folders') {
+        return process.env.folderApi;
     }
     public diskPath(URL:string = os.homedir +'sbox'){
         return process.env.diskPath = URL;

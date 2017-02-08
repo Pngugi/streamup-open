@@ -1,7 +1,8 @@
 "use strict";
 var config_1 = require("./config");
-// import { Storage } from './storage';
-// let notifier = require('node-notifier');
+var uploadLocalFileToOnline_1 = require('./uploadLocalFileToOnline');
+var notifier = require('node-notifier');
+var fs = require('fs');
 var chokidar = require('chokidar');
 var os = require('os');
 var Watcher = (function () {
@@ -9,38 +10,47 @@ var Watcher = (function () {
     }
     Watcher.prototype.watch = function () {
         try {
-            // chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./ }).on('all', function (event, path, r) {
-            //     if (event === "unlink") {
-            //     } else if (event === "add") {
-            //         //TODO remove duplicate while listening add event or any other event.
-            //         let storage = new Storage();
-            //         storage.setItem({ file_path: path.toString(), fileId: 1 });
-            //         new uploadLocalFileToOnline().post(path.toString(), function (data) {
-            //             let L = JSON.parse(data.response);
-            //             console.log(L.name);
-            //         });
-            //         //TODO make this notification work and in its own class 
-            //         let nc = new notifier.NotificationCenter();
-            //         nc.notify({
-            //             'title': 'Phil Coulson',
-            //             'subtitle': 'Agent of S.H.I.E.L.D.',
-            //             'message': 'If I come out, will you shoot me? \'Cause then I won\'t come out.',
-            //         });
-            //     }
-            // });
             new config_1.Config();
             var watcher = chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./, persistent: true });
             watcher
-                .on('add', function (path) { console.log('File', path, 'has been added'); })
-                .on('addDir', function (path) { console.log('Directory', path, 'has been added'); })
-                .on('change', function (path) { console.log('File', path, 'has been changed'); })
-                .on('unlink', function (path) { console.log('File', path, 'has been removed'); })
-                .on('unlinkDir', function (path) { console.log('Directory', path, 'has been removed'); })
-                .on('error', function (error) { console.error('Error happened', error); });
-            // 'add', 'addDir' and 'change' events also receive stat() results as second argument. 
-            // http://nodejs.org/api/fs.html#fs_class_fs_stats 
-            watcher.on('change', function (path, stats) {
-                console.log('File', path, 'changed size to', stats.size);
+                .on('add', function (path) {
+            })
+                .on('addDir', function (path, stat) {
+                //TODO make a folder name to not be a fullPath here take the real name
+                path = path.toString().split("-");
+                new uploadLocalFileToOnline_1.uploadLocalFileToOnline().createFolder(path, function (response) {
+                    notifier.notify({
+                        'title': 'A folder is Created',
+                        'message': 'Folder synced!'
+                    });
+                });
+                // function readFiles(path, onFileContent, onError) {
+                //     fs.readdir(path, function (err, filenames) {
+                //         if (err) {
+                //             onError(err);
+                //             return;
+                //         }
+                //         filenames.forEach(function (filename) {       
+                //             fs.readFile(path + filename, 'utf-8', function (err, content) {
+                //                 if (err) {
+                //                     onError(err);
+                //                     return;
+                //                 }
+                //                 onFileContent(filename, content);
+                //             });
+                //         });
+                //     });
+                // }
+            })
+                .on('change', function (path) {
+            })
+                .on('unlink', function (path) {
+            })
+                .on('unlinkDir', function (path) {
+            })
+                .on('error', function (error) {
+            })
+                .on('change', function (path, stats) {
             });
         }
         catch (error) {

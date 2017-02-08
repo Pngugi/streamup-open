@@ -43,7 +43,7 @@ var windowToShow = function () {
             mainWindow.loadURL("file://" + __dirname + "/Views/index.html");
         }
         else {
-            mainWindow.loadURL("file://" + __dirname + "/Views/NetworkStatus.html");
+            mainWindow.loadURL("file://" + __dirname + "/Views/index.html");
         }
     });
 };
@@ -52,7 +52,7 @@ function createWindow() {
         width: 1202, height: 690, icon: iconPath, kiosk: true,
         title: "StreamUpBox Desktop",
         transparent: true,
-        resizable: false
+        resizable: false,
     });
     windowToShow();
     // mainWindow.webContents.openDevTools()
@@ -66,6 +66,9 @@ function createWindow() {
 app.on('ready', createWindow);
 ipcMain.on('emmitter', function (event, arg) {
     mainWindow.webContents.send("tokenKey", new config_1.Config().getTokenKey());
+    mainWindow.webContents.on("folder", function (e) {
+        console.log(e);
+    });
 });
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {

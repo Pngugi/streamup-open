@@ -1,3 +1,5 @@
+var electron = require('electron');
+var ipcRenderer = electron.ipcRenderer;
 angular.module("sync")
     .controller('FolderController', ['$scope', 'Folder', 'User', 'DEBUG', '$stateParams', '$rootScope', 'Files', '$uibModal', '$mdDialog', '$mdMedia', function ($scope, Folder, User, DEBUG, $stateParams, $rootScope, Files, $uibModal, $mdDialog, $mdMedia) {
 
@@ -23,8 +25,9 @@ angular.module("sync")
                 }).catch();
         };
         $scope.callMe = function(){
-            console.log("we got a call man");
-        }
+          ipcRenderer.send("folder", 1);  
+
+        };
         $scope.structure = '';
         var getFolders = function () {
 

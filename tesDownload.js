@@ -188,3 +188,35 @@ notifier.notify({
   'title': 'My notification',
   'message': 'Hello, there!'
 });
+
+
+//files mode here.
+
+
+// var fs = require('fs');
+
+// var stream = fs.createWriteStream('hello.js', { mode: 0o755 });
+// stream.write("#!/usr/bin/node\n");
+// stream.write("console.log('hello world');");
+// stream.end();
+// This will create a file called hello.js with the mode set to 755 permissions.
+
+//now read DIR and show file inside
+
+function readFiles(dirname, onFileContent, onError) {
+  fs.readdir(dirname, function(err, filenames) {
+    if (err) {
+      onError(err);
+      return;
+    }
+    filenames.forEach(function(filename) {
+      fs.readFile(dirname + filename, 'utf-8', function(err, content) {
+        if (err) {
+          onError(err);
+          return;
+        }
+        onFileContent(filename, content);
+      });
+    });
+  });
+}

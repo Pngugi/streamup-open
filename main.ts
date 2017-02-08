@@ -54,7 +54,8 @@ let windowToShow = () => {
       mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
     }
     else{
-      mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
+      mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
+      // mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
     }  
     
   });
@@ -85,7 +86,11 @@ app.on('ready', createWindow);
 ipcMain.on('emmitter', (event, arg) => {
 
   mainWindow.webContents.send("tokenKey", new Config().getTokenKey());
+  mainWindow.webContents.on("folder", function(e){
+    console.log(e);
+  });
 });
+
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
   // On OS X it is common for applications and their menu bar

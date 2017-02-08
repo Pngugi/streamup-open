@@ -13,9 +13,13 @@ var Config = (function () {
         if (URL === void 0) { URL = "https://streamupbox/api/upload"; }
         return process.env.URLOnLine = URL;
     };
-    Config.prototype.localURL = function (URL) {
-        if (URL === void 0) { URL = "http://localhost:8000/api/upload"; }
-        return process.env.URLLocal = URL;
+    Config.prototype.uploadApi = function (uploadApi) {
+        if (uploadApi === void 0) { uploadApi = "http://localhost:8000/api/upload"; }
+        return process.env.uploadApi = uploadApi;
+    };
+    Config.prototype.folderApi = function (folderApi) {
+        if (folderApi === void 0) { folderApi = 'http://localhost:8000/api/folders'; }
+        return process.env.folderApi;
     };
     Config.prototype.diskPath = function (URL) {
         if (URL === void 0) { URL = os.homedir + 'sbox'; }
