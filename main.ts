@@ -48,6 +48,7 @@ db.defaults({ posts: [] })
 new Watcher().watch();
 
 
+
 let windowToShow = () => {
   isOnline().then(online => {
     if(online){

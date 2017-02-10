@@ -8,28 +8,41 @@ let fs = require('fs');
 let chokidar = require('chokidar');
 let os = require('os');
 
-export class Watcher {
-
+export class Watcher  {
+    private i:any;
+    
+    checker() {
+       
+    }
+    
     public watch() {
+
         try {
 
             new Config();
             var watcher = chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./, persistent: true });
+            
 
             watcher
                 .on('add', function (path) {
 
                 })
                 .on('addDir', function (path, stat) {
-                     
-                     
-                     new Storage().setItem({
-                         name:path.toString(),
-                         birthtime:stat.birthtime.toString()
-                     },function(object){
-                        console.log(object);
-                     });
+
+                    //checkif folderExist in Db:)
                     
+                    // let res = new Storage().checkExistance(path.toString());
+                    // (res ===undefined)?'': this.i =res;
+                    // console.log(this.i);
+                    
+                    new Storage().setItem({
+                        name: path.toString(),
+                        birthtime: stat.birthtime.toString()
+                    }, function (object) {
+                        console.log(object);
+                    });
+                    
+
                     //TODO make a folder name to not be a fullPath here take the real name
                     // path = path.toString().split("-");
                     // new Uploader().createFolder(path, function (response) {

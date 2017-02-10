@@ -13,11 +13,5 @@
 
   "exclude": [
     "node_modules"
-  ],
- 
-    "filesGlob": [
-        "./typescript/**/*.ts",
-        "./typescript/**/*.tsx",
-        "./typings/**/*.d.ts"
-    ]
+  ]
 }

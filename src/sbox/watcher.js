@@ -8,6 +8,8 @@ var os = require('os');
 var Watcher = (function () {
     function Watcher() {
     }
+    Watcher.prototype.checker = function () {
+    };
     Watcher.prototype.watch = function () {
         try {
             new config_1.Config();
@@ -16,6 +18,10 @@ var Watcher = (function () {
                 .on('add', function (path) {
             })
                 .on('addDir', function (path, stat) {
+                //checkif folderExist in Db:)
+                // let res = new Storage().checkExistance(path.toString());
+                // (res ===undefined)?'': this.i =res;
+                // console.log(this.i);
                 new storage_1.Storage().setItem({
                     name: path.toString(),
                     birthtime: stat.birthtime.toString()
