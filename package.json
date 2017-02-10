@@ -1,6 +1,6 @@
 {
   "name": "sbox",
-  "version": "0.3.2",
+  "version": "0.3.5",
   "description": "Sbox Desktop",
   "main": "main.js",
   "engines": {
