@@ -8,13 +8,21 @@ import fs = require('fs');
 import chokidar = require('chokidar');
 import os = require('os');
 
-class  MaxFolderName{
-  public  maxLenght:number = 100;
+class MaxFolderName {
+    public maxLenght: number = 100;
 }
-interface Fresponse{
-    id:number,
-    name:string,
-    drop_box_name:string
+interface Fresponse {
+    response: {
+        status: number,
+        data: {
+            id: number,
+            name: string,
+            type: string,
+            size: string,
+            has_copy: boolean,
+            user_id: number
+        }
+    }
 }
 export class Watcher {
 
@@ -27,27 +35,38 @@ export class Watcher {
 
             watcher
                 .on('add', function (path: string) {
-                    
+
 
                 })
                 .on('addDir', function (path: string, stat) {
 
                     //TODO check if there is a failed add to queue reprocess it after
-                    var folderName= path.slice(19,new MaxFolderName().maxLenght);
-                    console.log(folderName);
-                    new Uploader().createFolder(folderName, function (response:Fresponse) {
+                    var folderName = path.slice(19, new MaxFolderName().maxLenght);
+
+                    new Uploader().createFolder(folderName, function (r: Fresponse) {
+
+                        if (JSON.parse(r.response.toString()).status === 200) {
+
+                            let data = JSON.parse(r.response.toString()).data;
+
+                            new Storage().setItem({
+                                   id:data.id,
+                                   name:data.name,
+                                   type:data.type,
+                                   size:data.size,
+                                   has_copy:data.has_copy,
+                                   user_id:data.user_id
+                               }, function (resp) {
+                                // console.log(resp);
+                            });
+                        }
                         // new Notification('folder Created','message'); 
                     });
-                    new Storage().setItem({
-                        name: path.toString(),
-                        birthtime: stat.birthtime.toString()
-                    }, function (object) {
-                        
-                    });
+
 
                 })
                 .on('change', function (path) {
-                    console.log("something changed");
+
                 })
                 .on('unlink', function (path) {
 
@@ -69,7 +88,7 @@ export class Watcher {
 }
 
 /**deals with listnening of broadcasted event and save file on Local Disk accordingly */
-import  Redis = require('ioredis');
+import Redis = require('ioredis');
 let redis = new Redis();
 import isOnline = require('is-online');
 isOnline().then(online => {

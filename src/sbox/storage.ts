@@ -14,8 +14,12 @@ let os = require('os');
 
 
 interface DirObject {
+	id: number,
 	name: string,
-	birthtime: string
+	type: string,
+	size: string,
+	has_copy: boolean,
+	user_id: number
 }
 export interface IStorageService {
 
@@ -49,8 +53,8 @@ export class Storage extends Compare implements IStorageService {
 			}
 		});
 		//TODO make this return correct bool value
-		if(!this.exist(data.name)){
-			
+		if (!this.exist(data.name)) {
+
 			this.response = db.get("posts").push(data).cloneDeep()
 				.value()
 			return callback({
@@ -58,7 +62,7 @@ export class Storage extends Compare implements IStorageService {
 				data: ''
 			});
 		}
-			
+
 	}
 
 	private exist(name: string): boolean {
@@ -82,10 +86,10 @@ export class Storage extends Compare implements IStorageService {
 
 			if (element.name == name) {
 				res = true;
-				
+
 			} else {
 				res = false;
-				
+
 			}
 
 		});

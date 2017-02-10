@@ -23,18 +23,24 @@ var Watcher = (function () {
                 .on('addDir', function (path, stat) {
                 //TODO check if there is a failed add to queue reprocess it after
                 var folderName = path.slice(19, new MaxFolderName().maxLenght);
-                console.log(folderName);
-                new uploadLocalFileToOnline_1.uploadLocalFileToOnline().createFolder(folderName, function (response) {
+                new uploadLocalFileToOnline_1.uploadLocalFileToOnline().createFolder(folderName, function (r) {
+                    if (JSON.parse(r.response.toString()).status === 200) {
+                        var data = JSON.parse(r.response.toString()).data;
+                        new storage_1.Storage().setItem({
+                            id: data.id,
+                            name: data.name,
+                            type: data.type,
+                            size: data.size,
+                            has_copy: data.has_copy,
+                            user_id: data.user_id
+                        }, function (resp) {
+                            // console.log(resp);
+                        });
+                    }
                     // new Notification('folder Created','message'); 
-                });
-                new storage_1.Storage().setItem({
-                    name: path.toString(),
-                    birthtime: stat.birthtime.toString()
-                }, function (object) {
                 });
             })
                 .on('change', function (path) {
-                console.log("something changed");
             })
                 .on('unlink', function (path) {
             })
