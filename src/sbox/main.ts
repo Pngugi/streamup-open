@@ -51,11 +51,11 @@ new Watcher().watch();
 
 
 let windowToShow = () => {
-  
+
   isOnline().then(online => {
     if(online)
       mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
-    
+
     mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
   });
 };
@@ -104,6 +104,3 @@ app.on('activate', function () {
 
   }
 });
-
-
-

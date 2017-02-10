@@ -1,11 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var ObjectComparator_1 = require('./ObjectComparator');
 var fs = require('fs');
 var low = require('lowdb');
 var fileAsync = require('lowdb/lib/file-async');
 var CryptoJS = require("cryptr");
 var os = require('os');
-var Storage = (function () {
+var Storage = (function (_super) {
+    __extends(Storage, _super);
     function Storage(encryptKey) {
+        _super.call(this);
         this.database = null;
         try {
             CryptoJS = new CryptoJS("key");
@@ -24,8 +32,7 @@ var Storage = (function () {
                 }
             });
         }
-        catch (e) {
-        }
+        catch (e) { }
     }
     Storage.prototype.uploadFile = function () {
     };
@@ -36,16 +43,18 @@ var Storage = (function () {
         try {
             var actualLenght = this.db.find(data).cloneDeep().__wrapped__.posts.length;
             var actualData = this.db.find(data).cloneDeep().__wrapped__.posts;
-            var i = void 0;
             var permissionTosave = false;
-            for (i = 0; i <= actualLenght; i++) {
-                if (actualData[i] === data) {
-                    console.log("matching");
+            console.log(actualLenght);
+            for (var i = 0; i < actualLenght; i++) {
+                if (this.isEquivalent(actualData[i], data)) {
+                    console.log("we are luck02");
                     permissionTosave = false;
                 }
                 else {
+                    console.log("we are luck01");
                     permissionTosave = true;
                 }
+                permissionTosave = true;
             }
             if (!permissionTosave)
                 return callback({
@@ -53,17 +62,15 @@ var Storage = (function () {
                     message: 'synced no need to do it again'
                 });
             if (permissionTosave) {
-                console.log("one");
-            }
-            else {
+                this.response = this.db.get("posts").push(data).cloneDeep()
+                    .value();
                 return callback({
                     response: 200,
-                    data: 'no action taken'
+                    data: this.response
                 });
             }
         }
-        catch (e) {
-        }
+        catch (e) { }
     };
     Storage.prototype.saveOnDisk = function (data, filPath, buffer) {
         if (typeof (data) === "object")
@@ -73,8 +80,7 @@ var Storage = (function () {
             this.db.get("posts").push(data).cloneDeep()
                 .value();
         }
-        catch (error) {
-        }
+        catch (e) { }
     };
     Storage.prototype.removeItem = function (key) {
     };
@@ -85,5 +91,5 @@ var Storage = (function () {
         this.db.get('posts').push(data);
     };
     return Storage;
-}());
+}(ObjectComparator_1.ObjectComparator));
 exports.Storage = Storage;

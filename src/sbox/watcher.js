@@ -16,11 +16,10 @@ var Watcher = (function () {
                 .on('add', function (path) {
             })
                 .on('addDir', function (path, stat) {
-                var folderObj = {
+                new storage_1.Storage().setItem({
                     name: path.toString(),
-                    birthtime: stat.birthtime
-                };
-                new storage_1.Storage().setItem(folderObj, function (object) {
+                    birthtime: stat.birthtime.toString()
+                }, function (object) {
                     console.log(object);
                 });
                 //TODO make a folder name to not be a fullPath here take the real name

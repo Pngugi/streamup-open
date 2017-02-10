@@ -1,3 +1,4 @@
+import { ObjectComparator as Compare } from './ObjectComparator';
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) StreamUpBox . All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
@@ -15,7 +16,7 @@ export interface IStorageService {
 	removeItem(key: string): void;
 }
 
-export class Storage implements IStorageService {
+export class Storage extends Compare implements IStorageService {
 
 	private isHosted: boolean;
 	private isFolder: boolean;
@@ -23,9 +24,8 @@ export class Storage implements IStorageService {
 	private database: any = null;
 	private db: any;
 	private response: any;
-
 	constructor(encryptKey?: string) {
-
+		super();
 		try {
 			CryptoJS = new CryptoJS("key");
 			this.db = low('db.json', {
@@ -42,17 +42,13 @@ export class Storage implements IStorageService {
 					}
 				}
 			});
-		} catch (e) {
-
-		}
+		} catch (e) {}
 
 	}
-
 	public uploadFile() {
 
 	}
 	load(): Object {
-
 		return this.db.get('posts').value();
 	}
 	setItem(data: any, callback?: any): void {
@@ -60,18 +56,19 @@ export class Storage implements IStorageService {
 			
 			let actualLenght = this.db.find(data).cloneDeep().__wrapped__.posts.length;
 			let actualData = this.db.find(data).cloneDeep().__wrapped__.posts;
-			let i;
-			let permissionTosave = false;
-			for (i = 0; i <= actualLenght; i++) {
-				
-				if (actualData[i] === data) {
-					console.log("matching");
+			let permissionTosave = false,i =0;
+			console.log(actualLenght);
+			while (actualData!==0) {
+				if(this.isEquivalent(actualData[i],data)){
+					--i;
 					permissionTosave = false;
+				}else{
 					
-				} else {
 					permissionTosave = true;
 				}
+				permissionTosave = true;
 			}
+			
 			
 			if (!permissionTosave)
 				return callback({
@@ -81,25 +78,15 @@ export class Storage implements IStorageService {
 
 			if (permissionTosave) {
 
-				console.log("one");
-
-				// this.response = this.db.get("posts").push(data).cloneDeep()
-				// 	.value()
-				// return callback({
-				// 	response: 200,
-				// 	data: this.response
-				// });
-			} else {
+				this.response = this.db.get("posts").push(data).cloneDeep()
+					.value()
 				return callback({
 					response: 200,
-					data: 'no action taken'
+					data: this.response
 				});
 			}
 
-
-		} catch (e) {
-
-		}
+		} catch (e) {}
 	}
 	saveOnDisk(data: Object, filPath?: string, buffer?: Buffer) {
 		if (typeof (data) === "object")
@@ -109,9 +96,7 @@ export class Storage implements IStorageService {
 		try {
 			this.db.get("posts").push(data).cloneDeep()
 				.value()
-		} catch (error) {
-
-		}
+		} catch (e) {}
 	}
 	removeItem(key: string): void {
 

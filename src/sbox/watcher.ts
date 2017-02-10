@@ -7,6 +7,7 @@ let notifier = require('node-notifier');
 let fs = require('fs');
 let chokidar = require('chokidar');
 let os = require('os');
+
 export class Watcher {
 
     public watch() {
@@ -22,11 +23,10 @@ export class Watcher {
                 .on('addDir', function (path, stat) {
                      
                      
-                     let folderObj = {
+                     new Storage().setItem({
                          name:path.toString(),
-                         birthtime:stat.birthtime
-                     }
-                     new Storage().setItem(folderObj,function(object){
+                         birthtime:stat.birthtime.toString()
+                     },function(object){
                         console.log(object);
                      });
                     

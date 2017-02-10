@@ -87,7 +87,7 @@ ipcMain.on('emmitter', (event, arg) => {
 
   mainWindow.webContents.send("tokenKey", new Config().getTokenKey());
   mainWindow.webContents.on("folder", function(e){
-    console.log(e);
+    // console.log(e);
   });
 });
 
