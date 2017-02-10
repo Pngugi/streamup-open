@@ -48,7 +48,7 @@ export class Storage extends Compare implements IStorageService {
 				}
 			}
 		});
-		// console.log(this.exist(data.name))
+		//TODO make this return correct bool value
 		if(!this.exist(data.name)){
 			
 			this.response = db.get("posts").push(data).cloneDeep()

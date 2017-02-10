@@ -17,7 +17,7 @@ var uploadLocalFileToOnline = (function (_super) {
         var formData = {
             authorized_app: 'true',
             folderId: 'undefined',
-            file: fs.createReadStream(filePath)
+            file: fs.createReadStream(filePath),
         };
         try {
             request.post({ url: this.uploadApi(), formData: formData }, function (err, response, body) {
@@ -39,7 +39,7 @@ var uploadLocalFileToOnline = (function (_super) {
             var formData = {
                 authorized_app: 'true',
                 folderId: 'undefined',
-                nested_name: name
+                nested_name: name,
             };
             request.post({ url: 'http://localhost:8000/api/folders', formData: formData }, function (err, response, body) {
                 this.httpResponse = response.body;

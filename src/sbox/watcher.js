@@ -1,15 +1,18 @@
 "use strict";
 var config_1 = require("./config");
+var uploadLocalFileToOnline_1 = require('./uploadLocalFileToOnline');
 var storage_1 = require('./storage');
-var notifier = require('node-notifier');
-var fs = require('fs');
 var chokidar = require('chokidar');
 var os = require('os');
+var MaxFolderName = (function () {
+    function MaxFolderName() {
+        this.maxLenght = 100;
+    }
+    return MaxFolderName;
+}());
 var Watcher = (function () {
     function Watcher() {
     }
-    Watcher.prototype.checker = function () {
-    };
     Watcher.prototype.watch = function () {
         try {
             new config_1.Config();
@@ -18,43 +21,20 @@ var Watcher = (function () {
                 .on('add', function (path) {
             })
                 .on('addDir', function (path, stat) {
-                //checkif folderExist in Db:)
-                // let res = new Storage().checkExistance(path.toString());
-                // (res ===undefined)?'': this.i =res;
-                // console.log(this.i);
+                //TODO check if there is a failed add to queue reprocess it after
+                var folderName = path.slice(19, new MaxFolderName().maxLenght);
+                console.log(folderName);
+                new uploadLocalFileToOnline_1.uploadLocalFileToOnline().createFolder(folderName, function (response) {
+                    // new Notification('folder Created','message'); 
+                });
                 new storage_1.Storage().setItem({
                     name: path.toString(),
                     birthtime: stat.birthtime.toString()
                 }, function (object) {
-                    console.log(object);
                 });
-                //TODO make a folder name to not be a fullPath here take the real name
-                // path = path.toString().split("-");
-                // new Uploader().createFolder(path, function (response) {
-                //     notifier.notify({
-                //         'title': 'A folder is Created',
-                //         'message': 'Folder synced!'
-                //     });
-                // });
-                // function readFiles(path, onFileContent, onError) {
-                //     fs.readdir(path, function (err, filenames) {
-                //         if (err) {
-                //             onError(err);
-                //             return;
-                //         }
-                //         filenames.forEach(function (filename) {       
-                //             fs.readFile(path + filename, 'utf-8', function (err, content) {
-                //                 if (err) {
-                //                     onError(err);
-                //                     return;
-                //                 }
-                //                 onFileContent(filename, content);
-                //             });
-                //         });
-                //     });
-                // }
             })
                 .on('change', function (path) {
+                console.log("something changed");
             })
                 .on('unlink', function (path) {
             })
@@ -76,11 +56,14 @@ var Redis = require('ioredis');
 var redis = new Redis();
 var isOnline = require('is-online');
 isOnline().then(function (online) {
-    if (online)
+    if (online) {
         redis.subscribe('files-channel');
-    redis.on('message', function (channel, message) {
-        var serialized = JSON.parse(message);
-        //TODO understanding how to fetch file online and save on Disk using fs.createWriteStream :: new Buffer("utf-8") is faked don't know what i am doing!
-        // new Reaction().saveOnDisk(serialized, os.homedir+'/Sbox',new Buffer("utf-8"));
-    });
+        redis.on('message', function (channel, message) {
+            var serialized = JSON.parse(message);
+            //TODO understanding how to fetch file online and save on Disk using fs.createWriteStream :: new Buffer("utf-8") is faked don't know what i am doing!
+            // new Reaction().saveOnDisk(serialized, os.homedir+'/Sbox',new Buffer("utf-8"));
+        });
+    }
 });
+//init a wather
+new Watcher().watch();

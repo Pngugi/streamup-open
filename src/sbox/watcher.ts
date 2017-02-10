@@ -1,79 +1,53 @@
+import { Notification } from './../../notification';
 import { Reaction } from './Reaction';
 import { Config } from "./config";
 import { setInterval } from './common/platform';
 import { uploadLocalFileToOnline as Uploader } from './uploadLocalFileToOnline';
 import { Storage } from './storage';
-let notifier = require('node-notifier');
-let fs = require('fs');
-let chokidar = require('chokidar');
-let os = require('os');
+import fs = require('fs');
+import chokidar = require('chokidar');
+import os = require('os');
 
-export class Watcher  {
-    private i:any;
-    
-    checker() {
-       
-    }
-    
+class  MaxFolderName{
+  public  maxLenght:number = 100;
+}
+interface Fresponse{
+    id:number,
+    name:string,
+    drop_box_name:string
+}
+export class Watcher {
+
     public watch() {
 
         try {
 
             new Config();
             var watcher = chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./, persistent: true });
-            
 
             watcher
-                .on('add', function (path) {
+                .on('add', function (path: string) {
+                    
 
                 })
-                .on('addDir', function (path, stat) {
+                .on('addDir', function (path: string, stat) {
 
-                    //checkif folderExist in Db:)
-                    
-                    // let res = new Storage().checkExistance(path.toString());
-                    // (res ===undefined)?'': this.i =res;
-                    // console.log(this.i);
-                    
+                    //TODO check if there is a failed add to queue reprocess it after
+                    var folderName= path.slice(19,new MaxFolderName().maxLenght);
+                    console.log(folderName);
+                    new Uploader().createFolder(folderName, function (response:Fresponse) {
+                        // new Notification('folder Created','message'); 
+                    });
                     new Storage().setItem({
                         name: path.toString(),
                         birthtime: stat.birthtime.toString()
                     }, function (object) {
-                        console.log(object);
+                        
                     });
-                    
-
-                    //TODO make a folder name to not be a fullPath here take the real name
-                    // path = path.toString().split("-");
-                    // new Uploader().createFolder(path, function (response) {
-                    //     notifier.notify({
-                    //         'title': 'A folder is Created',
-                    //         'message': 'Folder synced!'
-                    //     });
-                    // });
-
-
-                    // function readFiles(path, onFileContent, onError) {
-                    //     fs.readdir(path, function (err, filenames) {
-                    //         if (err) {
-                    //             onError(err);
-                    //             return;
-                    //         }
-                    //         filenames.forEach(function (filename) {       
-                    //             fs.readFile(path + filename, 'utf-8', function (err, content) {
-                    //                 if (err) {
-                    //                     onError(err);
-                    //                     return;
-                    //                 }
-                    //                 onFileContent(filename, content);
-                    //             });
-                    //         });
-                    //     });
-                    // }
 
                 })
                 .on('change', function (path) {
-
+                    console.log("something changed");
                 })
                 .on('unlink', function (path) {
 
@@ -95,19 +69,22 @@ export class Watcher  {
 }
 
 /**deals with listnening of broadcasted event and save file on Local Disk accordingly */
-let Redis = require('ioredis');
+import  Redis = require('ioredis');
 let redis = new Redis();
-let isOnline = require('is-online');
+import isOnline = require('is-online');
 isOnline().then(online => {
-    if (online)
+    if (online) {
         redis.subscribe('files-channel');
-    redis.on('message', function (channel, message) {
+        redis.on('message', function (channel, message) {
 
-        let serialized = JSON.parse(message);
-        //TODO understanding how to fetch file online and save on Disk using fs.createWriteStream :: new Buffer("utf-8") is faked don't know what i am doing!
-        // new Reaction().saveOnDisk(serialized, os.homedir+'/Sbox',new Buffer("utf-8"));
+            let serialized = JSON.parse(message);
+            //TODO understanding how to fetch file online and save on Disk using fs.createWriteStream :: new Buffer("utf-8") is faked don't know what i am doing!
+            // new Reaction().saveOnDisk(serialized, os.homedir+'/Sbox',new Buffer("utf-8"));
 
-    });
-
+        });
+    }
 });
+
+//init a wather
+new Watcher().watch();
 

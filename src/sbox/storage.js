@@ -33,7 +33,7 @@ var Storage = (function (_super) {
                 }
             }
         });
-        // console.log(this.exist(data.name))
+        //TODO make this return correct bool value
         if (!this.exist(data.name)) {
             this.response = db.get("posts").push(data).cloneDeep()
                 .value();
