@@ -39,7 +39,7 @@ var Storage = (function (_super) {
                 .value();
             return callback({
                 response: 200,
-                data: ''
+                data: db.get({}).__wrapped__.posts
             });
         }
     };
