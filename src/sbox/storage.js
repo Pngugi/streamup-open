@@ -34,18 +34,18 @@ var Storage = (function (_super) {
             }
         });
         //TODO make this return correct bool value
-        if (!this.exist(data.name)) {
-            this.response = db.get("posts").push(data).cloneDeep()
-                .value();
-            return callback({
-                response: 200,
-                data: db.get({}).__wrapped__.posts
-            });
-        }
+        // if (!this.exist(data.name)) 
+        // {
+        // 	this.response = db.get("posts").push(data).cloneDeep()
+        // 		.value()
+        // 	return callback({
+        // 		response: 200,
+        // 		data: db.get({}).__wrapped__.posts
+        // 	});
+        // }
     };
     Storage.prototype.exist = function (name) {
-        console.log(name);
-        var res;
+        var res = false;
         var db = low('db.json', {
             format: {
                 deserialize: function (str) {
@@ -61,11 +61,8 @@ var Storage = (function (_super) {
             }
         });
         db.get({}).__wrapped__.posts.forEach(function (element) {
-            if (element.name == name) {
-                res = true;
-            }
-            else {
-                res = false;
+            if (JSON.stringify(element.name) == JSON.stringify(name)) {
+                return res = true;
             }
         });
         return res;

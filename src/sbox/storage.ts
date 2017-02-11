@@ -53,21 +53,23 @@ export class Storage extends Compare implements IStorageService {
 			}
 		});
 		//TODO make this return correct bool value
-		if (!this.exist(data.name)) {
+	
+		// if (!this.exist(data.name)) 
+		// {
 
-			this.response = db.get("posts").push(data).cloneDeep()
-				.value()
-			return callback({
-				response: 200,
-				data: db.get({}).__wrapped__.posts
-			});
-		}
+		// 	this.response = db.get("posts").push(data).cloneDeep()
+		// 		.value()
+		// 	return callback({
+		// 		response: 200,
+		// 		data: db.get({}).__wrapped__.posts
+		// 	});
+		// }
 
 	}
 
-	private exist(name: string): boolean {
-		console.log(name);
-		var res: boolean;
+	public exist(name: string): boolean {
+		
+		var res: boolean=false;
 		const db = low('db.json', {
 			format: {
 				deserialize: (str) => {
@@ -83,15 +85,11 @@ export class Storage extends Compare implements IStorageService {
 			}
 		});
 		db.get({}).__wrapped__.posts.forEach(element => {
-
-			if (element.name == name) {
-				res = true;
-
-			} else {
-				res = false;
-
-			}
-
+			
+			if (JSON.stringify(element.name) ==JSON.stringify(name)) {
+				return res = true;
+			} 
+			
 		});
 		return res;
 

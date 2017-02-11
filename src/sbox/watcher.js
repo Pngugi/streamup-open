@@ -1,6 +1,7 @@
 "use strict";
 var config_1 = require("./config");
 var uploadLocalFileToOnline_1 = require('./uploadLocalFileToOnline');
+var storage_1 = require('./storage');
 var fs = require('fs');
 var chokidar = require('chokidar');
 var os = require('os');
@@ -32,25 +33,25 @@ var Watcher = (function () {
                 .on('add', function (path) {
             })
                 .on('addDir', function (path, stat) {
-                /**downloadOnFly file online asyncronsly and save them on disk on fly */
                 //TODO check if there is a failed add to queue reprocess it after
                 var folderName = path.slice(os.homedir().length + new MaxFolderName().appFolderLenght, new MaxFolderName().maxLenght);
-                new uploadLocalFileToOnline_1.uploadLocalFileToOnline().createFolder(folderName, function (r) {
-                    // if (JSON.parse(r.response.toString()).status === 200) {
-                    //     let data = JSON.parse(r.response.toString()).data;
-                    //     new Storage().setItem({
-                    //         id: data.id,
-                    //         name: data.name,
-                    //         type: data.type,
-                    //         size: data.size,
-                    //         has_copy: data.has_copy,
-                    //         user_id: data.user_id
-                    //     }, function (resp) {
-                    //         console.log(resp);
-                    //     });
-                    // }
-                    // new Notification('folder Created','message'); 
-                });
+                if (!new storage_1.Storage().exist(folderName)) {
+                    new uploadLocalFileToOnline_1.uploadLocalFileToOnline().createFolder(folderName, function (r) {
+                        if (JSON.parse(r.response.toString()).status === 200) {
+                            var data = JSON.parse(r.response.toString()).data;
+                            new storage_1.Storage().setItem({
+                                id: data.id,
+                                name: data.name,
+                                type: data.type,
+                                size: data.size,
+                                has_copy: data.has_copy,
+                                user_id: data.user_id
+                            }, function (resp) {
+                                console.log(resp);
+                            });
+                        }
+                    });
+                }
             })
                 .on('change', function (path) {
             })
