@@ -32,12 +32,30 @@ var Watcher = (function () {
             .on('add', function (path) {
         })
             .on('addDir', function (path, stat) {
-            // var Sequelize = require('sequelize');
-            // var sequelize = new Sequelize(undefined, undefined, undefined, {
-            //     dialect: 'sqlite',
-            //     // SQLite only
-            //     storage: 'database.db'
-            // });
+            var Sequelize = require('sequelize');
+            var sequelize = new Sequelize(undefined, undefined, undefined, {
+                dialect: 'sqlite',
+                // SQLite only
+                storage: '../database.db'
+            });
+            var User = sequelize.define('user', {
+                firstName: {
+                    type: Sequelize.STRING,
+                    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
+                },
+                lastName: {
+                    type: Sequelize.STRING
+                }
+            }, {
+                freezeTableName: true // Model tableName will be the same as the model name
+            });
+            User.sync({ force: true }).then(function () {
+                // Table created
+                return User.create({
+                    firstName: 'John',
+                    lastName: 'Hancock'
+                });
+            });
             //TODO check if there is a failed add to queue reprocess it after
             var folderName = path.slice(os.homedir().length + new MaxFolderName().appFolderLenght, new MaxFolderName().maxLenght);
             if (!new storage_1.Storage().exist(folderName)) {
