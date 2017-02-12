@@ -17,7 +17,6 @@ let creator = new Dir('Sbox');
 creator.create();
 /**end of creating a folder */
 
-
 /**initiate storage for the first time call this first! */
 let CryptoJS  = require("cryptr");
 CryptoJS      = new CryptoJS("key");
@@ -44,6 +43,7 @@ db.defaults({ posts: [] })
 /**end of adapting storage to application */
 
 
+
 /**watching for folder changes */
 new Watcher().watch();
 
@@ -55,8 +55,8 @@ let windowToShow = () => {
       mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
     }
     else{
-      // mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
-      mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
+      mainWindow.loadURL(`file://${__dirname}/Views/index.html`);
+      // mainWindow.loadURL(`file://${__dirname}/Views/NetworkStatus.html`);
     }  
     
   });
