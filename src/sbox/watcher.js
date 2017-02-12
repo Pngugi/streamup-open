@@ -26,46 +26,50 @@ var Watcher = (function () {
         }).auth(null, null, true, "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImY4YTJlYTg1YmY1MmY2MjNhOGY3OGJmOTVlMjQyMWNhMDJjZTE3OGZiNDEyZGNhMzI3MWMxMTBkNzk5MWQ3ZDJiYjhkZTFiMDE5NjBmNzA4In0.eyJhdWQiOiIxIiwianRpIjoiZjhhMmVhODViZjUyZjYyM2E4Zjc4YmY5NWUyNDIxY2EwMmNlMTc4ZmI0MTJkY2EzMjcxYzExMGQ3OTkxZDdkMmJiOGRlMWIwMTk2MGY3MDgiLCJpYXQiOjE0ODM4MjM5MTQsIm5iZiI6MTQ4MzgyMzkxNCwiZXhwIjoxNTE1MzU5OTE0LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.WURBFzc6AoCGAEAnfZ5pOXQF3X0ffqPKhMkVzyTrd-EgSMAiowJ5RY9hJ38iqFiKUsXBi80gM8TZOiWN3-ynbeaDveW-Rx4Veh6DZ9hdY0FHV962AK3feqpmFZNQhkcP6h3BxK9UHPsg3K_qhsQGzaWlaYw6dZqwU5hD2ceeWV9fm3_3Q5IoN9WD0b5f98gL1Ly3Pvg2xgkyLdnAeU8LbRDfp0eTIEk3jxXouGPa3Zrabm8rQhAMomHfHNtSQw-6xkPVSnSOc_lwNxa9Nj6mXT6RovzNprilctfgo6mEx-zU3YnCMj7oFdri67XQQhf05ylddJwKGC214I0A_rCrKlFGuX5Q4eoXtl-pdh3dslxlIQq7FkPdOVEbGUxOhpxluOuNRxlUzMbrymU1E0Zur1DoVLDaXaQVnWsGbt4FNIwEG08CA4BYQUvBhiLAYaYZwHSJ-nS1D_AIo1FZFQ5DicSPF6ySRrG2Lno-ifP23CY2uHui01Pi3U7mfaWb9EjIU6HI0w1AZ3L0FvlRsnSZJIigZnjV9I914muzPoU84ec5iNA_mbLzKd1mosGhJsgYMHTHr2B5uW5LYGS61f3SJByp41sv4VblzlkuLvPX9LP4XOauwjYsM6gVrt_Uqf_ZnM1fvDcbaclv8ZdcXMqLoclLtujPIErKpSI1UZOY04Q");
     };
     Watcher.prototype.watch = function () {
-        try {
-            new config_1.Config();
-            var watcher = chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./, persistent: true });
-            watcher
-                .on('add', function (path) {
-            })
-                .on('addDir', function (path, stat) {
-                //TODO check if there is a failed add to queue reprocess it after
-                var folderName = path.slice(os.homedir().length + new MaxFolderName().appFolderLenght, new MaxFolderName().maxLenght);
-                if (!new storage_1.Storage().exist(folderName)) {
-                    new uploadLocalFileToOnline_1.uploadLocalFileToOnline().createFolder(folderName, function (r) {
-                        if (JSON.parse(r.response.toString()).status === 200) {
-                            var data = JSON.parse(r.response.toString()).data;
-                            new storage_1.Storage().setItem({
-                                id: data.id,
-                                name: data.name,
-                                type: data.type,
-                                size: data.size,
-                                has_copy: data.has_copy,
-                                user_id: data.user_id
-                            }, function (resp) {
-                                console.log(resp);
-                            });
-                        }
-                    });
-                }
-            })
-                .on('change', function (path) {
-            })
-                .on('unlink', function (path) {
-            })
-                .on('unlinkDir', function (path) {
-            })
-                .on('error', function (error) {
-            })
-                .on('change', function (path, stats) {
-            });
-        }
-        catch (error) {
-        }
+        new config_1.Config();
+        var watcher = chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./, persistent: true });
+        watcher
+            .on('add', function (path) {
+        })
+            .on('addDir', function (path, stat) {
+            // var Sequelize = require('sequelize');
+            // var sequelize = new Sequelize(undefined, undefined, undefined, {
+            //     dialect: 'sqlite',
+            //     // SQLite only
+            //     storage: 'database.db'
+            // });
+            //TODO check if there is a failed add to queue reprocess it after
+            var folderName = path.slice(os.homedir().length + new MaxFolderName().appFolderLenght, new MaxFolderName().maxLenght);
+            if (!new storage_1.Storage().exist(folderName)) {
+                new uploadLocalFileToOnline_1.uploadLocalFileToOnline().createFolder(folderName, function (r) {
+                    if (JSON.parse(r.response.toString()).status === 200) {
+                        var data = JSON.parse(r.response.toString()).data;
+                        new storage_1.Storage().setItem({
+                            id: data.id,
+                            name: data.name,
+                            type: data.type,
+                            parent: data.parent,
+                            size: data.size,
+                            has_copy: data.has_copy,
+                            user_id: data.user_id
+                        }, function (resp) {
+                            console.log(resp);
+                        });
+                    }
+                });
+            }
+            else {
+                console.log('folder exist sir no duplicate anymore');
+            }
+        })
+            .on('change', function (path) {
+        })
+            .on('unlink', function (path) {
+        })
+            .on('unlinkDir', function (path) {
+        })
+            .on('error', function (error) {
+        });
     };
     return Watcher;
 }());

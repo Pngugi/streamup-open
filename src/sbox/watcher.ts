@@ -22,6 +22,7 @@ interface Fresponse {
             name: string,
             type: string,
             size: string,
+            parent: number,
             has_copy: boolean,
             user_id: number
         }
@@ -47,64 +48,66 @@ export class Watcher {
     }
     public watch() {
 
-        try {
 
-            new Config();
-            var watcher = chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./, persistent: true });
+        new Config();
+        var watcher = chokidar.watch(os.homedir() + '/Sbox', { ignored: /[\/\\]\./, persistent: true });
 
-            watcher
-                .on('add', function (path: string) {
-
-
-                })
-                .on('addDir', function (path: string, stat) {
+        watcher
+            .on('add', function (path: string) {
 
 
-                    //TODO check if there is a failed add to queue reprocess it after
-                    var folderName = path.slice(os.homedir().length + new MaxFolderName().appFolderLenght, new MaxFolderName().maxLenght);
-                   
-                    if (!new Storage().exist(folderName)) {
-                        new Uploader().createFolder(folderName, function (r: Fresponse) {
+            })
+            .on('addDir', function (path: string, stat) {
 
-                            if (JSON.parse(r.response.toString()).status === 200) {
+                // var Sequelize = require('sequelize');
+                // var sequelize = new Sequelize(undefined, undefined, undefined, {
+                //     dialect: 'sqlite',
+                //     // SQLite only
+                //     storage: 'database.db'
+                // });
+                //TODO check if there is a failed add to queue reprocess it after
+                var folderName = path.slice(os.homedir().length + new MaxFolderName().appFolderLenght, new MaxFolderName().maxLenght);
 
-                                let data = JSON.parse(r.response.toString()).data;
+                if (!new Storage().exist(folderName)) {
+                    new Uploader().createFolder(folderName, function (r: Fresponse) {
 
-                                new Storage().setItem({
-                                    id: data.id,
-                                    name: data.name,
-                                    type: data.type,
-                                    size: data.size,
-                                    has_copy: data.has_copy,
-                                    user_id: data.user_id
-                                }, function (resp) {
-                                    console.log(resp);
-                                });
-                            }
+                        if (JSON.parse(r.response.toString()).status === 200) {
 
-                        });
-                    }
+                            let data = JSON.parse(r.response.toString()).data;
+
+                            new Storage().setItem({
+                                id: data.id,
+                                name: data.name,
+                                type: data.type,
+                                parent: data.parent,
+                                size: data.size,
+                                has_copy: data.has_copy,
+                                user_id: data.user_id
+                            }, function (resp) {
+                                console.log(resp);
+                            });
+                        }
+
+                    });
+                } else {
+                    console.log('folder exist sir no duplicate anymore');
+                }
 
 
-                })
-                .on('change', function (path) {
+            })
+            .on('change', function (path) {
 
-                })
-                .on('unlink', function (path) {
+            })
+            .on('unlink', function (path) {
 
-                })
-                .on('unlinkDir', function (path) {
+            })
+            .on('unlinkDir', function (path) {
 
-                })
-                .on('error', function (error) {
+            })
+            .on('error', function (error) {
 
-                })
-                .on('change', function (path, stats) {
+            });
 
-                });
-        } catch (error) {
-
-        }
     }
 
 }

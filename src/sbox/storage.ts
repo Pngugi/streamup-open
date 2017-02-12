@@ -1,4 +1,5 @@
 import { ObjectComparator as Compare } from './ObjectComparator';
+
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) StreamUpBox . All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
@@ -18,6 +19,7 @@ interface DirObject {
 	name: string,
 	type: string,
 	size: string,
+	parent:number,
 	has_copy: boolean,
 	user_id: number
 }
@@ -32,6 +34,9 @@ export class Storage extends Compare implements IStorageService {
 	private response: any;
 	constructor(encryptKey?: string) {
 		super();
+		
+
+		
 		try {
 			CryptoJS = new CryptoJS("key");
 		} catch (e) { }
@@ -52,18 +57,17 @@ export class Storage extends Compare implements IStorageService {
 				}
 			}
 		});
-		//TODO make this return correct bool value
 	
-		// if (!this.exist(data.name)) 
-		// {
+		if (!this.exist(data.name)) 
+		{
 
-		// 	this.response = db.get("posts").push(data).cloneDeep()
-		// 		.value()
-		// 	return callback({
-		// 		response: 200,
-		// 		data: db.get({}).__wrapped__.posts
-		// 	});
-		// }
+			this.response = db.get("posts").push(data).cloneDeep()
+				.value()
+			return callback({
+				response: 200,
+				data: db.get({}).__wrapped__.posts
+			});
+		}
 
 	}
 
@@ -86,12 +90,32 @@ export class Storage extends Compare implements IStorageService {
 		});
 		db.get({}).__wrapped__.posts.forEach(element => {
 			
-			if (JSON.stringify(element.name) ==JSON.stringify(name)) {
+			if (JSON.stringify(element.name) ==JSON.stringify(name) ) {
+				
 				return res = true;
 			} 
-			
+			return res;
 		});
 		return res;
 
+	}
+	getSingle<T>(desired:T){
+		const db = low('db.json', {
+			format: {
+				deserialize: (str) => {
+					const decrypted = CryptoJS.decrypt(str.toString())
+					const obj = JSON.parse(decrypted)
+					return obj
+				},
+				serialize: (obj) => {
+					const str = JSON.stringify(obj)
+					const encrypted = CryptoJS.encrypt(str)
+					return encrypted
+				}
+			}
+		});
+		db.get({}).__wrapped__.posts.forEach(element => {
+			new Compare().isEquivalent(element,desired);
+		});
 	}
 }

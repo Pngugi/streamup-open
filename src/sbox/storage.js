@@ -33,16 +33,14 @@ var Storage = (function (_super) {
                 }
             }
         });
-        //TODO make this return correct bool value
-        // if (!this.exist(data.name)) 
-        // {
-        // 	this.response = db.get("posts").push(data).cloneDeep()
-        // 		.value()
-        // 	return callback({
-        // 		response: 200,
-        // 		data: db.get({}).__wrapped__.posts
-        // 	});
-        // }
+        if (!this.exist(data.name)) {
+            this.response = db.get("posts").push(data).cloneDeep()
+                .value();
+            return callback({
+                response: 200,
+                data: db.get({}).__wrapped__.posts
+            });
+        }
     };
     Storage.prototype.exist = function (name) {
         var res = false;
@@ -64,8 +62,28 @@ var Storage = (function (_super) {
             if (JSON.stringify(element.name) == JSON.stringify(name)) {
                 return res = true;
             }
+            return res;
         });
         return res;
+    };
+    Storage.prototype.getSingle = function (desired) {
+        var db = low('db.json', {
+            format: {
+                deserialize: function (str) {
+                    var decrypted = CryptoJS.decrypt(str.toString());
+                    var obj = JSON.parse(decrypted);
+                    return obj;
+                },
+                serialize: function (obj) {
+                    var str = JSON.stringify(obj);
+                    var encrypted = CryptoJS.encrypt(str);
+                    return encrypted;
+                }
+            }
+        });
+        db.get({}).__wrapped__.posts.forEach(function (element) {
+            new ObjectComparator_1.ObjectComparator().isEquivalent(element, desired);
+        });
     };
     return Storage;
 }(ObjectComparator_1.ObjectComparator));

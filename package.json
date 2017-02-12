@@ -32,6 +32,7 @@
     "electron": "^1.4.14",
     "electron-mocha": "^3.0.0",
     "electron-packager": "^7.7.0",
+    "electron-rebuild": "^1.5.7",
     "electron-winstaller": "^2.3.4",
     "eslint": "^3.4.0",
     "gulp": "^3.9.1",
@@ -51,6 +52,7 @@
     "typescript-formatter": "4.0.1"
   },
   "dependencies": {
+    "@types/request": "0.0.39",
     "bcrypt-nodejs": "0.0.3",
     "cryptr": "^2.0.0",
     "express-session": "^1.14.1",
@@ -66,14 +68,13 @@
     "node-notifier": "^4.6.1",
     "node-pty": "0.4.1",
     "nodegit": "^0.16.0",
-    "nodegit-kit": "^0.13.0",
     "nodemailer": "^3.0.2",
     "promise": "^7.1.1",
     "request": "^2.79.0",
+    "sequelize": "^3.30.2",
+    "sequelize-cli": "^2.4.0",
     "sftp-node": "0.0.6",
-    "windows-foreground-love": "0.1.0",
-    "windows-mutex": "^0.2.0",
-    "winreg": "1.2.0"
+    "sqlite3": "^3.1.8"
   },
   "optionalDependencies": {
     "gulp-appdmg": "^1.0.2",
