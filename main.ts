@@ -1,12 +1,14 @@
-import { Watcher } from './src/sbox/watcher';
-import { Storage } from "./src/sbox/storage";
-import { Git } from "./src/sbox/sync/git";
-import { Config } from "./src/sbox/config";
+import { Watcher } from './src/js/modules/sync/watcher';
+
+import { Storage } from "./src/js/modules/sync/storage";
+import { Git } from "./src/js/modules/sync/git";
+import { Config } from "./src/js/modules/sync/config";
 const electron = require('electron');
 const {ipcMain} = electron;
+Watcher
 var req = require('request');
-import { Mkdir as Dir } from "./src/sbox/dir";
-import { uploadLocalFileToOnline } from './src/sbox/uploadLocalFileToOnline';
+import { Mkdir as Dir } from "./src/js/modules/sync/dir";
+import { uploadLocalFileToOnline } from './src/js/modules/sync/uploadLocalFileToOnline';
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 let mainWindow;

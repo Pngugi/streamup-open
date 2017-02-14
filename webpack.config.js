@@ -1,46 +1,43 @@
 var path = require('path');
 var webpack = require('webpack');
-var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-
 module.exports = {
-  devtool: 'source-map',
-  debug: true,
+    cache: true,
+    target: 'atom',
+    devtool: 'source-map',
+    entry: {
+        main: './src/js/main',
+        settings: './src/js/settings',
+    },
+    output: {
+        path: path.join(__dirname, 'app'),
+        filename: '[name].js',
+        chunkFilename: '[chunkhash].js',
+        sourceMapFilename: '[name].map'
+    },
+    module: {
+        loaders: [
+            {
+                loader: 'babel-loader',
+                include: [
+                    path.resolve(__dirname, 'src/js'),
+                ],
 
-  entry: {
-    'angular2': [
-      'rxjs',
-      'reflect-metadata',
-      'angular2/core',
-      'angular2/router',
-      'angular2/http'
+                // Only run `.js` and `.jsx` files through Babel
+                test: /\.js|\.jsx?$/,
+
+                // Options to configure babel with
+                query: {
+                    presets: ['es2015', 'react'],
+                }
+            },
+            {
+                loader: 'json-loader',
+                test: /\.json?$/,
+            }
+        ]
+    },
+    plugins: [
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin({comments: false}),
     ]
-  },
-
-  output: {
-    path: __dirname + '/dist/js/',
-    publicPath: 'dist/js/',
-    filename: '[name].js',
-    sourceMapFilename: '[name].js.map',
-    chunkFilename: '[id].chunk.js'
-  },
-
-  resolve: {
-    extensions: ['','.ts','.js','.json', '.css', '.html']
-  },
-
-  module: {
-    loaders: [
-      {
-        test: /\.ts$/,
-        loader: 'ts',
-        exclude: [ /node_modules/ ]
-      }
-    ]
-  },
-
-  plugins: [
-    new CommonsChunkPlugin({ name: 'angular2', filename: 'angular2.js', minChunks: Infinity }),
-    new CommonsChunkPlugin({ name: 'common',   filename: 'common.js' }),
-    new CommonsChunkPlugin({ name: 'main',   filename: 'main.js' })
-  ]
 };
