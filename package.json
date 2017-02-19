@@ -4,7 +4,8 @@
   "description": "A better way to manage your hosts.",
   "main": "browser.js",
   "scripts": {
-    "start": "electron ./app/browser.js"
+    "b": "electron ./src/browser.js",
+    "c": "electron ./app/browser.js"
   },
   "repository": {
     "type": "git"

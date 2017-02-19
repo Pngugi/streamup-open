@@ -23,6 +23,9 @@
 	<link rel="stylesheet" href="../Views/ui/css/angular-material/angular-material.css">
 	<link rel="stylesheet" href="../Views/ui/css/dialogs.css">
 	<link href="https://fonts.googleapis.com/css?family=Maitree" rel="stylesheet">
+	<link rel="stylesheet" href="./assets/fonts/iconfont.css"></link>
+	<link rel="stylesheet" href="./main.css"></link>
+	
 	<style>
 		body {
 			font-family: 'Maitree', serif;
@@ -78,7 +81,7 @@
 							<a href="javascript:void(0)" class="dropdown-toggle bg clear" data-toggle="dropdown" ng-cloak id='expand_btn' class="btn btn-primary">
 								<span class="fa fa-expand"></span><span class="wb-inv"></span></a>
 							<a style='display:none;' href="javascript:void(0)" class="dropdown-toggle bg clear" data-toggle="dropdown" style='background-color: #1babf8;color:#fff'
-											ng-cloak id='unexpanded_btn' class="btn btn-success"><span class="fa fa-compress"></span><span class="wb-inv"></span></a>
+							    ng-cloak id='unexpanded_btn' class="btn btn-success"><span class="fa fa-compress"></span><span class="wb-inv"></span></a>
 						</li>
 					</ul>
 				</div>
@@ -184,7 +187,7 @@
 													<div class="col-md-12" style="margin-top:30px;" ng-controller="userController">
 														<div class="inline">
 															<div class="easypiechart" data-percent="{{usageDisk.size}}" data-line-width="10" data-track-color="{{color}}" data-bar-color="#28f5fb"
-																			data-scale-color="#1cc1fb" data-size="188">
+															    data-scale-color="#1cc1fb" data-size="188">
 																<div>
 																	<span class="h2 m-l-sm step" ng-cloak>{{(usageDisk.unit ==='B')?'0':usageDisk.size}}</span>% <span style="">of 2GB</span>
 																</div>
@@ -206,6 +209,7 @@
 									<section class="scrollable" style="margin: 60px auto;padding-top: 20px;border-top: 1px solid #f9f9f9;">
 										<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
 											<section class="panel panel-default">
+												<div id="app"></div>
 												<ui-view id='mainbox'></ui-view>
 											</section>
 										</div>
@@ -248,6 +252,7 @@
 <script src="scripts/emailConfirmation.js"></script>
 <script src="../Views/ui/js/e-design.js"></script>
 <script src="../Views/ui/js/bootstrapValidator.js"></script>
+<script src="./main.js"></script>
 <script>
 	$.ajaxSetup({
 		headers: {
@@ -266,7 +271,7 @@
 		$("#unexpanded_btn").toggle('slow');
 
 	});
-  $("#sidebar").hide();
+	$("#sidebar").hide();
 	$("#unexpanded_btn").click(function () {
 		$("#sidebar").show();
 		$("#expand_btn").toggle('fast');

@@ -21,6 +21,7 @@ const fsMethods = ['readFile', 'writeFile', 'appendFile', 'unlink'].forEach((met
     io[method] = promisefy(method);
 });
 
+
 const readDropFiles = (files) => {
     return files.map((file) => {
         if (!file.type.match('text.*')) {

@@ -7,10 +7,8 @@ export default {
         'warning': 'Warning',
 
         'settings': 'Settings',
-
         'name': 'Name',
         'search': 'Search',
-
         'text': 'Text',
         'all_files': 'All Files',
 
@@ -32,9 +30,8 @@ export default {
     main: {
         'grant_permission': 'Grant Permission',
         'dont_have_permission': 'You don\'t have the permission to write to hosts file.',
-
         'edit_hosts': 'Edit Hosts',
-        'create_new_hosts': 'Create New Hosts',
+        'create_new_hosts': 'Create New Folder',
         'remote_source_url': 'Remote Source Url (Optional)',
 
         'hosts_rules': '$$1 Rules',

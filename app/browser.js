@@ -1,14 +1,12 @@
 'use strict';
-const path = require('path');
-const electron = require('electron');
-
-const app = electron.app;
-const Menu = electron.Menu;
-const BrowserWindow = electron.BrowserWindow;
-
-const menuTemplate = [
+var path = require('path');
+var electron = require('electron');
+var app = electron.app;
+var Menu = electron.Menu;
+var BrowserWindow = electron.BrowserWindow;
+var menuTemplate = [
     {
-        label: 'Hozz',
+        label: 'Sbox',
         submenu: [
             {
                 label: 'Exit',
@@ -58,22 +56,19 @@ const menuTemplate = [
         ]
     },
 ];
-const menu = Menu.buildFromTemplate(menuTemplate);
-
+var menu = Menu.buildFromTemplate(menuTemplate);
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
-let settingsWindow;
-let shouldQuit = false;
-
+var mainWindow;
+var settingsWindow;
+var shouldQuit = false;
 global.updateStatus = (function () {
-    let status = '';
+    var status = '';
     return {
-        get () {
+        get: function () {
             return status;
         },
-
-        set (value) {
+        set: function (value) {
             status = value;
             if (settingsWindow) {
                 settingsWindow.webContents.send('UPDATE_STATUS', value);
@@ -81,19 +76,16 @@ global.updateStatus = (function () {
         }
     };
 })();
-
 global.terminate = function () {
     shouldQuit = true;
     app.quit();
 };
-
 if (process.platform === 'linux') {
     app.commandLine.appendSwitch('enable-transparent-visuals');
     app.commandLine.appendSwitch('disable-gpu');
 }
-
 // Someone tried to run a second instance, we should focus our window
-var shouldStartInstance = app.makeSingleInstance(function(commandLine, workingDirectory) {
+var shouldStartInstance = app.makeSingleInstance(function (commandLine, workingDirectory) {
     if (mainWindow) {
         if (!mainWindow.isVisible()) {
             mainWindow.show();
@@ -105,12 +97,10 @@ var shouldStartInstance = app.makeSingleInstance(function(commandLine, workingDi
     }
     return true;
 });
-
-if (shouldStartInstance) {
-    app.quit();
-    return;
-}
-
+// if (shouldStartInstance) {
+//     app.quit();
+//     return;
+// }
 app.on('ready', function () {
     mainWindow = new BrowserWindow({
         width: 960,
@@ -121,16 +111,15 @@ app.on('ready', function () {
     });
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     // mainWindow.webContents.openDevTools();
-    mainWindow.on('close', function(e) {
+    mainWindow.on('close', function (e) {
         if (!shouldQuit) {
             e.preventDefault();
             mainWindow.hide();
         }
     });
-    mainWindow.on('closed', function() {
+    mainWindow.on('closed', function () {
         mainWindow = null;
     });
-
     settingsWindow = new BrowserWindow({
         width: 600,
         height: 480,
@@ -142,20 +131,18 @@ app.on('ready', function () {
     settingsWindow.loadURL('file://' + __dirname + '/settings.html');
     settingsWindow.hide();
     // settingsWindow.webContents.openDevTools();
-    settingsWindow.on('close', function(e) {
+    settingsWindow.on('close', function (e) {
         if (!shouldQuit) {
             e.preventDefault();
             settingsWindow.hide();
         }
     });
-    settingsWindow.on('closed', function() {
+    settingsWindow.on('closed', function () {
         settingsWindow = null;
     });
-
     global.settingsWindow = settingsWindow;
-
     if (process.platform == "darwin") {
         Menu.setApplicationMenu(menu);
-    };
-
+    }
+    ;
 });

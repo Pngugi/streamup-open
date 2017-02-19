@@ -8,7 +8,7 @@ import * as path from 'path';
 import fs = require('fs');
 import { uploadLocalFileToOnline } from './uploadLocalFileToOnline';
 const low = require('lowdb')
-const fileAsync = require('lowdb/lib/file-async')
+// const fileAsync = require('lowdb/lib/file-async')
 let CryptoJS = require("cryptr");
 
 let os = require('os');

@@ -1,7 +1,5 @@
 "use strict";
 var config_1 = require("./config");
-var uploadLocalFileToOnline_1 = require('./uploadLocalFileToOnline');
-var storage_1 = require('./storage');
 var fs = require('fs');
 var chokidar = require('chokidar');
 var os = require('os');
@@ -32,53 +30,52 @@ var Watcher = (function () {
             .on('add', function (path) {
         })
             .on('addDir', function (path, stat) {
-            var Sequelize = require('sequelize');
-            var sequelize = new Sequelize(undefined, undefined, undefined, {
-                dialect: 'sqlite',
-                // SQLite only
-                storage: '../database.db'
-            });
-            var User = sequelize.define('user', {
-                firstName: {
-                    type: Sequelize.STRING,
-                    field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
-                },
-                lastName: {
-                    type: Sequelize.STRING
-                }
-            }, {
-                freezeTableName: true // Model tableName will be the same as the model name
-            });
-            User.sync({ force: true }).then(function () {
-                // Table created
-                return User.create({
-                    firstName: 'John',
-                    lastName: 'Hancock'
-                });
-            });
+            // var Sequelize = require('sequelize');
+            // var sequelize = new Sequelize(undefined, undefined, undefined, {
+            //     dialect: 'sqlite',
+            //     // SQLite only
+            //     storage: '../database.db'
+            // });
+            // var User = sequelize.define('user', {
+            //     firstName: {
+            //         type: Sequelize.STRING,
+            //         field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
+            //     },
+            //     lastName: {
+            //         type: Sequelize.STRING
+            //     }
+            // }, {
+            //         freezeTableName: true // Model tableName will be the same as the model name
+            //     });
+            // User.sync({ force: true }).then(function () {
+            //     // Table created
+            //     return User.create({
+            //         firstName: 'John',
+            //         lastName: 'Hancock'
+            //     });
+            // });
             //TODO check if there is a failed add to queue reprocess it after
-            var folderName = path.slice(os.homedir().length + new MaxFolderName().appFolderLenght, new MaxFolderName().maxLenght);
-            if (!new storage_1.Storage().exist(folderName)) {
-                new uploadLocalFileToOnline_1.uploadLocalFileToOnline().createFolder(folderName, function (r) {
-                    if (JSON.parse(r.response.toString()).status === 200) {
-                        var data = JSON.parse(r.response.toString()).data;
-                        new storage_1.Storage().setItem({
-                            id: data.id,
-                            name: data.name,
-                            type: data.type,
-                            parent: data.parent,
-                            size: data.size,
-                            has_copy: data.has_copy,
-                            user_id: data.user_id
-                        }, function (resp) {
-                            console.log(resp);
-                        });
-                    }
-                });
-            }
-            else {
-                console.log('folder exist sir no duplicate anymore');
-            }
+            // var folderName = path.slice(os.homedir().length + new MaxFolderName().appFolderLenght, new MaxFolderName().maxLenght);
+            // if (!new Storage().exist(folderName)) {
+            //     new Uploader().createFolder(folderName, function (r: Fresponse) {
+            //         if (JSON.parse(r.response.toString()).status === 200) {
+            //             let data = JSON.parse(r.response.toString()).data;
+            //             new Storage().setItem({
+            //                 id: data.id,
+            //                 name: data.name,
+            //                 type: data.type,
+            //                 parent: data.parent,
+            //                 size: data.size,
+            //                 has_copy: data.has_copy,
+            //                 user_id: data.user_id
+            //             }, function (resp) {
+            //                 console.log(resp);
+            //             });
+            //         }
+            //     });
+            // } else {
+            //     console.log('folder exist sir no duplicate anymore');
+            // }
         })
             .on('change', function (path) {
         })

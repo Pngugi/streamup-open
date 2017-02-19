@@ -15,10 +15,12 @@ import Lang from '../backend/language';
 import nw from '../backend/nw.interface';
 import permission from '../backend/permission';
 
+
 import Editor from './Editor';
 import Sidebar from './Sidebar';
 import Titlebar from './Titlebar';
 import SnackBar from './SnackBar';
+
 
 const getPosition = (element) => {
     return Array.prototype.slice.call(element.parentElement.children).indexOf(element);
@@ -148,6 +150,7 @@ class App extends Component {
     }
 
     __createNewHosts (options) {
+        
         const { manifest } = this.state;
         if (options && options.name) {
             const hosts = new Hosts(options);
@@ -277,13 +280,7 @@ class App extends Component {
                                 actions={ snack.actions }
                                 onDismiss={ this.__onSnackDismiss.bind(this) } /> :
                             null }
-                        { activeHosts ?
-                            <Editor
-                                uid={ activeUid }
-                                key={ activeUid }
-                                readOnly={ readOnly }
-                                value={ activeHosts.text }
-                                onTextShouldUpdate={ this.__updateHosts.bind(this) } /> : null }
+                        
                     </div>
                 </div>);
     }

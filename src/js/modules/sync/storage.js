@@ -6,7 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var ObjectComparator_1 = require('./ObjectComparator');
 var low = require('lowdb');
-var fileAsync = require('lowdb/lib/file-async');
+// const fileAsync = require('lowdb/lib/file-async')
 var CryptoJS = require("cryptr");
 var os = require('os');
 var Storage = (function (_super) {

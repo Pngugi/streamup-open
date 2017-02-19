@@ -5,6 +5,7 @@ import io from './io';
 import log from './log';
 import Hosts from './hosts';
 import { MANIFEST,
+    
          WORKSPACE,
          TOTAL_HOSTS_UID,
          NO_PERM_ERROR_TAG,
@@ -15,6 +16,7 @@ try {
 } catch (e) {
     log('Make workspace folder failed: ', e);
 }
+
 
 const sysHostsPath = () => {
     if (process.platform === 'win32') {
@@ -67,6 +69,7 @@ class Manifest {
         this.hosts.set(hosts.uid, hosts);
         return this;
     }
+
 
     removeHosts (hosts) {
         this.hosts.delete(hosts.uid);
@@ -177,7 +180,7 @@ Manifest.loadFromDisk = () => {
         } else {
             return manifest.loadSysHosts().then((hosts) => {
                 hosts.online = true;
-                hosts.name = 'Default Hosts';
+                hosts.name = 'Default Folder';
                 hosts.save();
                 manifest.addHosts(hosts).commit();
                 return Promise.resolve(manifest);
