@@ -6,7 +6,7 @@ import Lang from './backend/language';
 import Manifest from './backend/manifest';
 import { APP_NAME } from './constants';
 
-import App from './components/App';
+import App from './modules/App';
 
 const titleDOM = document.getElementsByTagName('title')[0];
 titleDOM.innerText = APP_NAME;
