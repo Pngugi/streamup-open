@@ -98,7 +98,6 @@ var shouldStartInstance = app.makeSingleInstance(function (commandLine, workingD
     return true;
 });
 if (shouldStartInstance) {
-    app.quit();
 }
 app.on('ready', function () {
     mainWindow = new BrowserWindow({
