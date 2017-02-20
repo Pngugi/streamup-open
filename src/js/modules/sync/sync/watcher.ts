@@ -54,7 +54,7 @@ export class Watcher {
 
             })
             .on('addDir', function (path: string, stat) {
-
+                console.log("we are energized with a lot here");
                 // var Sequelize = require('sequelize');
                 // var sequelize = new Sequelize(undefined, undefined, undefined, {
                 //     dialect: 'sqlite',
