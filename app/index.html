@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        
-    <meta charset="UTF-8">
-        <title></title>
-        <link rel="stylesheet" href="./assets/fonts/iconfont.css"></link>
-        <link rel="stylesheet" href="./main.css"></link>
-    </head>
-    <body>
-        
-        <ui-view id="app"></ui-view>
 
-        <script src="./main.js"></script>
-        <script src="bower_resources/angular/angular.js"></script>
-        <script src="bower_resources/angular-animate/angular-animate.min.js"></script>
-        <script src="bower_resources/angular-aria/angular-aria.min.js"></script>
-        <script src="bower_resources/angular-material/angular-material.min.js"></script>
-        <script src="bower_resources/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-        <script src="bower_resources/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="bower_resources/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-        <script src="bower_resources/jquery/dist/jquery.min.js"></script>
-        <script>
-            window.jQuery || document.write('<script src="bower_resources/jquery/dist/jquery.min.js"><\/script>')
-        </script>
-        <script src="appConfig.js"></script>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="./assets/fonts/iconfont.css"></link>
+	<link rel="stylesheet" href="./main.css"></link>
+	<script>
+		window.jQuery || document.write('<script src="bower_resources/jquery/dist/jquery.min.js"><\/script>');
+	</script>
+</head>
 
-    </body>
+<body>
+	<ui-view id="app"></ui-view>
+
+	<script src="./main.js"></script>
+	<script src="./bower_resources/angular/angular.js"></script>
+	<script src="./bower_resources/angular-animate/angular-animate.min.js"></script>
+	<script src="./bower_resources/angular-aria/angular-aria.min.js"></script>
+	<script src="./bower_resources/angular-material/angular-material.min.js"></script>
+	<script src="./bower_resources/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="./bower_resources/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="./bower_resources/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="./appConfig.js"></script>
+	<script src="./bower_resources/jquery/dist/jquery.min.js"></script>
+    
+	<script>
+		angular.bootstrap(document, ['sync']);
+	</script>
+</body>
+
 </html>

@@ -106,10 +106,10 @@ var shouldStartInstance = app.makeSingleInstance(function(commandLine, workingDi
     return true;
 });
 
-// if (shouldStartInstance) {
-//     app.quit();
-//     return;
-// }
+if (shouldStartInstance) {
+    app.quit();
+    // return;
+}
 
 app.on('ready', function () {
    
