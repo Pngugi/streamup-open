@@ -174,6 +174,7 @@ class App extends Component {
 		//remove shoteSpaces in folderName 
 		new Dir('Sbox/'+options.name).create();
 		
+		
 		// var sequelize = new Sequelize(undefined, undefined, undefined, {
 		// 	dialect: 'sqlite',
 		// 	// SQLite only
