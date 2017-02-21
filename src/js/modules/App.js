@@ -31,6 +31,8 @@ const getPosition = (element) => {
 	return Array.prototype.slice.call(element.parentElement.children).indexOf(element);
 }
 
+
+
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -172,7 +174,7 @@ class App extends Component {
 		//remove shoteSpaces in folderName 
 		options.name.replace(" ","");
 
-        console.log("name: "+options.name);
+        console.log("name: "+options.name.replace(" ",""));
 		
 		// var sequelize = new Sequelize(undefined, undefined, undefined, {
 		// 	dialect: 'sqlite',
@@ -313,19 +315,14 @@ class App extends Component {
 		} else {
 			readOnly = false;
 		}
-		return ( < div >
-			<
-			Dropzone className = "dropzone"
+		return ( <div><Dropzone className = "dropzone"
 			disableClick = {
 				true
 			}
 			activeClassName = "dropzone-active"
 			onDrop = {
 				this.__onDrop.bind(this)
-			} >
-			<
-			div >
-			<
+			} ><div ><
 			Sidebar list = {
 				list
 			}
@@ -358,21 +355,14 @@ class App extends Component {
 			}
 			onItemStatusChange = {
 				this.__onHostsStatusChange.bind(this)
-			}
-			/> <
-			/div> <
-			/Dropzone> <
-			div className = "main-container" >
-			<
-			Titlebar closeAsHide = {
+			}/> </div> </Dropzone> <div className = "main-container" >
+			<Titlebar closeAsHide = {
 				true
 			}
 			title = {
 				activeHosts ? activeHosts.name : APP_NAME
-			}
-			/> {
-				snack !== null ?
-					<
+			}/> {
+				snack !== null ?<
 					SnackBar
 				type = {
 					snack.type
@@ -388,12 +378,7 @@ class App extends Component {
 				}
 				/> :
 				null
-			}
-
-
-			<
-			/div> <
-			/div>);
+			}</div> </div>);
 		}
 	};
 
