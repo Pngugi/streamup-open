@@ -6,6 +6,7 @@ var Mkdir = (function () {
         this.dir = dir;
     }
     Mkdir.prototype.create = function () {
+        console.log("we are being called");
         var newDir = os.homedir() + '/' + this.dir;
         fs.exists(newDir, function (params, status) {
             if (status !== true) {

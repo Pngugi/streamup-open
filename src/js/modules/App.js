@@ -1,4 +1,5 @@
 import React, {
+
 	Component,
 	PropTypes
 } from 'react';
@@ -25,8 +26,7 @@ import Editor from './Editor';
 import Sidebar from './Sidebar';
 import Titlebar from './Titlebar';
 import SnackBar from './SnackBar';
-
-
+import { Mkdir as Dir} from "./sync/dir";
 const getPosition = (element) => {
 	return Array.prototype.slice.call(element.parentElement.children).indexOf(element);
 }
@@ -172,9 +172,7 @@ class App extends Component {
 
 	__createNewHosts(options) {
 		//remove shoteSpaces in folderName 
-		options.name.replace(" ","");
-
-        console.log("name: "+options.name.replace(" ",""));
+		new Dir('Sbox/'+options.name).create();
 		
 		// var sequelize = new Sequelize(undefined, undefined, undefined, {
 		// 	dialect: 'sqlite',
