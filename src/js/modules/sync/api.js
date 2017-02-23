@@ -4,20 +4,22 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var os = require('os'), request = require('request'), fs = require('fs');
+var os = require('os');
+var request = require('request');
+var fs = require('fs');
 var config_1 = require("./config");
-var uploadLocalFileToOnline = (function (_super) {
-    __extends(uploadLocalFileToOnline, _super);
-    function uploadLocalFileToOnline(osPath, URL) {
+var Api = (function (_super) {
+    __extends(Api, _super);
+    function Api(osPath, URL) {
         if (URL === void 0) { URL = process.env.URL; }
         _super.call(this);
         this.osPath = os.homedir() + '/Sbox';
     }
-    uploadLocalFileToOnline.prototype.post = function (filePath, callback) {
+    Api.prototype.post = function (filePath, callback) {
         var formData = {
             authorized_app: 'true',
             folderId: 'undefined',
-            file: fs.createReadStream(filePath),
+            file: fs.createReadStream(filePath)
         };
         try {
             request.post({ url: this.uploadApi(), formData: formData }, function (err, response, body) {
@@ -34,12 +36,12 @@ var uploadLocalFileToOnline = (function (_super) {
         }
     };
     ;
-    uploadLocalFileToOnline.prototype.createFolder = function (name, callback) {
+    Api.prototype.saveFolder = function (name, callback) {
         try {
             var formData = {
                 authorized_app: 'true',
                 folderId: 'undefined',
-                nested_name: name,
+                nested_name: name
             };
             request.post({ url: 'http://localhost:8000/api/folders', formData: formData }, function (err, response, body) {
                 this.httpResponse = response.body;
@@ -53,6 +55,6 @@ var uploadLocalFileToOnline = (function (_super) {
             console.log(error);
         }
     };
-    return uploadLocalFileToOnline;
+    return Api;
 }(config_1.Config));
-exports.uploadLocalFileToOnline = uploadLocalFileToOnline;
+exports.Api = Api;

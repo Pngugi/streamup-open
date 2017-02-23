@@ -6,85 +6,39 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var ObjectComparator_1 = require('./ObjectComparator');
 var low = require('lowdb');
-// const fileAsync = require('lowdb/lib/file-async')
-var CryptoJS = require("cryptr");
-var os = require('os');
+var db = require('../../../../models/index.js');
 var Storage = (function (_super) {
     __extends(Storage, _super);
     function Storage(encryptKey) {
         _super.call(this);
-        try {
-            CryptoJS = new CryptoJS("key");
-        }
-        catch (e) { }
     }
-    Storage.prototype.setItem = function (data, callback) {
-        var db = low('db.json', {
-            format: {
-                deserialize: function (str) {
-                    var decrypted = CryptoJS.decrypt(str.toString());
-                    var obj = JSON.parse(decrypted);
-                    return obj;
-                },
-                serialize: function (obj) {
-                    var str = JSON.stringify(obj);
-                    var encrypted = CryptoJS.encrypt(str);
-                    return encrypted;
+    Storage.prototype.saveFolder = function (data, callback) {
+        // db.Folder.sync({ force: true }).then(function () {
+        // 	return User.create({
+        // 		id: '1',
+        // 		folderName: 'FolderName'
+        // 	});
+        // });
+    };
+    Storage.prototype.getFolder = function () {
+        var findUserDevice = function (id) {
+            return db.Folder.find({
+                where: {
+                    id: id
                 }
-            }
-        });
-        if (!this.exist(data.name)) {
-            this.response = db.get("posts").push(data).cloneDeep()
-                .value();
-            return callback({
-                response: 200,
-                data: db.get({}).__wrapped__.posts
+            }).then(function (device) {
+                if (!device) {
+                    return 'not find';
+                }
+                return device.dataValues;
             });
-        }
-    };
-    Storage.prototype.exist = function (name) {
-        var res = false;
-        var db = low('db.json', {
-            format: {
-                deserialize: function (str) {
-                    var decrypted = CryptoJS.decrypt(str.toString());
-                    var obj = JSON.parse(decrypted);
-                    return obj;
-                },
-                serialize: function (obj) {
-                    var str = JSON.stringify(obj);
-                    var encrypted = CryptoJS.encrypt(str);
-                    return encrypted;
-                }
-            }
-        });
-        db.get({}).__wrapped__.posts.forEach(function (element) {
-            if (JSON.stringify(element.name) == JSON.stringify(name)) {
-                return res = true;
-            }
-            return res;
-        });
-        return res;
-    };
-    Storage.prototype.getSingle = function (desired) {
-        var db = low('db.json', {
-            format: {
-                deserialize: function (str) {
-                    var decrypted = CryptoJS.decrypt(str.toString());
-                    var obj = JSON.parse(decrypted);
-                    return obj;
-                },
-                serialize: function (obj) {
-                    var str = JSON.stringify(obj);
-                    var encrypted = CryptoJS.encrypt(str);
-                    return encrypted;
-                }
-            }
-        });
-        db.get({}).__wrapped__.posts.forEach(function (element) {
-            new ObjectComparator_1.ObjectComparator().isEquivalent(element, desired);
+        };
+        findUserDevice(1).then(function (UserDevice) {
+            console.log(UserDevice);
         });
     };
     return Storage;
 }(ObjectComparator_1.ObjectComparator));
 exports.Storage = Storage;
+new Storage().saveFolder();
+new Storage().getFolder();

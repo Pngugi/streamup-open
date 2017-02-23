@@ -1,9 +1,9 @@
 import { Storage } from './storage';
-let os = require('os'),
-request = require('request'),
-fs = require('fs');
+import  os = require ('os');
+import request = require('request');
+import fs = require('fs');
 import { Config } from "./config";
-export class uploadLocalFileToOnline extends Config {
+export class Api extends Config {
 
     private osPath: any;
     private URL: string;
@@ -36,13 +36,14 @@ export class uploadLocalFileToOnline extends Config {
         }
 
     };
-    createFolder(name:string,callback?: any):void{
+    saveFolder(name:string,callback?: any):void{
         try {
 
         var formData = {
             authorized_app: 'true',
             folderId: 'undefined',
             nested_name: name,
+
 
         };
         request.post({ url: 'http://localhost:8000/api/folders', formData: formData }, function (err, response, body) {
