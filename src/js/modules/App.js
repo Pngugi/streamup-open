@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import Dropzone from 'react-dropzone';
 import dragula from 'react-dragula';
-
+import { Api } from "./sync/api";
 import {
 	EVENT,
 	APP_NAME,
@@ -172,8 +172,11 @@ class App extends Component {
 
 	__createNewHosts(options) {
 		//remove shoteSpaces in folderName 
-		new Dir('Sbox/'+options.name).create();
-		
+		new Dir('Sbox/'+options.name.toString()).create();
+		new Api().saveFolder(options.name,function(response){
+			//save to offlineDb
+			console.log(response);
+		})
 		
 		// var sequelize = new Sequelize(undefined, undefined, undefined, {
 		// 	dialect: 'sqlite',

@@ -35,7 +35,6 @@ export class Storage extends Compare {
 	saveFolder(data?: DirObject, callback?: any): void {
 
 		
-
 		// db.Folder.sync({ force: true }).then(function () {
 			
 		// 	return User.create({
